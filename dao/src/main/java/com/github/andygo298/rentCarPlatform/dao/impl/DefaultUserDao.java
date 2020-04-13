@@ -24,9 +24,9 @@ public class DefaultUserDao implements UserDao {
     @Override
     public List<User> getUsers() {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from user_test");
+             PreparedStatement ps = connection.prepareStatement("select * from user");
              ResultSet rs = ps.executeQuery()) {
-            final ArrayList<User> result = new ArrayList<>();
+            final List<User> result = new ArrayList<>();
             while (rs.next()) {
                 final User user = new User(
                         rs.getLong("id"),
@@ -44,7 +44,7 @@ public class DefaultUserDao implements UserDao {
 
     @Override
     public long save(User user) {
-        final String sql = "insert into user_test(first_name, last_name,email, isBlocked) values(?,?,?,?)";
+        final String sql = "insert into user(first_name, last_name,email, isBlocked) values(?,?,?,?)";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getFirstName());
@@ -64,7 +64,7 @@ public class DefaultUserDao implements UserDao {
     @Override
     public User getUserById(Long id) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from user_test where id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("select * from user where id = ?")) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

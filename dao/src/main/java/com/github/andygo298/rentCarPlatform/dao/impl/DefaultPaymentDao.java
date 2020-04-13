@@ -23,7 +23,7 @@ public class DefaultPaymentDao implements PaymentDao {
     @Override
     public List<Payment> getPayments() {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from payment_test");
+             PreparedStatement ps = connection.prepareStatement("select * from payment");
              ResultSet rs = ps.executeQuery()) {
             final List<Payment> paymentsList = new ArrayList<>();
             while (rs.next()) {
@@ -43,7 +43,7 @@ public class DefaultPaymentDao implements PaymentDao {
 
     @Override
     public Long savePayment(Payment newPayment) {
-        final String sql = "insert into payment_test(user_id, card_num , payment_date, payment_value) values(?,?,?,?)";
+        final String sql = "insert into payment(user_id, card_num , payment_date, payment_value) values(?,?,?,?)";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setLong(1, newPayment.getUserId());

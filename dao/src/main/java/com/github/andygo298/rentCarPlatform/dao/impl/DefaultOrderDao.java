@@ -3,7 +3,6 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 import com.github.andygo298.rentCarPlatform.dao.ConverterDate;
 import com.github.andygo298.rentCarPlatform.dao.DataSource;
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
-import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.OrderStatus;
 
@@ -26,8 +25,8 @@ public class DefaultOrderDao implements OrderDao {
         Date dateStart = ConverterDate.stringToDate(order.getStartDate());
         Date dateEnd = ConverterDate.stringToDate(order.getEndDate());
 
-        final String sql = "insert into orders_test(passport, phone, start_date, end_date, " +
-                "cars_test_id, user_id, status, order_price) values(?,?,?,?,?,?,?,?)";
+        final String sql = "insert into orders(passport, phone, start_date, end_date, " +
+                "cars_id, user_id, status, order_price) values(?,?,?,?,?,?,?,?)";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, order.getPassport());
@@ -50,7 +49,7 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public Integer getOrdersByStatus(OrderStatus status) {
-        final String sql = "select count(orders_test.status) from orders_test where status=?";
+        final String sql = "select count(orders.status) from orders where status=?";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, status.name());
@@ -68,7 +67,7 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public Integer getUserOrdersByStatus(OrderStatus status, Long userId) {
-        final String sql = "select count(orders_test.status) from orders_test where status=? and user_id=?";
+        final String sql = "select count(orders.status) from orders where status=? and user_id=?";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, status.name());
@@ -87,7 +86,7 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public List<Order> getOrdersByUserId(Long userId) {
-        final String sql = "select * from orders_test where user_id=?";
+        final String sql = "select * from orders where user_id=?";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, userId);
@@ -99,7 +98,7 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public List<Order> getOrders() {
-        final String sql = "select * from orders_test";
+        final String sql = "select * from orders";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             return getOrdersList(ps);
@@ -111,7 +110,7 @@ public class DefaultOrderDao implements OrderDao {
     @Override
     public Double getOrderPriceById(Long orderId) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from orders_test where id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("select * from orders where id = ?")) {
             ps.setLong(1, orderId);
             try (ResultSet rs = ps.executeQuery()) {
                 Double orderPrice = null;
@@ -131,7 +130,7 @@ public class DefaultOrderDao implements OrderDao {
     @Override
     public void setOrderStatus(Long orderId, OrderStatus orderStatus) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("update orders_test set status=? where id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("update orders set status=? where id = ?")) {
             ps.setString(1, orderStatus.name());
             ps.setLong(2, orderId);
             ps.executeUpdate();
@@ -143,7 +142,7 @@ public class DefaultOrderDao implements OrderDao {
     @Override
     public Long getCarIdByOrder(Long orderId) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select cars_test_id from orders_test where cars_test_id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("select cars_id from orders where cars_id = ?")) {
             ps.setLong(1, orderId);
             try (ResultSet rs = ps.executeQuery()) {
                 Long carId = null;
@@ -173,7 +172,7 @@ public class DefaultOrderDao implements OrderDao {
 
 
     private Order getOrderInstance(ResultSet rs) throws SQLException {
-        Long carId = rs.getLong("cars_test_id");
+        Long carId = rs.getLong("cars_id");
         Long userId = rs.getLong("user_id");
         String start = ConverterDate.dateToString(rs.getDate("start_date"));
         String end = ConverterDate.dateToString(rs.getDate("end_date"));

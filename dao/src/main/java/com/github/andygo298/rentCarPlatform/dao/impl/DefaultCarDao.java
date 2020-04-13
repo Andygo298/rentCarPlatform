@@ -23,7 +23,7 @@ public class DefaultCarDao implements CarDao {
     public List<Car> getCars() {
         // TODO: filter not broken cars
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from cars_test");
+             PreparedStatement ps = connection.prepareStatement("select * from cars");
              ResultSet rs = ps.executeQuery()) {
             final List<Car> carsList = new ArrayList<>();
             while (rs.next()) {
@@ -47,7 +47,7 @@ public class DefaultCarDao implements CarDao {
     @Override
     public Car getCarById(long id) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from cars_test where id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("select * from cars where id = ?")) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 Car car = null;
@@ -73,7 +73,7 @@ public class DefaultCarDao implements CarDao {
     @Override
     public void editCar(EditCar editCar) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("update cars_test set brand = ?, model = ?, type = ?, " +
+             PreparedStatement ps = connection.prepareStatement("update cars set brand = ?, model = ?, type = ?, " +
                      "year_mfg = ?, img_url = ?, day_price = ? where id = ?")) {
             ps.setString(1, editCar.getBrand());
             ps.setString(2, editCar.getModel());
@@ -91,7 +91,7 @@ public class DefaultCarDao implements CarDao {
 
     @Override
     public void saveCar(Car newCar) {
-        final String sql = "insert into cars_test(brand, model, type, year_mfg, day_price) values(?,?,?,?,?)";
+        final String sql = "insert into cars(brand, model, type, year_mfg, day_price) values(?,?,?,?,?)";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, newCar.getBrand());
@@ -112,7 +112,7 @@ public class DefaultCarDao implements CarDao {
     @Override
     public void delCar(Long delCarId) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("delete from cars_test where id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("delete from cars where id = ?")) {
             ps.setLong(1, delCarId);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class DefaultCarDao implements CarDao {
     @Override
     public void changeRentStatus(long id, boolean status) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("update cars_test set isRent=? where id = ?")) {
+             PreparedStatement ps = connection.prepareStatement("update cars set isRent=? where id = ?")) {
             ps.setBoolean(1, status);
             ps.setLong(2, id);
             ps.executeUpdate();

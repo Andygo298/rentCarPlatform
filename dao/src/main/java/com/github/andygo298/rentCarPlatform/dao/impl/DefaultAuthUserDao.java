@@ -4,8 +4,6 @@ import com.github.andygo298.rentCarPlatform.dao.DataSource;
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.Role;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
@@ -23,7 +21,7 @@ public class DefaultAuthUserDao implements AuthUserDao {
     @Override
     public AuthUser getByLogin(String login) {
         try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from auth_user_test where login = ?")) {
+             PreparedStatement ps = connection.prepareStatement("select * from auth_user where login = ?")) {
             ps.setString(1, login);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -44,7 +42,7 @@ public class DefaultAuthUserDao implements AuthUserDao {
 
     @Override
     public long saveAuthUser(AuthUser user) {
-        final String sql = "insert into auth_user_test(login, password, role, user_id) values(?,?,?,?)";
+        final String sql = "insert into auth_user(login, password, role, user_id) values(?,?,?,?)";
         try (Connection connection = DataSource.getInstance().getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getLogin());

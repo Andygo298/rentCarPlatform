@@ -36,7 +36,7 @@ public class UsersServlet extends HttpServlet {
         String lastName = rq.getParameter("lastName");
         String email = rq.getParameter("email");
         long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
-        log.info("user created:{} at {}", userId, LocalDateTime.now());
+//        log.info("user created:{} at {}", userId, LocalDateTime.now());
         userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userId));
         WebUtils.redirect("/users", rq, rs);
     }
