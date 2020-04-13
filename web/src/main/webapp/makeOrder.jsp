@@ -10,28 +10,47 @@
 <html>
 <head>
     <title>Make order page</title>
+    <%@include file="bootstrap.jsp" %>
     <style>
-        p {
-            color: #8b0f0b;
-            font-weight: bold;
+        body {
+            padding: 20px;
         }
+
+        h3 {
+            margin: 20px 0;
+        }
+
     </style>
 </head>
 <body>
+<h3 class="font-weight-bold">Order Form</h3>
 <form action="${pageContext.request.contextPath}/makeOrder?id=${requestScope.id}" method="post">
-    <label for="passport">Passport</label>
-    <input id="passport" type="text" name="passport" required><br/>
-
-    <label for="phone">Phone num.</label>
-    <input id="phone" type="tel" name="phone" required/><br/>
-
-    <label for="startDate">Start date</label>
-    <input id="startDate" type="date" name="startDate" required><br/>
-
-    <label for="endDate">End date</label>
-    <input id="endDate" type="date" name="endDate" required><br/>
-
-    <button type="submit">Make order</button>
+    <div class="form-group row">
+        <label for="passport" class="col-sm-2 col-form-label">Passport:</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="passport" name="passport" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="phone" class="col-sm-2 col-form-label">Phone num.</label>
+        <div class="col-sm-6">
+            <input type="tel" class="form-control" id="phone" name="phone" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="startDate" class="col-sm-2 col-form-label">Start date</label>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" id="startDate" name="startDate" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="endDate" class="col-sm-2 col-form-label">End date</label>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" id="endDate" name="endDate" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Make order</button>
+    <p class="text-danger font-weight-bold">${requestScope.error}</p>
 </form>
 <p>${requestScope.errorMessage}</p>
 </body>

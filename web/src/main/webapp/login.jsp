@@ -4,40 +4,42 @@
 <html>
 <head>
     <title>login</title>
+    <%@include file="bootstrap.jsp" %>
     <style>
+        body {
+            padding: 20px;
+        }
+
+        h3 {
+            margin: 20px 0;
+        }
+
         div {
             width: 250px;
             text-align: center;
             margin: 0 auto;
         }
         button {
-            width: 100px;
-            height: 30px;
-            background-color: lightcyan;
+            width: 150px;
         }
-        input {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        p { color: #8b0f0b }
     </style>
 </head>
 <body>
 <div>
-    <h3>Авторизация</h3>
-    <form action="${pageContext.request.contextPath}/login" method="post">
-        <label for="login">Логин</label><br/>
-        <input id="login" type="text" name="login"><br/>
-        <label for="password">Пароль</label><br/>
-        <input id="password" type="password" name="password"><br/>
-        <button class="button" type="submit">Войти</button>
+    <h3>Sign In</h3>
+    <form class="form-group" action="${pageContext.request.contextPath}/login" method="post">
+        <label class="col-form-label" for="login">LOGIN</label><br/>
+        <input class="form-control" id="login" type="text" name="login"><br/>
+        <label class="col-form-label" for="password">PASSWORD</label><br/>
+        <input class="form-control" id="password" type="password" name="password"><br/>
+        <button class="btn btn-primary btn-lg" type="submit">LOGIN</button>
     </form>
     <form method="get" action="<c:url value='/register'/>">
-        <button type="submit">Регистрация</button>
+        <button class="btn btn-outline-info btn-lg" type="submit">REGISTER</button>
     </form>
-    <p>${requestScope.error}</p>
-    <p>${requestScope.customMessage}</p>
-    <p>${requestScope.customMessage2}</p>
+    <p class="text-danger font-weight-bold">${requestScope.error}</p>
+    <p class="text-success font-weight-bold">${requestScope.customMessage}</p>
+    <p class="text-success font-weight-bold">${requestScope.customMessage2}</p>
 </div>
 </body>
 </html>

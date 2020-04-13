@@ -64,7 +64,25 @@ public class DefaultOrderDao implements OrderDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @Override
+    public Integer getUserOrdersByStatus(OrderStatus status, Long userId) {
+        final String sql = "select count(orders_test.status) from orders_test where status=? and user_id=?";
+        try (Connection connection = DataSource.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, status.name());
+            ps.setLong(2, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                int count = 0;
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+                return count;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

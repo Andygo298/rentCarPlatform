@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         String password = rq.getParameter("password");
         AuthUser user = securityService.login(login, password);
         if (user == null) {
-            rq.setAttribute("error", "login or password invalid");
+            rq.setAttribute("error", "Login or password invalid");
             WebUtils.forward("/login", rq, rs);
             return;
         }

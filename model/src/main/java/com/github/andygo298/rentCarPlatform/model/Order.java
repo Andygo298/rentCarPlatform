@@ -14,7 +14,6 @@ public class Order {
     public Order() {
         this.orderStatus = OrderStatus.IN_PROGRESS;
     }
-//TODO: remove unused getters
 
     public Long getId() {
         return id;

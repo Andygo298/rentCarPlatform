@@ -3,7 +3,7 @@ package com.github.andygo298.rentCarPlatform.model;
 public class OrderInfo {
     private String userName;
     private String carName;
-    private String passport; // TODO: UI for admin only
+    private String passport;
     private String phone;
     private String startDate;
     private String endDate;
@@ -13,38 +13,6 @@ public class OrderInfo {
 
     public OrderInfo(Long orderId) {
         this.orderId = orderId;
-    }
-
-    public void setUserName(String name) {
-        this.userName = name;
-    }
-
-    public void setCarName(String carName) {
-        this.carName = carName;
-    }
-
-    public void setPassport(String passport) {
-        this.passport = passport;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public void setOrderPrice(Double orderPrice) {
-        this.orderPrice = orderPrice;
     }
 
     public void setOrderId(Long orderId) {

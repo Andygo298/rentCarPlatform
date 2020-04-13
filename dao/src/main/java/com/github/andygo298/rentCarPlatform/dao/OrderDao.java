@@ -8,6 +8,7 @@ import java.util.List;
 public interface OrderDao {
     Long saveOrder(Order order);
     Integer getOrdersByStatus(OrderStatus status);
+    Integer getUserOrdersByStatus(OrderStatus status, Long userId);
     List<Order> getOrdersByUserId(Long userId);
     List<Order> getOrders();
     Double getOrderPriceById(Long orderId);

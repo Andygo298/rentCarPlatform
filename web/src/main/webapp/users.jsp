@@ -4,7 +4,7 @@
 
 <a href="${pageContext.request.contextPath}/logout">logout</a>
 <h3>Cтуденты</h3>
-<c:if test="${requestScope.students != null}">
+<c:if test="${requestScope.users != null}">
     <table>
         <tr>
             <th>Имя</th>
@@ -12,12 +12,12 @@
             <th>email</th>
             <th>blocked</th>
         </tr>
-        <c:forEach items="${requestScope.students}" var="student">
+        <c:forEach items="${requestScope.users}" var="user">
             <tr>
-                <td>${student.firstName}</td>
-                <td>${student.lastName}</td>
-                <td>${student.email}</td>
-                <td>${student.blocked}</td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.email}</td>
+                <td>${user.blocked}</td>
             </tr>
         </c:forEach>
     </table>
@@ -25,8 +25,8 @@
 
 
 <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-    <h3>Добавить студента </h3>
-    <form action="${pageContext.request.contextPath}/student" method="post">
+    <h3>Add user</h3>
+    <form action="${pageContext.request.contextPath}/users" method="post">
         <label for="login">Логин</label>
         <input id="login" type="text" name="login"><br/>
 

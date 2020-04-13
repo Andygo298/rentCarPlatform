@@ -10,58 +10,94 @@
 <html>
 <head>
     <title>Orders page</title>
+    <%@include file="bootstrap.jsp" %>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+        }
+
+        h3 {
+            margin: 20px 0;
+        }
+
+        span { font-weight: bold; }
+    </style>
 </head>
 <body>
-<a href="${pageContext.request.contextPath}/logout">logout</a><br>
-<a href="${pageContext.request.contextPath}/homepage">Back to homepage</a><br>
+<a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">LOGOUT</a>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
 
-<h3>Orders list</h3>
-<c:if test="${requestScope.orders != null}">
-    <table>
+<h3>Orders List</h3>
+<c:if test="${requestScope.orders.size() > 0}">
+    <table class="table table-striped table-hover table-bordered">
         <tr>
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                <th>Order ID</th>
-                <th>User Name</th>
-                <th>User Passport</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">User Name</th>
+                <th scope="col">User Passport</th>
             </c:if>
-            <th>User Phone</th>
-            <th>Period</th>
-            <th>Order Price</th>
-            <th>Order Status</th>
+            <th scope="col">User Phone</th>
+            <th scope="col">Car</th>
+            <th scope="col">Period</th>
+            <th scope="col">Order Price</th>
+            <th scope="col">Order Status</th>
         </tr>
         <c:forEach items="${requestScope.orders}" var="order">
             <tr>
                 <c:if test="${sessionScope.authUser.role eq 'ADMIN'}">
-                    <td>${order.orderId}</td>
+                    <th class="text-center" scope="row">${order.orderId}</th>
                     <td>${order.userName}</td>
                     <td>${order.passport}</td>
                 </c:if>
                 <td>${order.phone}</td>
+                <td>${order.carName}</td>
                 <td>From: ${order.startDate}<br>To: ${order.endDate}</td>
-                <td>${order.orderPrice}</td>
+                <td>${order.orderPrice} $</td>
                 <c:if test="${sessionScope.authUser.role eq 'USER'}">
-                    <td>
+                    <td class="text-center">
                         <c:choose>
                             <c:when test="${order.orderStatus eq 'ACCEPTED'}">
-                                <a href="${pageContext.request.contextPath}/payment?orderId=${order.orderId}">PAYMENT</a>
+                                <a class="btn btn-warning btn-block"
+                                   href="${pageContext.request.contextPath}/payment?orderId=${order.orderId}">
+                                    PAYMENT
+                                </a>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'REJECTED'}">
+                                <span class="text-danger">${order.orderStatus}</span>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'IN_PROGRESS'}">
+                                <span class="text-warning">WAITING FOR APPROVE</span>
                             </c:when>
                             <c:otherwise>
-                                ${order.orderStatus}
+                                <span class="text-success">${order.orderStatus}</span>
                             </c:otherwise>
                         </c:choose>
                     </td>
                 </c:if>
                 <c:if test="${sessionScope.authUser.role eq 'ADMIN'}">
-                    <td>
-                    <c:choose>
-                        <c:when test="${order.orderStatus eq 'IN_PROGRESS'}">
-                            <a href="${pageContext.request.contextPath}/approveOrder?orderId=${order.orderId}">APPROVE</a><br>
-                            <a href="${pageContext.request.contextPath}/rejectOrder?orderId=${order.orderId}">REJECT</a>
-                        </c:when>
-                        <c:otherwise>
-                            ${order.orderStatus}
-                        </c:otherwise>
-                    </c:choose>
+                    <td class="text-center">
+                        <c:choose>
+                            <c:when test="${order.orderStatus eq 'IN_PROGRESS'}">
+                                <a class="btn btn-success btn-block"
+                                   href="${pageContext.request.contextPath}/approveOrder?orderId=${order.orderId}">APPROVE</a><br>
+                                <a class="btn btn-danger btn-block"
+                                   href="${pageContext.request.contextPath}/rejectOrder?orderId=${order.orderId}">REJECT</a>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'REJECTED'}">
+                                <span class="text-danger">${order.orderStatus}</span>
+                            </c:when>
+                            <c:when test="${order.orderStatus eq 'ACCEPTED'}">
+                                <span class="text-warning">${order.orderStatus}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="text-success">${order.orderStatus}</span>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                 </c:if>
             </tr>

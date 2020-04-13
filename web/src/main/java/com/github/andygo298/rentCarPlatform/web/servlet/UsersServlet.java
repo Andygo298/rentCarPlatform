@@ -16,16 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@WebServlet("/student")
-public class StudentsServlet extends HttpServlet {
-    private static final Logger log = LoggerFactory.getLogger(StudentsServlet.class);
+@WebServlet("/users")
+public class UsersServlet extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(UsersServlet.class);
     private UserService userService = DefaultUserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rs) {
-        List<User> students = userService.getUsers();
-        rq.setAttribute("students", students);
-        WebUtils.forward("student", rq, rs);
+        List<User> users = userService.getUsers();
+        rq.setAttribute("users", users);
+        WebUtils.forward("users", rq, rs);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class StudentsServlet extends HttpServlet {
         long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
         log.info("user created:{} at {}", userId, LocalDateTime.now());
         userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userId));
-        WebUtils.redirect("/student", rq, rs);
+        WebUtils.redirect("/users", rq, rs);
     }
 }

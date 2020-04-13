@@ -31,11 +31,10 @@ public class HomeServlet extends HttpServlet {
         List<Car> cars = carService.getCars();
         req.setAttribute("cars", cars);
         AuthUser user = (AuthUser) req.getSession().getAttribute("authUser");
-        // TODO: move logic to service
-        OrderStatus status = user.getRole().equals(Role.ADMIN)
-                ? OrderStatus.IN_PROGRESS
-                : OrderStatus.ACCEPTED;
-        Integer activeOrders = orderService.getOrdersByStatus(status);
+        Integer activeOrders = user.getRole().equals(Role.ADMIN)
+                ? orderService.getOrdersByStatus(OrderStatus.IN_PROGRESS)
+                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUserId());
+
         req.setAttribute("activeOrders", activeOrders);
         WebUtils.forward("homepage", req, resp);
 

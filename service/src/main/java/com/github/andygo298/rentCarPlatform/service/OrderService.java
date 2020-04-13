@@ -16,4 +16,6 @@ public interface OrderService {
     List<OrderInfo> buildOrdersInfo(List<Order> orders);
     void setOrderStatus(Long orderId,OrderStatus orderStatus);
     Long getCarIdByOrder(Long orderId);
+    Integer getUserOrdersByStatus(OrderStatus status, Long userId);
+
 }

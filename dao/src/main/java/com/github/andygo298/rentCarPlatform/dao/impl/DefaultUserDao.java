@@ -28,7 +28,6 @@ public class DefaultUserDao implements UserDao {
              ResultSet rs = ps.executeQuery()) {
             final ArrayList<User> result = new ArrayList<>();
             while (rs.next()) {
-//                TODO: set UserBuilder
                 final User user = new User(
                         rs.getLong("id"),
                         rs.getString("first_name"),

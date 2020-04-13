@@ -9,58 +9,68 @@
 <html>
 <head>
     <title>Register</title>
+    <%@include file="bootstrap.jsp" %>
     <style>
+        body {
+            padding: 20px;
+        }
+
+        h3 {
+            margin: 20px 0;
+        }
+
         form {
-            text-align: center;
-            margin: 0 auto;
+            width: 70%;
+            margin: 10px auto;
         }
-        button {
+        .btn-block {
             width: 200px;
-            height: 30px;
-            background-color: lightcyan;
+            margin: 10px auto;
         }
-        input {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        p { color: #8b0f0b }
+
     </style>
 </head>
 <body>
-<h3>Страница регистрации.</h3>
+<h3 class="text-center">REGISTRATION</h3>
 <form action="${pageContext.request.contextPath}/register" method="post">
-    <table>
-        <tr>
-            <td><label for="login">Логин</label></td>
-            <td><input id="login" type="text" name="login"> <br/></td>
-        </tr>
-        <tr>
-            <td><label for="password">Пароль</label></td>
-            <td><input id="password" type="password" name="password"><br/></td>
-        </tr>
-        <tr>
-            <td><label for="firstName">Ваше имя</label></td>
-            <td><input id="firstName" type="text" name="firstName"><br/></td>
-        </tr>
-        <tr>
-            <td><label for="lastName">Ваша фамилия</label></td>
-            <td><input id="lastName" type="text" name="lastName"><br/></td>
-        </tr>
-        <tr>
-            <td><label for="email">Эл.почта</label></td>
-            <td><input id="email" type="email" name="email"><br/></td>
-        </tr>
-        <tr>
-            <td><label for="phone">Номер телефона</label></td>
-            <td><input id="phone" type="text" name="phone"><br/></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center">
-                <button class="button" type="submit">Добавь меня =)</button>
-            </td>
-        </tr>
-    </table>
-    <p>${requestScope.error}</p>
+    <div class="form-group row">
+        <label for="login" class="col-sm-2 col-form-label">Login:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="login" name="login">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">Password:</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="firstName" name="firstName">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label">Last Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="lastName" name="lastName">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
+        <div class="col-sm-10">
+            <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+    <p class="text-danger font-weight-bold">${requestScope.error}</p>
 </form>
 </body>
 </html>

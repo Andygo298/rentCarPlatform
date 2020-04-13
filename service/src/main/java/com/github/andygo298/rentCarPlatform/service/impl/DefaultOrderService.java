@@ -46,6 +46,12 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
+    public Integer getUserOrdersByStatus(OrderStatus status, Long userId) {
+        return DefaultOrderDao.getInstance().getUserOrdersByStatus(status, userId);
+    }
+
+
+    @Override
     public List<Order> getUserOrders(Long userId) {
         return DefaultOrderDao.getInstance().getOrdersByUserId(userId);
     }
@@ -93,7 +99,7 @@ public class DefaultOrderService implements OrderService {
         LocalDate start = LocalDate.parse(startDate, formatter);
         LocalDate end = LocalDate.parse(endDate, formatter);
         Period period = Period.between(start, end);
-        return period.getDays();
+        return period.getDays() == 0 ? 1 : period.getDays();
     }
 
     private Double calculateOrderPrice(Integer days, Long carId) {

@@ -39,15 +39,14 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         AuthUser authUser = securityService.login(login,password);
         if (authUser != null) {
-            req.setAttribute("error","Такой пользователь уже существует");
+            req.setAttribute("error","This user already exists");
             WebUtils.forward("register", req, resp);
         }
         long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
         log.info("user created:{} at {}", userId, LocalDateTime.now());
         userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userId));
-        req.setAttribute("customMessage","Спасибо за регистрацию.");
-        req.setAttribute("customMessage2","Теперь вы можете войти, используя свой логин и пароль.");
-//            resp.sendRedirect(req.getContextPath() + "/homepage");
+        req.setAttribute("customMessage","Thanks for registration.");
+        req.setAttribute("customMessage2","You can Sign In using your login and password.");
         WebUtils.forward("login", req, resp);
 
     }

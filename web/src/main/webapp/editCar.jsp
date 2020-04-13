@@ -10,30 +10,62 @@
 <html>
 <head>
     <title>EditCar</title>
+    <%@include file="bootstrap.jsp" %>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h3 {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
+<a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">logout</a>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
+<h3>Edit car data</h3>
 <c:if test="${requestScope.carInstance != null}">
-    <h3>Edit car data </h3>
     <form action="${pageContext.request.contextPath}/editCar?id=${requestScope.carInstance.id}" method="post">
-        <label for="brand">Brand</label>
-        <input id="brand" type="text" name="brand" value="${requestScope.carInstance.brand}"><br/>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="brand">Brand name</label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="brand" name="brand" value="${requestScope.carInstance.brand}" required>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="model">Model name</label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="model" name="model" value="${requestScope.carInstance.model}" required>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="type">Car type</label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="type" name="type" value="${requestScope.carInstance.type}" required>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="year_mfg">Year mfg.</label>
+    <div class="col-sm-6">
+    <input type="number" class="form-control" id="year_mfg" name="year_mfg" value="${requestScope.carInstance.year_mfg}" required>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="day_price">Day price</label>
+    <div class="col-sm-6">
+    <input type="number" class="form-control" id="day_price" name="day_price" value="${requestScope.carInstance.day_price}" required>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label" for="img_url">Image URL</label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="img_url" name="img_url" value="${requestScope.carInstance.img_url}" required>
+    </div>
+    </div>
 
-        <label for="model">Model</label>
-        <input id="model" type="text" name="model" value="${requestScope.carInstance.model}"/><br/>
-
-        <label for="type">Type</label>
-        <input id="type" type="text" name="type" value="${requestScope.carInstance.type}"><br/>
-
-        <label for="year_mfg">Year mfg</label>
-        <input id="year_mfg" type="number" name="year_mfg" value="${requestScope.carInstance.year_mfg}"><br/>
-
-        <label for="img_url">img_url</label>
-        <input id="img_url" type="text" name="img_url" value="${requestScope.carInstance.img_url}"><br/>
-
-        <label for="day_price">Day price</label>
-        <input id="day_price" type="number" name="day_price" value="${requestScope.carInstance.day_price}"><br/>
-
-        <button type="submit">SAVE</button>
+    <a class="btn btn-warning" href="${pageContext.request.contextPath}/homepage">CANCEL</a>
+    <button class="btn btn-success" type="submit">SAVE</button>
     </form>
 </c:if>
 </body>
