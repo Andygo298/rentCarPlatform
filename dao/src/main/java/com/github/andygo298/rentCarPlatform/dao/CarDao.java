@@ -12,4 +12,5 @@ public interface CarDao {
     void delCar(Long delCarId);
     void changeRentStatus(long id, boolean status);
     Car getCarById(long id);
+    long getCarIdByBrandAndModelForTest(String brand,String model);
 }

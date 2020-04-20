@@ -59,6 +59,7 @@ public class DefaultCarDao implements CarDao {
                             .withType(rs.getString("type"))
                             .withYear(rs.getString("year_mfg"))
                             .withImg(rs.getString("img_url"))
+                            .withIsRent(rs.getBoolean("isRent"))
                             .build();
                 }
                 return car;
@@ -68,6 +69,25 @@ public class DefaultCarDao implements CarDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public long getCarIdByBrandAndModelForTest(String brand, String model) {
+        try (Connection connection = DataSource.getInstance().getConnection();
+             PreparedStatement ps = connection.prepareStatement("select id from cars where brand= ? and  model= ? ")) {
+            ps.setString(1, brand);
+            ps.setString(2, model);
+            try (ResultSet rs = ps.executeQuery()) {
+                long carId = 0;
+                while (rs.next()) {
+                    carId = rs.getLong(1);
+                }
+                return carId;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

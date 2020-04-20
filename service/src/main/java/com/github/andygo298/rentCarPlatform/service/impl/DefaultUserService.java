@@ -1,5 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
+import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
@@ -9,6 +10,8 @@ import com.github.andygo298.rentCarPlatform.service.UserService;
 import java.util.List;
 
 public class DefaultUserService implements UserService {
+
+    private UserDao instance = DefaultUserDao.getInstance();
 
     private static class SingletonHolder {
         static final UserService HOLDER_INSTANCE = new DefaultUserService();
@@ -20,12 +23,12 @@ public class DefaultUserService implements UserService {
 
     @Override
     public List<User> getUsers() {
-        return DefaultUserDao.getInstance().getUsers();
+        return instance.getUsers();
     }
 
     @Override
     public long saveUsers(User user) {
-        return DefaultUserDao.getInstance().save(user);
+        return instance.save(user);
     }
 
     @Override
@@ -35,6 +38,6 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User getUserById(Long id) {
-       return DefaultUserDao.getInstance().getUserById(id);
+       return instance.getUserById(id);
     }
 }

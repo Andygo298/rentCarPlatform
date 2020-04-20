@@ -1,5 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
+import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class DefaultSecurityServiceTest {
     @Mock
-    DefaultAuthUserDao dao;
+    AuthUserDao dao;
 
     @InjectMocks
     DefaultSecurityService service;
