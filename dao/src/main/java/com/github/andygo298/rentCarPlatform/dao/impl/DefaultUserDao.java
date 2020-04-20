@@ -2,8 +2,6 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.DataSource;
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
-import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
 
 import java.sql.*;
