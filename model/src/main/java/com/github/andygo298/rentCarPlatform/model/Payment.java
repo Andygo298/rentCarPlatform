@@ -5,13 +5,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Payment {
     Long id;
-    Long userId;
+    Long userId;//fk_user
     String cardNum;
-    String paymentDate;
+    LocalDate paymentDate;
     Double paymentValue;
 
     public Payment() {
-        this.paymentDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        this.paymentDate = LocalDate.now();
     }
 
     public void setId(Long id) {
@@ -42,7 +42,7 @@ public class Payment {
         return cardNum;
     }
 
-    public String getPaymentDate() {
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 

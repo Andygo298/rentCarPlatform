@@ -22,8 +22,8 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public Long saveOrder(Order order) {
-        Date dateStart = ConverterDate.stringToDate(order.getStartDate());
-        Date dateEnd = ConverterDate.stringToDate(order.getEndDate());
+//        Date dateStart = ConverterDate.stringToDate(order.getStartDate());
+//        Date dateEnd = ConverterDate.stringToDate(order.getEndDate());
 
         final String sql = "insert into orders(passport, phone, start_date, end_date, " +
                 "cars_id, user_id, status, order_price) values(?,?,?,?,?,?,?,?)";
@@ -31,8 +31,8 @@ public class DefaultOrderDao implements OrderDao {
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, order.getPassport());
             ps.setString(2, order.getPhone());
-            ps.setDate(3, dateStart);
-            ps.setDate(4, dateEnd);
+            ps.setDate(3, Date.valueOf(order.getStartDate()));
+            ps.setDate(4, Date.valueOf(order.getEndDate()));
             ps.setLong(5, order.getCarId());
             ps.setLong(6, order.getUserId());
             ps.setString(7, order.getOrderStatus().name());
@@ -174,12 +174,12 @@ public class DefaultOrderDao implements OrderDao {
     private Order getOrderInstance(ResultSet rs) throws SQLException {
         Long carId = rs.getLong("cars_id");
         Long userId = rs.getLong("user_id");
-        String start = ConverterDate.dateToString(rs.getDate("start_date"));
-        String end = ConverterDate.dateToString(rs.getDate("end_date"));
+//        String start = ConverterDate.dateToString(rs.getDate("start_date"));
+//        String end = ConverterDate.dateToString(rs.getDate("end_date"));
         return new Order.OrderBuilder(carId, userId)
                 .withId(rs.getLong("id"))
                 .withPassport(rs.getString("passport"))
-                .withDates(start, end)
+                .withDates(rs.getDate("start_date").toLocalDate(), rs.getDate("end_date").toLocalDate())
                 .withTelephone(rs.getString("phone"))
                 .withPrice(rs.getDouble("order_price"))
                 .withStatus(OrderStatus.valueOf(rs.getString("status")))

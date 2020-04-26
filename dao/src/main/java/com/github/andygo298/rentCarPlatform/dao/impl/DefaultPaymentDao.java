@@ -48,7 +48,7 @@ public class DefaultPaymentDao implements PaymentDao {
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setLong(1, newPayment.getUserId());
             ps.setString(2,newPayment.getCardNum());
-            ps.setDate(3, ConverterDate.stringToDate(newPayment.getPaymentDate()));
+            ps.setDate(3, Date.valueOf(newPayment.getPaymentDate()));
             ps.setDouble(4,newPayment.getPaymentValue());
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {

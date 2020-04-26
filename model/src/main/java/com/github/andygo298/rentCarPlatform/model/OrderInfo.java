@@ -1,15 +1,17 @@
 package com.github.andygo298.rentCarPlatform.model;
 
+import java.time.LocalDate;
+
 public class OrderInfo {
     private String userName;
     private String carName;
     private String passport;
     private String phone;
-    private String startDate;
-    private String endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private OrderStatus orderStatus;
     private Double orderPrice;
-    private Long orderId;
+    private Long orderId;//fk
 
     public OrderInfo(Long orderId) {
         this.orderId = orderId;
@@ -39,11 +41,11 @@ public class OrderInfo {
         return phone;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -72,7 +74,7 @@ public class OrderInfo {
             return this;
         }
 
-        public OrderInfo.OrderInfoBuilder withDates(String startDate, String endDate) {
+        public OrderInfo.OrderInfoBuilder withDates(LocalDate startDate, LocalDate endDate) {
             newOrderInfo.startDate = startDate;
             newOrderInfo.endDate = endDate;
             return this;

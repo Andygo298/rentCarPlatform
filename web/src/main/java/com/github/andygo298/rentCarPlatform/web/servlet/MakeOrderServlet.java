@@ -1,5 +1,6 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
+import com.github.andygo298.rentCarPlatform.dao.ConverterDate;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 
 @WebServlet(urlPatterns = "/makeOrder")
 public class MakeOrderServlet extends HttpServlet {
@@ -42,7 +44,7 @@ public class MakeOrderServlet extends HttpServlet {
         }
         Order order = new Order.OrderBuilder(carId, userId)
                 .withPassport(passport)
-                .withDates(startDate,endDate)
+                .withDates(ConverterDate.stringToDate(startDate),ConverterDate.stringToDate(endDate))
                 .withTelephone(phone)
                 .withPrice(price)
                 .build();
