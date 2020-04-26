@@ -27,14 +27,14 @@ class DefaultUserServiceTest {
 
     @Test
     void testUserById() {
-        User mockUser = new User(2L,"Ivan","Ivanov","iva@gmail.com",false);
+        User mockUser = new User(2L,"Ivan","Ivanov","iva@gmail.com",false,null);
         when(defaultUserDao.getUserById((long) 2)).thenReturn(mockUser);
         User user = defaultUserService.getUserById(2L);
         assertEquals(mockUser.getId(),user.getId());
     }
     @Test
     void testSaveUser(){
-        User mockUser = new User(null,"Petr","Petrov","petr@gmail.com",false);
+        User mockUser = new User(null,"Petr","Petrov","petr@gmail.com",false,null);
         when(defaultUserDao.save(mockUser)).thenReturn(1L);
 
         Long saveUserId = defaultUserService.saveUsers(mockUser);
@@ -42,8 +42,8 @@ class DefaultUserServiceTest {
     }
     @Test
     void testUsers(){
-        User user1 = new User(null,"Petr","Petrov","petr@gmail.com",false);
-        User user2 = new User(null,"Petr","Petrov","petr@gmail.com",false);
+        User user1 = new User(null,"Petr","Petrov","petr@gmail.com",false,null);
+        User user2 = new User(null,"Petr","Petrov","petr@gmail.com",false,null);
         List<User> users = Arrays.asList(user1, user2);
         when(defaultUserDao.getUsers()).thenReturn(users);
 

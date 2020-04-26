@@ -40,11 +40,12 @@ public class RegisterServlet extends HttpServlet {
         AuthUser authUser = securityService.login(login,password);
         if (authUser != null) {
             req.setAttribute("error","This user already exists");
-            WebUtils.forward("register", req, resp);
+            WebUtils.forward("/register", req, resp);
+            return;
         }
-        long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
+        long userId = userService.saveUsers(new User(null, firstName, lastName, email, false, null));
         log.info("user created:{} at {}", userId, LocalDateTime.now());
-        userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userId));
+        userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userService.getUserById(userId)));
         req.setAttribute("customMessage","Thanks for registration.");
         req.setAttribute("customMessage2","You can Sign In using your login and password.");
         WebUtils.forward("login", req, resp);

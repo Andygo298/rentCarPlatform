@@ -6,30 +6,35 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
     private Long id;
-    @Column(name = "first_name", nullable = false)
+
     private String firstName;
-    @Column(name = "last_name", nullable = false)
+
     private String lastName;
-    @Column(name = "email", nullable = false)
+
     private String email;
-    @Column(name = "isBlocked", nullable = false, columnDefinition = "boolean default false")
+
     private boolean isBlocked;
+
+    private AuthUser authUser;
+
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, boolean isBlocked) {
+    public User(Long id, String firstName, String lastName, String email, boolean isBlocked, AuthUser authUser) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.isBlocked = false;
+        this.authUser = authUser;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -38,6 +43,7 @@ public class User {
         this.id = id;
     }
 
+    @Column(name = "first_name", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -46,6 +52,7 @@ public class User {
         this.firstName = firstName;
     }
 
+    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -54,6 +61,7 @@ public class User {
         this.lastName = lastName;
     }
 
+    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -62,6 +70,7 @@ public class User {
         this.email = email;
     }
 
+    @Column(name = "isBlocked", nullable = false, columnDefinition = "boolean default false")
     public boolean isBlocked() {
         return isBlocked;
     }
@@ -70,31 +79,15 @@ public class User {
         isBlocked = blocked;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return isBlocked == user.isBlocked &&
-                Objects.equals(id, user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(email, user.email);
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    public AuthUser getAuthUser() {
+        return authUser;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, isBlocked);
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", isBlocked=" + isBlocked +
-                '}';
-    }
+
 }

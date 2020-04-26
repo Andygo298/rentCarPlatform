@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         log.info("user {} logged", user.getLogin());
-        User currentUser = userService.getUserById(user.getUserId());
+        User currentUser = userService.getUserById(user.getUser().getId());
         rq.getSession().setAttribute("authUser", user);
         rq.getSession().setAttribute("activeUser", currentUser);
         WebUtils.redirect("/homepage", rq, rs);

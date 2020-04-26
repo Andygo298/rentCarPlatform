@@ -33,7 +33,7 @@ public class HomeServlet extends HttpServlet {
         AuthUser user = (AuthUser) req.getSession().getAttribute("authUser");
         Integer activeOrders = user.getRole().equals(Role.ADMIN)
                 ? orderService.getOrdersByStatus(OrderStatus.IN_PROGRESS)
-                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUserId());
+                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUser().getId());
 
         req.setAttribute("activeOrders", activeOrders);
         WebUtils.forward("homepage", req, resp);
