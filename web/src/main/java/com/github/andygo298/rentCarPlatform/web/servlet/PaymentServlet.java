@@ -40,6 +40,7 @@ public class PaymentServlet extends HttpServlet {
         Payment newPayment = new Payment.PaymentBuilder(userId)
                 .withCardNum(cardNum)
                 .withPaymentValue(orderPrice)
+                .withUser((User)currentUser)
                 .build();
         paymentService.savePayment(newPayment);
         orderService.setOrderStatus(orderId, OrderStatus.COMPLETED);

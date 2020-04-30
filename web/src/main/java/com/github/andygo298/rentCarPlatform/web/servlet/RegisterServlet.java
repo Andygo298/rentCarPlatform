@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
             WebUtils.forward("/register", req, resp);
             return;
         }
-        long userId = userService.saveUsers(new User(null, firstName, lastName, email, false, null));
+        long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
         log.info("user created:{} at {}", userId, LocalDateTime.now());
         userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userService.getUserById(userId)));
         req.setAttribute("customMessage","Thanks for registration.");

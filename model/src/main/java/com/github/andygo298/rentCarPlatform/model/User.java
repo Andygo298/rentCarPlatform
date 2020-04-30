@@ -1,35 +1,32 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
 public class User {
 
     private Long id;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private boolean isBlocked;
 
     private AuthUser authUser;
+    private Set<Payment> payments;
 
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, boolean isBlocked, AuthUser authUser) {
+    public User(Long id, String firstName, String lastName, String email, boolean isBlocked) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.isBlocked = false;
-        this.authUser = authUser;
+        this.payments = new HashSet<>();
     }
 
     @Id
@@ -89,5 +86,13 @@ public class User {
         this.authUser = authUser;
     }
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    public Set<Payment> getPayments() {
+        return payments;
+    }
 
+    public void setPayments(Set<Payment> payments) {
+        this.payments = payments;
+    }
 }

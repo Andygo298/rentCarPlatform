@@ -4,8 +4,18 @@
         "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
         <mapping class="com.github.andygo298.rentCarPlatform.model.User" />
         <mapping class="com.github.andygo298.rentCarPlatform.model.AuthUser" />
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.model.Car" />-->
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.model.Order" />-->
+        <mapping class="com.github.andygo298.rentCarPlatform.model.Payment" />
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.dao.entities.AuthUserEntity"/>-->
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.dao.entities.CarsEntity"/>-->
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.dao.entities.OrdersEntity"/>-->
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.dao.entities.PaymentEntity"/>-->
+<!--        <mapping class="com.github.andygo298.rentCarPlatform.dao.entities.UserEntity"/>-->
     </session-factory>
 </hibernate-configuration>

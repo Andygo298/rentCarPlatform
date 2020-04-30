@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.User;
+import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -44,14 +43,22 @@ public class SFUtil {
         settings.put(Environment.C3P0_MAX_STATEMENTS, "150");
         settings.put(Environment.C3P0_CONFIG_PREFIX + ".initialPoolSize", "5");
         Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(User.class).addAnnotatedClass(AuthUser.class);
+        configuration.addAnnotatedClass(User.class)
+                .addAnnotatedClass(AuthUser.class)
+                .addAnnotatedClass(Car.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(Payment.class);
         // Apply settings
         serviceRegistryBuilder.applySettings(settings);
         // Create registry
         ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
         // Create MetadataSources
         MetadataSources sources = new MetadataSources(serviceRegistry);
-        sources.addAnnotatedClass(User.class).addAnnotatedClass(AuthUser.class);
+        sources.addAnnotatedClass(User.class)
+                .addAnnotatedClass(AuthUser.class)
+                .addAnnotatedClass(Car.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(Payment.class);
         // Create Metadata
         Metadata metadata = sources.getMetadataBuilder().build();
         // Create SessionFactory

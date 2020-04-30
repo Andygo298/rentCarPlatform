@@ -16,7 +16,7 @@ class AuthUserDaoHiberTest {
 
     @Test
     public void saveAuthUserTest() {
-        User user = new User(null, "testsaveAU", "testsaveAU", "gggAU@ggg.gmail", false, null);
+        User user = new User(null, "testsaveAU", "testsaveAU", "gggAU@ggg.gmail", false);
         long saveUserId = userDao.save(user);
         AuthUser authUser = new AuthUser(null, "testLoginAU", "testPassAU", Role.USER, user);
         Session session = SFUtil.getSession();
@@ -27,7 +27,10 @@ class AuthUserDaoHiberTest {
         AuthUser authUserFromDb = session.get(AuthUser.class, authUser.getId());
         assertEquals(authUser, authUserFromDb);
 
-        session.delete(authUser);
+        session.beginTransaction();
+        session.delete(authUserFromDb);
+        session.delete(user);
+        session.getTransaction().commit();
         session.close();
     }
 }

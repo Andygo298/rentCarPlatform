@@ -16,7 +16,7 @@ public class UserDaoHiberTest {
     @Test
     public void saveTest() {
         try (Session session = SFUtil.getSession()) {
-            User user = new User(null, "testsave", "testsave", "ggg@ggg.gmail", false,null);
+            User user = new User(null, "testsave", "testsave", "ggg@ggg.gmail", false);
             session.beginTransaction();
             session.save(user);
             User userFromDb = session.get(User.class, user.getId());
@@ -29,7 +29,7 @@ public class UserDaoHiberTest {
 
     @Test
     public void getUserTest() {
-        User user = new User(null, "test1", "test2", "ggg@ggg.gmail", false,null);
+        User user = new User(null, "test1", "test2", "ggg@ggg.gmail", false);
         Long saveUserId = userDao.save(user);
         Session session = SFUtil.getSession();
         session.beginTransaction();
