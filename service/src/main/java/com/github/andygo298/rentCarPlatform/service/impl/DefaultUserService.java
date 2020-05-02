@@ -1,8 +1,8 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
+import com.github.andygo298.rentCarPlatform.dao.DefaultAuthUserDao;
+import com.github.andygo298.rentCarPlatform.dao.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.service.UserService;

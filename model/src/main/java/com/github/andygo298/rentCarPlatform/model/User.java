@@ -15,6 +15,7 @@ public class User {
 
     private AuthUser authUser;
     private Set<Payment> payments;
+    private Set<Order> orders;
 
 
     public User() {
@@ -27,6 +28,7 @@ public class User {
         this.email = email;
         this.isBlocked = false;
         this.payments = new HashSet<>();
+        this.orders = new HashSet<>();
     }
 
     @Id
@@ -94,5 +96,15 @@ public class User {
 
     public void setPayments(Set<Payment> payments) {
         this.payments = payments;
+    }
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

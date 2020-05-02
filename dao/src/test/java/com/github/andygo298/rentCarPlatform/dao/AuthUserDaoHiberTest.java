@@ -1,13 +1,9 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
-import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthUserDaoHiberTest {
@@ -16,21 +12,31 @@ class AuthUserDaoHiberTest {
 
     @Test
     public void saveAuthUserTest() {
-        User user = new User(null, "testsaveAU", "testsaveAU", "gggAU@ggg.gmail", false);
-        long saveUserId = userDao.save(user);
-        AuthUser authUser = new AuthUser(null, "testLoginAU", "testPassAU", Role.USER, user);
-        Session session = SFUtil.getSession();
-        session.beginTransaction();
-        session.save(authUser);
-        session.getTransaction().commit();
+        final User user = new User(null,"Andrew","Loz","loz@gmail.com",false);
+        long saveId = userDao.save(user);
+        final AuthUser authUser = new AuthUser(null, "Андрей", "1234", Role.USER, user);
+        final long authUserId = authUserDao.saveAuthUser(authUser);
 
-        AuthUser authUserFromDb = session.get(AuthUser.class, authUser.getId());
-        assertEquals(authUser, authUserFromDb);
+        final AuthUser aUser = SFUtil.getSession().get(AuthUser.class, authUserId);
+        assertNotNull(user);
+        assertEquals(aUser.getLogin(), authUser.getLogin());
+        assertEquals(aUser.getPassword(), authUser.getPassword());
+    }
 
-        session.beginTransaction();
-        session.delete(authUserFromDb);
-        session.delete(user);
-        session.getTransaction().commit();
-        session.close();
+    @Test
+    public void getByLoginTest(){
+        final User user = new User(null,"Andrew","Loz","loz@gmail.com",false);
+        long saveId = userDao.save(user);
+        final AuthUser authUser = new AuthUser(null, "Андрей", "1234", Role.USER, user);
+        final long authUserId = authUserDao.saveAuthUser(authUser);
+
+        final AuthUser authUserFromDb = authUserDao.getByLogin(authUser.getLogin());
+        assertEquals(authUserFromDb.getLogin(), authUser.getLogin());
+    }
+
+    @Test
+    void getByLoginNotExist() {
+        final AuthUser user = authUserDao.getByLogin("Сергей");
+        assertNull(user);
     }
 }

@@ -1,5 +1,8 @@
 package com.github.andygo298.rentCarPlatform.model;
 
+import javax.persistence.*;
+@Entity
+@Table(name = "cars")
 public class Car {
     private Long id;
     private String brand;
@@ -16,36 +19,80 @@ public class Car {
         this.day_price = 0.00;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "brand", nullable = false, length = 255)
     public String getBrand() {
         return brand;
     }
 
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    @Basic
+    @Column(name = "model", nullable = false, length = 255)
     public String getModel() {
         return model;
     }
 
+    public void setModel(String model) {
+        this.model = model;
+    }
+    @Basic
+    @Column(name = "type", nullable = false, length = 255)
     public String getType() {
         return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+    @Basic
+    @Column(name = "year_mfg", nullable = false, length = 255)
     public String getYear_mfg() {
         return year_mfg;
     }
 
+    public void setYear_mfg(String year_mfg) {
+        this.year_mfg = year_mfg;
+    }
+    @Basic
+    @Column(name = "img_url", nullable = true, length = 255)
     public String getImg_url() {
         return img_url;
     }
 
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+    @Basic
+    @Column(name = "day_price", nullable = true, precision = 0)
     public double getDay_price() {
         return day_price;
     }
 
+    public void setDay_price(double day_price) {
+        this.day_price = day_price;
+    }
+    @Basic
+    @Column(name = "isRent", nullable = true)
     public boolean isIs_rent() {
         return is_rent;
+    }
+
+    public void setIs_rent(boolean is_rent) {
+        this.is_rent = is_rent;
     }
 
     @Override

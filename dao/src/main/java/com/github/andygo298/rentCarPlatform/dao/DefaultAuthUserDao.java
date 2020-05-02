@@ -1,7 +1,5 @@
-package com.github.andygo298.rentCarPlatform.dao.impl;
+package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
-import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 
 import org.hibernate.Session;
@@ -33,7 +31,6 @@ public class DefaultAuthUserDao implements AuthUserDao {
             session.close();
             return (AuthUser) getAuthUser;
         } catch (RuntimeException e) {
-            log.info("user not found by login{}", login);
             return null;
         }
     }

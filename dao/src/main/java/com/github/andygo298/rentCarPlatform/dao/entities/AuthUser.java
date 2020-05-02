@@ -3,8 +3,7 @@ package com.github.andygo298.rentCarPlatform.dao.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "auth_user")
+
 public class AuthUser {
     private Long id;
     private String login;

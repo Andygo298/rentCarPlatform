@@ -29,7 +29,7 @@ public class SFUtil {
         settings.put(Environment.URL, resource.getString("url"));
         settings.put(Environment.USER, resource.getString("user"));
         settings.put(Environment.PASS, resource.getString("password"));
-        settings.put(Environment.DIALECT,"org.hibernate.dialect.MySQL5Dialect");
+        settings.put(Environment.DIALECT,resource.getString("mySQL_5"));
         settings.put(Environment.HBM2DDL_AUTO, resource.getString("hbm2ddl_auto_type"));
         settings.put(Environment.SHOW_SQL, "true");
         settings.put(Environment.USE_SQL_COMMENTS, "false");

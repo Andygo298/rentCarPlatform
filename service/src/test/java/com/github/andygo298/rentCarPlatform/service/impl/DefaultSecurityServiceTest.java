@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

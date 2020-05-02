@@ -1,7 +1,5 @@
-package com.github.andygo298.rentCarPlatform.dao.impl;
+package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.PaymentDao;
-import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 
 import org.hibernate.Session;
@@ -35,7 +33,7 @@ public class DefaultPaymentDao implements PaymentDao {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             session.saveOrUpdate(newPayment);
-            long id = newPayment.getId();
+            Long id = newPayment.getId();
             session.getTransaction().commit();
             session.close();
             return id;

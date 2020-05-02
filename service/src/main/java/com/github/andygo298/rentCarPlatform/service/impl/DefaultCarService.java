@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
+import com.github.andygo298.rentCarPlatform.dao.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
 import com.github.andygo298.rentCarPlatform.service.CarService;
