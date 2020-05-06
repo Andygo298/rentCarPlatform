@@ -101,7 +101,7 @@ public class DefaultCarDaoTest {
 
     @Test
     void getCarsTest() {
-        List<Car> actualListCars = carDao.getCars();
+        List<Car> actualListCars = carDao.getCars(0,10);
         String expModel = "Arkana";
         String expYearMfg = "2019";
         String expImgUrl = "google.com";

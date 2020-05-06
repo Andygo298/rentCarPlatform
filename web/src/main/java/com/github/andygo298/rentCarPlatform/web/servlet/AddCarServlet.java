@@ -28,6 +28,8 @@ public class AddCarServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
         String brand = req.getParameter("brand");
         String model = req.getParameter("model");
         String type = req.getParameter("type");
@@ -40,8 +42,9 @@ public class AddCarServlet extends HttpServlet {
                 .withYear(year_mfg)
                 .withPrice(day_price).build();
         carService.saveCar(newCar);
-        log.info("addNewCar {} logged",newCar.toString());
-        req.getSession().setAttribute("TEST","TTT");
-        WebUtils.redirect("/homepage",req, resp);
+        String lastPage = String.valueOf(carService.getCountPages(carService.getCountRecordsFromCar()));
+        log.info("addNewCar {} logged", newCar.toString());
+        req.getSession().setAttribute("TEST", "TTT");
+        WebUtils.redirect("/homepage?page=" + lastPage, req, resp);
     }
 }

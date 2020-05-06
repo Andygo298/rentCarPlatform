@@ -6,7 +6,8 @@ import com.github.andygo298.rentCarPlatform.model.EditCar;
 import java.util.List;
 
 public interface CarDao {
-    List<Car> getCars();
+    List<Car> getCars(int skipRecords, int limitRecords);
+    Integer getCountRecordsFromCar();
     void saveCar(Car newCar);
     void editCar(EditCar editCar);
     void delCar(Long delCarId);

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +29,23 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Car> cars = carService.getCars();
+        int page = req.getParameter("page") != null
+                ? Integer.parseInt(req.getParameter("page"))
+                : 1;
+
+        int countRecordsFromCar = carService.getCountRecordsFromCar();
+        int countPages = carService.getCountPages(countRecordsFromCar);
+        Cookie currentPage = new Cookie("currentPage", Integer.toString(page));
+        currentPage.setMaxAge(-1);
+
+        List<Car> cars = carService.getCars(page);
+
         req.setAttribute("cars", cars);
+        req.setAttribute("countPages",countPages);
+        req.setAttribute("currentPage",page);
+        resp.addCookie(currentPage);
+
+
         AuthUser user = (AuthUser) req.getSession().getAttribute("authUser");
         Integer activeOrders = user.getRole().equals(Role.ADMIN)
                 ? orderService.getOrdersByStatus(OrderStatus.IN_PROGRESS)

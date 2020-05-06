@@ -1,12 +1,14 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
+import com.github.andygo298.rentCarPlatform.dao.Constant;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DefaultCarDao implements CarDao {
 
@@ -19,15 +21,32 @@ public class DefaultCarDao implements CarDao {
     }
 
     @Override
-    public List<Car> getCars() {
+    public List<Car> getCars(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             TypedQuery<Car> query = session.createQuery("from Car", Car.class);
-            List<Car> resultList = query.getResultList();
+            List<Car> resultList = query.getResultList()
+                    .stream()
+                    .skip(skipRecords)
+                    .limit(limitRecords)
+                    .collect(Collectors.toList());
             session.getTransaction().commit();
             session.close();
             return resultList;
         }
+    }
+
+    @Override
+    public Integer getCountRecordsFromCar() {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            TypedQuery<Car> query = session.createQuery("from Car", Car.class);
+            Integer resultCount = query.getResultList().size();
+            session.getTransaction().commit();
+            session.close();
+            return resultCount;
+        }
+
     }
 
     @Override

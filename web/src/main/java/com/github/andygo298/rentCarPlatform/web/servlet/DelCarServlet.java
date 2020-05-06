@@ -20,9 +20,10 @@ public class DelCarServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String currentPage = WebUtils.readCookie(req, "currentPage");
         Long delCarId = Long.parseLong(req.getParameter("id"));
         carService.delCar(delCarId);
         log.info("delCar with id=  {} logged", delCarId.toString());
-        WebUtils.redirect("/homepage", req, resp);
+        WebUtils.redirect("/homepage?page=" + currentPage, req, resp);
     }
 }
