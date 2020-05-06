@@ -117,7 +117,7 @@ public class OrderDaoHiberTest {
 
     @Test
     public void getOrdersTest() {
-        List<Order> orders = orderDao.getOrders();
+        List<Order> orders = orderDao.getOrders(0,10);
         assertNotNull(orders);
         assertEquals(orders.get(0).getPassport(), "MP3334455");
         assertEquals(orders.get(0).getPhone(), "+375298793307");

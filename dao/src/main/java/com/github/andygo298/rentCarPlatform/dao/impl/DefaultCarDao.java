@@ -37,11 +37,11 @@ public class DefaultCarDao implements CarDao {
     }
 
     @Override
-    public Integer getCountRecordsFromCar() {
+    public int getCountRecordsFromCar() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             TypedQuery<Car> query = session.createQuery("from Car", Car.class);
-            Integer resultCount = query.getResultList().size();
+            int resultCount = query.getResultList().size();
             session.getTransaction().commit();
             session.close();
             return resultCount;

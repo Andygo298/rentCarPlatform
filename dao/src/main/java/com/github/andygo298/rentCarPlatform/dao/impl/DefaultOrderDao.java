@@ -2,14 +2,17 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.OrderStatus;
 import org.hibernate.Session;
+
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DefaultOrderDao implements OrderDao {
     private static class SingletonHolder {
@@ -63,7 +66,7 @@ public class DefaultOrderDao implements OrderDao {
 
     //criteria api
     @Override
-    public List<Order> getOrdersByUserId(Long userId) {
+    public List<Order> getOrdersByUserId(Long userId, int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Order> cr = cb.createQuery(Order.class);
@@ -71,20 +74,55 @@ public class DefaultOrderDao implements OrderDao {
             cr.select(root)
                     .where(cb.equal(root.get("userId"), userId))
                     .orderBy(cb.desc(root.get("id")));
-            return session.createQuery(cr).getResultList();
+            return session.createQuery(cr).getResultList()
+                    .stream()
+                    .skip(skipRecords)
+                    .limit(limitRecords)
+                    .collect(Collectors.toList());
         }
     }
 
     @Override
-    public List<Order> getOrders() {
+    public List<Order> getOrders(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Order> query = session.createQuery("from Order ", Order.class);
-            List<Order> resultList = query.getResultList();
+            TypedQuery<Order> query = session.createQuery("from Order o order by o.orderStatus desc ", Order.class);
+            List<Order> resultList = query.getResultList()
+                    .stream()
+                    .skip(skipRecords)
+                    .limit(limitRecords)
+                    .collect(Collectors.toList());
             session.getTransaction().commit();
             session.close();
             return resultList;
         }
+    }
+
+    @Override
+    public int getCountRecordsFromOrders() {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            TypedQuery<Order> query = session.createQuery("from Order ", Order.class);
+            int resultCount = query.getResultList().size();
+            session.getTransaction().commit();
+            session.close();
+            return resultCount;
+        }
+
+    }
+
+    @Override
+    public int getCountRecordsFromOrdersForUser(Long userId) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            TypedQuery<Order> query = session.createQuery("from Order o where o.userId in :userId", Order.class)
+                    .setParameter("userId", userId);
+            int resultCount = query.getResultList().size();
+            session.getTransaction().commit();
+            session.close();
+            return resultCount;
+        }
+
     }
 
     @Override

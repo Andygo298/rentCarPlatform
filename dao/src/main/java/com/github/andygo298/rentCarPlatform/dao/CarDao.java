@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CarDao {
     List<Car> getCars(int skipRecords, int limitRecords);
-    Integer getCountRecordsFromCar();
+    int getCountRecordsFromCar();
     void saveCar(Car newCar);
     void editCar(EditCar editCar);
     void delCar(Long delCarId);

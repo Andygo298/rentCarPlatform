@@ -72,15 +72,15 @@
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <c:if test="${requestScope.currentPage != 1}">
+        <c:if test="${requestScope.currentPageCar != 1}">
             <li class="page-item" ><a class="page-link" href=
-                    "${pageContext.request.contextPath}/homepage?page=${requestScope.currentPage - 1}">Previous</a>
+                    "${pageContext.request.contextPath}/homepage?page=${requestScope.currentPageCar - 1}">Previous</a>
             </li>
         </c:if>
 
         <c:forEach begin="1" end="${requestScope.countPages}" var="i">
             <c:choose>
-                <c:when test="${requestScope.currentPage eq i}">
+                <c:when test="${requestScope.currentPageCar eq i}">
                     <li class="page-item"><a class="page-link" href="">${i}</a></li>
                 </c:when>
                 <c:otherwise>
@@ -91,9 +91,9 @@
             </c:choose>
         </c:forEach>
 
-        <c:if test="${requestScope.currentPage lt requestScope.countPages}">
+        <c:if test="${requestScope.currentPageCar lt requestScope.countPages}">
             <li class="page-item" ><a class="page-link" href=
-                    "${pageContext.request.contextPath}/homepage?page=${requestScope.currentPage + 1}">Next</a>
+                    "${pageContext.request.contextPath}/homepage?page=${requestScope.currentPageCar + 1}">Next</a>
             </li>
         </c:if>
     </ul>

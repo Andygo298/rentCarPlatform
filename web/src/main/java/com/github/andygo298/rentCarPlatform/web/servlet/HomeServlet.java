@@ -35,16 +35,16 @@ public class HomeServlet extends HttpServlet {
 
         int countRecordsFromCar = carService.getCountRecordsFromCar();
         int countPages = carService.getCountPages(countRecordsFromCar);
-        Cookie currentPage = new Cookie("currentPage", Integer.toString(page));
+
+        Cookie currentPage = new Cookie("currentPageCar", Integer.toString(page));
         currentPage.setMaxAge(-1);
+        resp.addCookie(currentPage);
 
         List<Car> cars = carService.getCars(page);
 
         req.setAttribute("cars", cars);
         req.setAttribute("countPages",countPages);
-        req.setAttribute("currentPage",page);
-        resp.addCookie(currentPage);
-
+        req.setAttribute("currentPageCar",page);
 
         AuthUser user = (AuthUser) req.getSession().getAttribute("authUser");
         Integer activeOrders = user.getRole().equals(Role.ADMIN)

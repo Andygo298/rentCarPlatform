@@ -1,5 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
+import com.github.andygo298.rentCarPlatform.dao.Constant;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultOrderDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
@@ -52,13 +53,39 @@ public class DefaultOrderService implements OrderService {
 
 
     @Override
-    public List<Order> getUserOrders(Long userId) {
-        return DefaultOrderDao.getInstance().getOrdersByUserId(userId);
+    public List<Order> getUserOrders(Long userId, int page) {
+        int skipRecords = 0;
+        if (page != 1) {
+            skipRecords = page - 1;
+            skipRecords = skipRecords * Constant.LIMIT_RECORDS;
+        }
+        return DefaultOrderDao.getInstance().getOrdersByUserId(userId, skipRecords, Constant.LIMIT_RECORDS);
+    }
+
+
+    @Override
+    public List<Order> getOrders(int page) {
+        int skipRecords = 0;
+        if (page != 1) {
+            skipRecords = page - 1;
+            skipRecords = skipRecords * Constant.LIMIT_RECORDS;
+        }
+        return DefaultOrderDao.getInstance().getOrders(skipRecords, Constant.LIMIT_RECORDS);
     }
 
     @Override
-    public List<Order> getOrders() {
-        return DefaultOrderDao.getInstance().getOrders();
+    public int getCountPages(int countRecordsFromOrder) {
+        return (int) Math.ceil(((double)countRecordsFromOrder / Constant.LIMIT_RECORDS));
+    }
+
+    @Override
+    public int getCountRecordsFromOrders() {
+        return DefaultOrderDao.getInstance().getCountRecordsFromOrders();
+    }
+
+    @Override
+    public int getCountRecordsFromOrdersForUser(Long userId) {
+        return DefaultOrderDao.getInstance().getCountRecordsFromOrdersForUser(userId);
     }
 
     @Override

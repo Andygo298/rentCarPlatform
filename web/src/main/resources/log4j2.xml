@@ -21,9 +21,6 @@
         <Logger name="com.github.andygo298.rentCarPlatform.service" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug" />
         </Logger>
-        <Logger name="com.github.andygo298.rentCarPlatform.web" level="debug" additivity="true">
-            <appender-ref ref="fileLogger" level="debug" />
-        </Logger>
 
         <Root level="INFO" additivity="false">
             <appender-ref ref="console" />

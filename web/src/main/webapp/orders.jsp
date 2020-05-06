@@ -33,6 +33,36 @@
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
 
 <h3>Orders List</h3>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <c:if test="${requestScope.currentPageOrder != 1}">
+            <li class="page-item" ><a class="page-link" href=
+                    "${pageContext.request.contextPath}/orders?page=${requestScope.currentPageOrder - 1}">Previous</a>
+            </li>
+        </c:if>
+
+        <c:forEach begin="1" end="${requestScope.countPages}" var="i">
+            <c:choose>
+                <c:when test="${requestScope.currentPageOrder eq i}">
+                    <li class="page-item"><a class="page-link" href="">${i}</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link" href=
+                            "${pageContext.request.contextPath}/orders?page=${i}">${i}</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:if test="${requestScope.currentPageOrder lt requestScope.countPages}">
+            <li class="page-item" ><a class="page-link" href=
+                    "${pageContext.request.contextPath}/orders?page=${requestScope.currentPageOrder + 1}">Next</a>
+            </li>
+        </c:if>
+    </ul>
+</nav>
+
 <c:if test="${requestScope.orders.size() > 0}">
     <table class="table table-striped table-hover table-bordered">
         <tr>

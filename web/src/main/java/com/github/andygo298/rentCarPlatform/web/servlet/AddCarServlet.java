@@ -28,8 +28,6 @@ public class AddCarServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         String brand = req.getParameter("brand");
         String model = req.getParameter("model");
         String type = req.getParameter("type");

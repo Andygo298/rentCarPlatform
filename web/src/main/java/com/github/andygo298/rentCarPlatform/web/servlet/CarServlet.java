@@ -33,7 +33,7 @@ public class CarServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String currentPage = WebUtils.readCookie(req, "currentPage");
+        String currentPage = WebUtils.readCookie(req, "currentPageCar");
 
         long id = Long.parseLong(req.getParameter("id"));
         String brand = req.getParameter("brand");
