@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.DefaultPaymentDao;
+import com.github.andygo298.rentCarPlatform.dao.impl.DefaultPaymentDao;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 import com.github.andygo298.rentCarPlatform.service.PaymentService;
 

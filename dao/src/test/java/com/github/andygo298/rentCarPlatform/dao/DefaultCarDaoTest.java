@@ -1,5 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
+import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
 import org.hibernate.Session;

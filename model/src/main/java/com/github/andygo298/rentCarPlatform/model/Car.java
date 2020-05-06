@@ -31,7 +31,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "brand", nullable = false, length = 255)
+    @Column(name = "brand", nullable = false)
     public String getBrand() {
         return brand;
     }
@@ -41,7 +41,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "model", nullable = false, length = 255)
+    @Column(name = "model", nullable = false)
     public String getModel() {
         return model;
     }
@@ -50,7 +50,7 @@ public class Car {
         this.model = model;
     }
     @Basic
-    @Column(name = "type", nullable = false, length = 255)
+    @Column(name = "type", nullable = false)
     public String getType() {
         return type;
     }
@@ -59,7 +59,7 @@ public class Car {
         this.type = type;
     }
     @Basic
-    @Column(name = "year_mfg", nullable = false, length = 255)
+    @Column(name = "year_mfg", nullable = false)
     public String getYear_mfg() {
         return year_mfg;
     }
@@ -68,7 +68,7 @@ public class Car {
         this.year_mfg = year_mfg;
     }
     @Basic
-    @Column(name = "img_url", nullable = true, length = 255)
+    @Column(name = "img_url")
     public String getImg_url() {
         return img_url;
     }
@@ -77,7 +77,7 @@ public class Car {
         this.img_url = img_url;
     }
     @Basic
-    @Column(name = "day_price", nullable = true, precision = 0)
+    @Column(name = "day_price")
     public double getDay_price() {
         return day_price;
     }
@@ -86,7 +86,7 @@ public class Car {
         this.day_price = day_price;
     }
     @Basic
-    @Column(name = "isRent", nullable = true)
+    @Column(name = "isRent")
     public boolean isIs_rent() {
         return is_rent;
     }

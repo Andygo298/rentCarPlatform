@@ -2,7 +2,6 @@ package com.github.andygo298.rentCarPlatform.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "payment")
@@ -56,7 +55,7 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
     @Basic
-    @Column(name = "payment_value", nullable = false, precision = 0)
+    @Column(name = "payment_value", nullable = false)
     public Double getPaymentValue() {
         return paymentValue;
     }
@@ -82,10 +81,6 @@ public class Payment {
             newPayment.userId = userId;
         }
 
-        public Payment.PaymentBuilder withId(Long id) {
-            newPayment.id = id;
-            return this;
-        }
 
         public Payment.PaymentBuilder withCardNum(String cardNum) {
             newPayment.cardNum = cardNum;

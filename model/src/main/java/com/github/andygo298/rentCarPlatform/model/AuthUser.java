@@ -5,10 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "auth_user")
 public class AuthUser {
+
     private Long id;
     private String login;
     private String password;
     private Role role;
+
     private User user;
     private Long userId;
 

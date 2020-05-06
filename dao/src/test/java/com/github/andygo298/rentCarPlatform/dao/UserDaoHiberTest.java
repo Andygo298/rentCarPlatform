@@ -1,11 +1,11 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
+import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
 import org.hibernate.Session;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

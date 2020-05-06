@@ -88,7 +88,7 @@ public class User {
         this.authUser = authUser;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     public Set<Payment> getPayments() {
         return payments;
@@ -98,7 +98,7 @@ public class User {
         this.payments = payments;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     public Set<Order> getOrders() {
         return orders;

@@ -33,7 +33,7 @@ public class Order {
         this.id = id;
     }
     @Basic
-    @Column(name = "passport", nullable = false, length = 255)
+    @Column(name = "passport")
     public String getPassport() {
         return passport;
     }
@@ -42,7 +42,7 @@ public class Order {
         this.passport = passport;
     }
     @Basic
-    @Column(name = "phone", nullable = false, length = 255)
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -97,7 +97,7 @@ public class Order {
         this.orderStatus = orderStatus;
     }
     @Basic
-    @Column(name = "order_price", nullable = true, precision = 0)
+    @Column(name = "order_price")
     public Double getOrderPrice() {
         return orderPrice;
     }
@@ -131,16 +131,6 @@ public class Order {
             newOrder = new Order();
             newOrder.carId = carId;
             newOrder.userId = userId;
-        }
-
-        public Order.OrderBuilder withId(Long id) {
-            newOrder.id = id;
-            return this;
-        }
-
-        public Order.OrderBuilder withStatus(OrderStatus status) {
-            newOrder.orderStatus = status;
-            return this;
         }
 
         public Order.OrderBuilder withPassport(String passport) {
