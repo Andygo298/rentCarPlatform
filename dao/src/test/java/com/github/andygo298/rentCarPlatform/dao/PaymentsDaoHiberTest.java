@@ -25,7 +25,7 @@ public class PaymentsDaoHiberTest {
         User user = new User(null,"Andrew","Lozouski","andygo298@gmail.com",false);
         long saveId = userDao.save(user);
         User userActual = userDao.getUserById(saveId);
-        Payment paymentToSave = new Payment.PaymentBuilder(saveId)
+        Payment paymentToSave = new Payment.PaymentBuilder()
                 .withCardNum("2200443311225544")
                 .withPaymentValue(1000.0)
                 .withUser(userActual)
@@ -45,7 +45,7 @@ public class PaymentsDaoHiberTest {
         User user = new User(null,"Andrew","Lozouski","andygo298@gmail.com",false);
         long saveId = userDao.save(user);
         User userActual = userDao.getUserById(saveId);
-        Payment paymentToSave = new Payment.PaymentBuilder(saveId)
+        Payment paymentToSave = new Payment.PaymentBuilder()
                 .withCardNum("2200443311225544")
                 .withPaymentValue(1000.0)
                 .withUser(userActual)

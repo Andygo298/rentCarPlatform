@@ -69,16 +69,15 @@ public class DefaultOrderDao implements OrderDao {
     public List<Order> getOrdersByUserId(Long userId, int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Order> cr = cb.createQuery(Order.class);
-            Root<Order> root = cr.from(Order.class);
-            cr.select(root)
-                    .where(cb.equal(root.get("userId"), userId))
-                    .orderBy(cb.desc(root.get("id")));
-            return session.createQuery(cr).getResultList()
-                    .stream()
-                    .skip(skipRecords)
-                    .limit(limitRecords)
-                    .collect(Collectors.toList());
+            CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
+            Root<Order> orderRoot = criteria.from(Order.class);
+            criteria.select(orderRoot)
+                    .where(cb.equal(orderRoot.get("userId"), userId))
+                    .orderBy(cb.desc(orderRoot.get("id")));
+            return session.createQuery(criteria)
+                    .setFirstResult(skipRecords)
+                    .setMaxResults(limitRecords)
+                    .getResultList();
         }
     }
 

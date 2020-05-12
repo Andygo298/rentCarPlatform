@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
-import com.github.andygo298.rentCarPlatform.dao.Constant;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
@@ -24,12 +23,10 @@ public class DefaultCarDao implements CarDao {
     public List<Car> getCars(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Car> query = session.createQuery("from Car", Car.class);
-            List<Car> resultList = query.getResultList()
-                    .stream()
-                    .skip(skipRecords)
-                    .limit(limitRecords)
-                    .collect(Collectors.toList());
+            TypedQuery<Car> query = session.createQuery("from Car", Car.class)
+                    .setFirstResult(skipRecords)
+                    .setMaxResults(limitRecords);
+            List<Car> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
             return resultList;

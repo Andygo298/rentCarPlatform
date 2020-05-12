@@ -34,7 +34,7 @@ public class DefaultPaymentDao implements PaymentDao {
     public Long savePayment(Payment newPayment) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(newPayment);
+            session.save(newPayment);
             Long id = newPayment.getId();
             session.getTransaction().commit();
             session.close();

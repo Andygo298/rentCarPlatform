@@ -27,7 +27,7 @@ public class Payment {
     public void setId(Long id) {
         this.id = id;
     }
-    @Basic
+
     @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public Long getUserId() {
         return userId;
@@ -36,7 +36,7 @@ public class Payment {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    @Basic
+
     @Column(name = "card_num", nullable = false, length = 20)
     public String getCardNum() {
         return cardNum;
@@ -45,7 +45,7 @@ public class Payment {
     public void setCardNum(String cardNum) {
         this.cardNum = cardNum;
     }
-    @Basic
+
     @Column(name = "payment_date", nullable = false)
     public LocalDate getPaymentDate() {
         return paymentDate;
@@ -54,7 +54,7 @@ public class Payment {
     public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
-    @Basic
+
     @Column(name = "payment_value", nullable = false)
     public Double getPaymentValue() {
         return paymentValue;
@@ -64,7 +64,7 @@ public class Payment {
         this.paymentValue = paymentValue;
     }
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     public User getUser() {
         return user;
     }
@@ -76,9 +76,8 @@ public class Payment {
     public static class PaymentBuilder {
         private Payment newPayment;
 
-        public PaymentBuilder(Long userId) {
+        public PaymentBuilder() {
             newPayment = new Payment();
-            newPayment.userId = userId;
         }
 
 

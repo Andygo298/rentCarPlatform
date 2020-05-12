@@ -11,7 +11,6 @@ public class ConverterDate {
     }
 
     public static String dateToString(LocalDate date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(date);
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

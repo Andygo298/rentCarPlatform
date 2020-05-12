@@ -15,7 +15,6 @@ public interface OrderService {
     List<Order> getOrders(int page);
     int getCountRecordsFromOrders();
     int getCountRecordsFromOrdersForUser(Long userId);
-    int getCountPages(int countRecordsFromOrder);
     Double getOrderPriceById(Long orderId);
     List<OrderInfo> buildOrdersInfo(List<Order> orders);
     void setOrderStatus(Long orderId, OrderStatus orderStatus);

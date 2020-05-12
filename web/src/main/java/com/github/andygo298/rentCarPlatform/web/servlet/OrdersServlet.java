@@ -1,8 +1,13 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
 import com.github.andygo298.rentCarPlatform.model.*;
+import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
+import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
+import com.github.andygo298.rentCarPlatform.service.UserService;
+import com.github.andygo298.rentCarPlatform.service.impl.DefaultCarService;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultOrderService;
+import com.github.andygo298.rentCarPlatform.service.impl.DefaultUserService;
 import com.github.andygo298.rentCarPlatform.web.WebUtils;
 
 import javax.servlet.ServletException;
@@ -17,6 +22,8 @@ import java.util.List;
 @WebServlet(urlPatterns = "/orders")
 public class OrdersServlet extends HttpServlet {
     private OrderService orderService = DefaultOrderService.getInstance();
+    private CarService carService = DefaultCarService.getInstance();
+    private UserService userService = DefaultUserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,13 +42,17 @@ public class OrdersServlet extends HttpServlet {
                 ? orderService.getOrders(page)
                 : orderService.getUserOrders(user.getId(), page);
 
+        //try 1
+
+
+
         List<OrderInfo> orderInfoList = orderService.buildOrdersInfo(orders);
 
-        int countRecordsFromOrder = authUser.getRole().equals(Role.ADMIN)
+        double countRecordsFromOrder = authUser.getRole().equals(Role.ADMIN)
                 ? orderService.getCountRecordsFromOrders()
                 : orderService.getCountRecordsFromOrdersForUser(user.getId());
 
-        int countPages = orderService.getCountPages(countRecordsFromOrder);
+        int countPages = ServiceUtil.getCountPages(countRecordsFromOrder);
 
 
 

@@ -34,10 +34,9 @@ public class PaymentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long orderId = Long.parseLong(req.getParameter("orderId"));
         Object currentUser = req.getSession().getAttribute("activeUser");
-        Long userId = ((User) currentUser).getId();
         Double orderPrice = Double.parseDouble(req.getParameter("orderPrice"));
         String cardNum = req.getParameter("cardNum");
-        Payment newPayment = new Payment.PaymentBuilder(userId)
+        Payment newPayment = new Payment.PaymentBuilder()
                 .withCardNum(cardNum)
                 .withPaymentValue(orderPrice)
                 .withUser((User)currentUser)

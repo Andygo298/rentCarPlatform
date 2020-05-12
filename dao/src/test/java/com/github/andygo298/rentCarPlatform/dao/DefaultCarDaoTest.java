@@ -15,7 +15,7 @@ public class DefaultCarDaoTest {
     final CarDao carDao = DefaultCarDao.getInstance();
 
     @BeforeAll
-    static void init() {
+    public static void init() {
         Session session = SFUtil.getSession();
         session.beginTransaction();
         Car car1 = new Car.CarBuilder(null)
@@ -67,7 +67,7 @@ public class DefaultCarDaoTest {
     }
 
     @Test
-    void testGetCarById() {
+    void testGetCarByIdTest() {
         final Long carId = 2L;
         String expModel = "GLK-240";
         String expYear = "2010";
@@ -101,7 +101,7 @@ public class DefaultCarDaoTest {
 
     @Test
     void getCarsTest() {
-        List<Car> actualListCars = carDao.getCars(0,10);
+        List<Car> actualListCars = carDao.getCars(0, 10);
         String expModel = "Arkana";
         String expYearMfg = "2019";
         String expImgUrl = "google.com";
@@ -111,7 +111,14 @@ public class DefaultCarDaoTest {
     }
 
     @Test
-    void changeRentStatus() {
+    public void getCountRecordsFromCarTest() {
+        int countRecordsFromDb = carDao.getCountRecordsFromCar();
+        int exp = 3;
+        assertEquals(exp, countRecordsFromDb);
+    }
+
+    @Test
+    void changeRentStatusTest() {
         long id = 3L;
         carDao.changeRentStatus(id, true);
         Car actualCar = carDao.getCarById(id);
@@ -129,4 +136,23 @@ public class DefaultCarDaoTest {
         Car actualCar = carDao.getCarById(delCarId);
         assertNull(actualCar);
     }
+
+    @Test
+    public void getCountRecordsFromOrders() {
+        int countRecordsFromDb = carDao.getCountRecordsFromCar();
+        int exp = 3;
+        assertEquals(exp,countRecordsFromDb);
+    }
+
+    @AfterAll
+    static void afterAll() {
+        Session session = SFUtil.getSession();
+        session.beginTransaction();
+        session.createQuery("delete from Car c where c.id=:id").setParameter("id",2L).executeUpdate();
+        session.createQuery("delete from Car c where c.id=:id").setParameter("id",3L).executeUpdate();
+        session.createQuery("delete from Car c where c.id=:id").setParameter("id",4L).executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }

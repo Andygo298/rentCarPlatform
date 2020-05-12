@@ -6,6 +6,7 @@ import com.github.andygo298.rentCarPlatform.model.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.Role;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
+import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultCarService;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultOrderService;
 import com.github.andygo298.rentCarPlatform.web.WebUtils;
@@ -33,8 +34,8 @@ public class HomeServlet extends HttpServlet {
                 ? Integer.parseInt(req.getParameter("page"))
                 : 1;
 
-        int countRecordsFromCar = carService.getCountRecordsFromCar();
-        int countPages = carService.getCountPages(countRecordsFromCar);
+        double countRecordsFromCar = carService.getCountRecordsFromCar();
+        int countPages = ServiceUtil.getCountPages(countRecordsFromCar);
 
         Cookie currentPage = new Cookie("currentPageCar", Integer.toString(page));
         currentPage.setMaxAge(-1);

@@ -1,7 +1,8 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")

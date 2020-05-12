@@ -16,7 +16,7 @@ public class OrderDaoHiberTest {
     final OrderDao orderDao = DefaultOrderDao.getInstance();
 
     @BeforeAll
-    static void init() {
+    public static void init() {
         Session session = SFUtil.getSession();
         session.beginTransaction();
         User user1 = new User(null, "TestName1", "TestLastName1", "test1@gmail.com", false);
@@ -115,6 +115,8 @@ public class OrderDaoHiberTest {
 
     }
 
+
+
     @Test
     public void getOrdersTest() {
         List<Order> orders = orderDao.getOrders(0,10);
@@ -148,9 +150,48 @@ public class OrderDaoHiberTest {
 
     @Test
     public void getUserOrdersByStatusTest() {
-        Integer countCurrentUserOrders = orderDao.getUserOrdersByStatus(OrderStatus.IN_PROGRESS, 3L);
-        Integer exp = 1;
+        Integer countCurrentUserOrders = orderDao.getUserOrdersByStatus(OrderStatus.IN_PROGRESS, 2L);
+        Integer exp = 0;
         assertNotNull(countCurrentUserOrders);
         assertEquals(exp, countCurrentUserOrders);
+    }
+
+    @Test
+    public void getCountRecordsFromOrders(){
+        int countRecordsFromDb = orderDao.getCountRecordsFromOrders();
+        int exp = 2;
+        assertEquals(exp,countRecordsFromDb);
+    }
+
+    @Test
+    public void getCountRecordsFromOrdersForUserTest(){
+        long id = 2L;
+        int countRecordsFromDb = orderDao.getCountRecordsFromOrdersForUser(id);
+        int exp = 0;
+        assertEquals(exp,countRecordsFromDb);
+    }
+
+
+    @AfterAll
+    public static void afterAll() {
+        Session session = SFUtil.getSession();
+        session.beginTransaction();
+        session.createQuery("delete from Order o where o.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from Order o where o.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from Order o where o.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 4L).executeUpdate();
+        session.createQuery("delete from User u where u.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from User u where u.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from User u where u.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from User u where u.id=:id").setParameter("id", 4L).executeUpdate();
+        session.createQuery("delete from Car c where c.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from Car c where c.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from Car c where c.id=:id").setParameter("id", 3L).executeUpdate();
+
+        session.getTransaction().commit();
+        session.close();
     }
 }

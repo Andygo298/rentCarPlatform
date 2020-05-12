@@ -1,5 +1,7 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
+import com.github.andygo298.rentCarPlatform.model.AuthUser;
+import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,6 +49,7 @@ public class SFUtil {
                 .addAnnotatedClass(AuthUser.class)
                 .addAnnotatedClass(Car.class)
                 .addAnnotatedClass(Order.class)
+//                .addAnnotatedClass(Staff.class)
                 .addAnnotatedClass(Payment.class);
         // Apply settings
         serviceRegistryBuilder.applySettings(settings);
@@ -58,6 +61,7 @@ public class SFUtil {
                 .addAnnotatedClass(AuthUser.class)
                 .addAnnotatedClass(Car.class)
                 .addAnnotatedClass(Order.class)
+//                .addAnnotatedClass(Staff.class)
                 .addAnnotatedClass(Payment.class);
         // Create Metadata
         Metadata metadata = sources.getMetadataBuilder().build();

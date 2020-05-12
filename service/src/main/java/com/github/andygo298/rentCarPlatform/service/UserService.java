@@ -10,7 +10,5 @@ public interface UserService {
 
     long saveUsers(User user);
 
-    void saveAuthUser(AuthUser authUser);
-
     User getUserById(Long id);
 }

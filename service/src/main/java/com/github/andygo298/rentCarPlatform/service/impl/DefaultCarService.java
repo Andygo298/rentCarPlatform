@@ -6,12 +6,11 @@ import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
 import com.github.andygo298.rentCarPlatform.service.CarService;
+import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 
 import java.util.List;
 
 public class DefaultCarService implements CarService {
-
-    private final CarDao carDao = DefaultCarDao.getInstance();
 
     private static class SingletonHolder {
         static final CarService HOLDER_INSTANCE = new DefaultCarService();
@@ -21,15 +20,12 @@ public class DefaultCarService implements CarService {
         return DefaultCarService.SingletonHolder.HOLDER_INSTANCE;
     }
 
+    private CarDao carDao = DefaultCarDao.getInstance();
+
 
     @Override
     public List<Car> getCars(int page) {
-        int skipRecords = 0;
-        if (page != 1) {
-            skipRecords = page - 1;
-            skipRecords = skipRecords * Constant.LIMIT_RECORDS;
-        }
-        return carDao.getCars(skipRecords, Constant.LIMIT_RECORDS);
+        return carDao.getCars(ServiceUtil.getSkipRecords(page), Constant.LIMIT_RECORDS);
     }
 
     @Override
@@ -62,8 +58,4 @@ public class DefaultCarService implements CarService {
         return carDao.getCarById(id);
     }
 
-    @Override
-    public int getCountPages(int countRecordsFromCar) {
-        return (int) Math.ceil(((double)countRecordsFromCar / Constant.LIMIT_RECORDS));
-    }
 }

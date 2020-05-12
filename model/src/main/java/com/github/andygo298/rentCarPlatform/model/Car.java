@@ -1,6 +1,7 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 import javax.persistence.*;
+
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -12,6 +13,7 @@ public class Car {
     private String img_url;
     private double day_price;
     private boolean is_rent;
+
 
     public Car() {
         this.is_rent = false;
@@ -94,6 +96,7 @@ public class Car {
     public void setIs_rent(boolean is_rent) {
         this.is_rent = is_rent;
     }
+
 
     @Override
     public String toString() {

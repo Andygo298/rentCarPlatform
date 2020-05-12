@@ -59,6 +59,7 @@ public class MakeOrderServlet extends HttpServlet {
                 .build();
         Long orderId = orderService.saveOrder(order);
         if (orderId != null) {
+            carService.changeRentStatus(carId,true);
             WebUtils.redirect("/homepage",req,resp);
         } else {
             req.setAttribute("errorMessage", "Something went wrong, contact admin or try again later.");
