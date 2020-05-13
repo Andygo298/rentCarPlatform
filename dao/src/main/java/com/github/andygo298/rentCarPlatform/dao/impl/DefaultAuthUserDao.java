@@ -26,8 +26,8 @@ public class DefaultAuthUserDao implements AuthUserDao {
     public AuthUser getByLogin(String login) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("from AuthUser au where au.login in :userlog");
-            query.setParameter("userlog", login);
+            Query query = session.createQuery("from AuthUser au where au.login in :userLog");
+            query.setParameter("userLog", login);
             Object getAuthUser = query.getSingleResult();
             session.getTransaction().commit();
             session.close();

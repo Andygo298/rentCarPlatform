@@ -5,6 +5,7 @@ import com.github.andygo298.rentCarPlatform.dao.Constant;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
+import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 
@@ -58,4 +59,8 @@ public class DefaultCarService implements CarService {
         return carDao.getCarById(id);
     }
 
+    @Override
+    public void saveStaffIntoCar(Car car, List<Staff> staff) {
+        carDao.saveStaffIntoCar(car,staff);
+    }
 }

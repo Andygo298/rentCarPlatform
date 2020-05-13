@@ -1,9 +1,7 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.CarDao;
 import com.github.andygo298.rentCarPlatform.dao.ConverterDate;
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
-import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.OrderStatus;

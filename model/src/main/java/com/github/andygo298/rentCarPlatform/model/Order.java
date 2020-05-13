@@ -33,7 +33,7 @@ public class Order {
     public void setId(Long id) {
         this.id = id;
     }
-    @Basic
+
     @Column(name = "passport")
     public String getPassport() {
         return passport;
@@ -42,7 +42,7 @@ public class Order {
     public void setPassport(String passport) {
         this.passport = passport;
     }
-    @Basic
+
     @Column(name = "phone")
     public String getPhone() {
         return phone;
@@ -51,7 +51,7 @@ public class Order {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    @Basic
+
     @Column(name = "start_date", nullable = false)
     public LocalDate getStartDate() {
         return startDate;
@@ -60,7 +60,7 @@ public class Order {
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-    @Basic
+
     @Column(name = "end_date", nullable = false)
     public LocalDate getEndDate() {
         return endDate;
@@ -69,7 +69,7 @@ public class Order {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-    @Basic
+
     @Column(name = "cars_id", nullable = false, insertable = false, updatable = false)
     public Long getCarId() {
         return carId;
@@ -78,7 +78,7 @@ public class Order {
     public void setCarId(Long carId) {
         this.carId = carId;
     }
-    @Basic
+
     @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public Long getUserId() {
         return userId;
@@ -87,7 +87,7 @@ public class Order {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    @Basic
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 64)
     public OrderStatus getOrderStatus() {
@@ -97,7 +97,7 @@ public class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
-    @Basic
+
     @Column(name = "order_price")
     public Double getOrderPrice() {
         return orderPrice;
@@ -116,7 +116,7 @@ public class Order {
         this.user = user;
     }
     @ManyToOne
-    @JoinColumn(name = "cars_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "cars_id", referencedColumnName = "car_id", nullable = false)
     public Car getCar() {
         return car;
     }

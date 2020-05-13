@@ -66,6 +66,9 @@
     <form method="get" action="<c:url value='/addNewCar'/>">
         <button type="submit" class="btn btn-primary">Add NEW CAR</button>
     </form>
+    <form method="get" action="<c:url value='/maintenance'/>">
+        <button type="submit" class="btn btn-primary">Maintenance</button>
+    </form>
 </c:if>
 <h3>Car list</h3>
 

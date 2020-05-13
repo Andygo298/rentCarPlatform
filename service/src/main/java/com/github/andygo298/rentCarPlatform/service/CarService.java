@@ -2,6 +2,7 @@ package com.github.andygo298.rentCarPlatform.service;
 
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
+import com.github.andygo298.rentCarPlatform.model.Staff;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface CarService {
     void delCar(Long delCarId);
     void changeRentStatus(long id, boolean status);
     Car getCarById(long id);
+    void saveStaffIntoCar(Car car, List<Staff> staff);
 }

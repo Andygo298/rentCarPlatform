@@ -7,7 +7,6 @@ import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DefaultCarDao implements CarDao {
 
@@ -118,4 +117,19 @@ public class DefaultCarDao implements CarDao {
         }
     }
 
+    @Override
+    public void saveStaffIntoCar(Car car, List<Staff> staff) {
+        car.getStaff().addAll(staff);
+        for (Staff person : staff) {
+            person.getCar().add(car);
+        }
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            for (Staff person : staff) {
+                session.saveOrUpdate(person);
+            }
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
 }

@@ -12,6 +12,6 @@
         <mapping class="com.github.andygo298.rentCarPlatform.model.Car" />
         <mapping class="com.github.andygo298.rentCarPlatform.model.Order" />
         <mapping class="com.github.andygo298.rentCarPlatform.model.Payment" />
-<!--        <mapping class="com.github.andygo298.rentCarPlatform.model.Staff" />-->
+        <mapping class="com.github.andygo298.rentCarPlatform.model.Staff" />
     </session-factory>
 </hibernate-configuration>

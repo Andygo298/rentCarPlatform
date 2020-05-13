@@ -64,7 +64,7 @@ public class DefaultOrderDao implements OrderDao {
         }
     }
 
-    //criteria api
+    //criteria api and pagination
     @Override
     public List<Order> getOrdersByUserId(Long userId, int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
@@ -85,12 +85,10 @@ public class DefaultOrderDao implements OrderDao {
     public List<Order> getOrders(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Order> query = session.createQuery("from Order o order by o.orderStatus desc ", Order.class);
-            List<Order> resultList = query.getResultList()
-                    .stream()
-                    .skip(skipRecords)
-                    .limit(limitRecords)
-                    .collect(Collectors.toList());
+            TypedQuery<Order> query = session.createQuery("from Order o order by o.orderStatus desc ", Order.class)
+                    .setFirstResult(skipRecords)
+                    .setMaxResults(limitRecords);
+            List<Order> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
             return resultList;

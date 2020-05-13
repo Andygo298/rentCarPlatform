@@ -49,7 +49,7 @@ public class SFUtil {
                 .addAnnotatedClass(AuthUser.class)
                 .addAnnotatedClass(Car.class)
                 .addAnnotatedClass(Order.class)
-//                .addAnnotatedClass(Staff.class)
+                .addAnnotatedClass(Staff.class)
                 .addAnnotatedClass(Payment.class);
         // Apply settings
         serviceRegistryBuilder.applySettings(settings);
@@ -61,7 +61,7 @@ public class SFUtil {
                 .addAnnotatedClass(AuthUser.class)
                 .addAnnotatedClass(Car.class)
                 .addAnnotatedClass(Order.class)
-//                .addAnnotatedClass(Staff.class)
+                .addAnnotatedClass(Staff.class)
                 .addAnnotatedClass(Payment.class);
         // Create Metadata
         Metadata metadata = sources.getMetadataBuilder().build();

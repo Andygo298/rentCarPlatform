@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.web.filter;
 
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.web.WebUtils;
 
 import javax.servlet.*;

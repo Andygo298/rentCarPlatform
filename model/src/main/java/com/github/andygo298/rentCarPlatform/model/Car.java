@@ -1,6 +1,8 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "cars")
@@ -14,16 +16,18 @@ public class Car {
     private double day_price;
     private boolean is_rent;
 
+    private Set<Staff> staffSet = new HashSet<>();
 
     public Car() {
         this.is_rent = false;
         this.img_url = "https://avatars.mds.yandex.net/get-pdb/1809111/76fb0b23-8115-44b1-8386-f8e1d3115621/s600";
         this.day_price = 0.00;
+
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "car_id")
     public Long getId() {
         return id;
     }
@@ -32,7 +36,6 @@ public class Car {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "brand", nullable = false)
     public String getBrand() {
         return brand;
@@ -42,7 +45,6 @@ public class Car {
         this.brand = brand;
     }
 
-    @Basic
     @Column(name = "model", nullable = false)
     public String getModel() {
         return model;
@@ -51,7 +53,7 @@ public class Car {
     public void setModel(String model) {
         this.model = model;
     }
-    @Basic
+
     @Column(name = "type", nullable = false)
     public String getType() {
         return type;
@@ -60,7 +62,7 @@ public class Car {
     public void setType(String type) {
         this.type = type;
     }
-    @Basic
+
     @Column(name = "year_mfg", nullable = false)
     public String getYear_mfg() {
         return year_mfg;
@@ -69,7 +71,7 @@ public class Car {
     public void setYear_mfg(String year_mfg) {
         this.year_mfg = year_mfg;
     }
-    @Basic
+
     @Column(name = "img_url")
     public String getImg_url() {
         return img_url;
@@ -78,7 +80,7 @@ public class Car {
     public void setImg_url(String img_url) {
         this.img_url = img_url;
     }
-    @Basic
+
     @Column(name = "day_price")
     public double getDay_price() {
         return day_price;
@@ -87,8 +89,8 @@ public class Car {
     public void setDay_price(double day_price) {
         this.day_price = day_price;
     }
-    @Basic
-    @Column(name = "isRent")
+
+    @Column(name = "isRent", columnDefinition="boolean default false")
     public boolean isIs_rent() {
         return is_rent;
     }
@@ -97,6 +99,14 @@ public class Car {
         this.is_rent = is_rent;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "car")
+    public Set<Staff> getStaff() {
+        return staffSet;
+    }
+
+    public void setStaff(Set<Staff> staff) {
+        this.staffSet = staff;
+    }
 
     @Override
     public String toString() {

@@ -4,20 +4,21 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "staff")
 public class Staff {
     private Long id;
     private String firstName;
     private String lastName;
     private Specialization specialization;
 
-    private Set<Car> car;
+    private Set<Car> carSet = new HashSet<>();
 
     public Staff(Long id, String firstName, String lastName, Specialization specialization) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialization = specialization;
-        this.car = new HashSet<>();
     }
 
     public Staff() {
@@ -25,7 +26,7 @@ public class Staff {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staff_id", unique = true)
+    @Column(name = "staff_id")
     public Long getId() {
         return id;
     }
@@ -34,7 +35,7 @@ public class Staff {
         this.id = id;
     }
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -43,7 +44,7 @@ public class Staff {
         this.firstName = firstName;
     }
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -62,14 +63,45 @@ public class Staff {
         this.specialization = specialization;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "staff_cars", joinColumns = {@JoinColumn(name = "staff_id")},
-            inverseJoinColumns = {@JoinColumn(name = "id")})
+            inverseJoinColumns = {@JoinColumn(name = "car_id")})
     public Set<Car> getCar() {
-        return car;
+        return carSet;
     }
 
     public void setCar(Set<Car> car) {
-        this.car = car;
+        this.carSet = car;
+    }
+
+    public static class StaffBuilder {
+        private Staff newStaff;
+
+        public StaffBuilder() {
+            newStaff = new Staff();
+        }
+
+        public Staff.StaffBuilder withFirstName(String firstName) {
+            newStaff.firstName = firstName;
+            return this;
+        }
+
+        public Staff.StaffBuilder withLastName(String lastName) {
+            newStaff.lastName = lastName;
+            return this;
+        }
+
+        public Staff.StaffBuilder withSpecialization(Specialization specialization) {
+            newStaff.specialization = specialization;
+            return this;
+        }
+        public Staff.StaffBuilder withCar(Set<Car> car){
+            newStaff.carSet = car;
+            return this;
+        }
+
+        public Staff build() {
+            return newStaff;
+        }
     }
 }

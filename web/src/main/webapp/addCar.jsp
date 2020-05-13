@@ -24,7 +24,7 @@
 <body>
 <a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">logout</a>
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
-<h3>PAYMENT</h3>
+<h3>ADD NEW CAR</h3>
 <form action="${pageContext.request.contextPath}/addNewCar" method="post">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="brand">Brand name</label>

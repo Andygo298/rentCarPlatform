@@ -1,5 +1,7 @@
 package com.github.andygo298.rentCarPlatform.web;
 
+import com.github.andygo298.rentCarPlatform.model.Specialization;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,5 +34,8 @@ public class WebUtils {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static Specialization getSpecEnum(String specialization){
+       return Specialization.valueOf(specialization.toUpperCase());
     }
 }
