@@ -3,7 +3,7 @@
 
 
 <a href="${pageContext.request.contextPath}/logout">logout</a>
-<h3>Cтуденты</h3>
+<h3>Users</h3>
 <c:if test="${requestScope.users != null}">
     <table>
         <tr>

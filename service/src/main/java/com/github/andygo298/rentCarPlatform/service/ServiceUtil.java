@@ -14,7 +14,8 @@ public class ServiceUtil {
     }
 
     public static int getCountPages(double countRecords) {
-        return (int) Math.ceil((countRecords / Constant.LIMIT_RECORDS));
+        if (countRecords == 0) return 1;
+        else return (int) Math.ceil((countRecords / Constant.LIMIT_RECORDS));
     }
 
 }

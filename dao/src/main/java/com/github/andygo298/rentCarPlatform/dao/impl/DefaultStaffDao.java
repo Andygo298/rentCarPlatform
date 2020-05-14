@@ -2,6 +2,7 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
+import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
 
 public class DefaultStaffDao implements StaffDao {
@@ -112,6 +114,31 @@ public class DefaultStaffDao implements StaffDao {
 
     @Override
     public void delStaff(Long delStaffId) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Staff delStaff = session.get(Staff.class, delStaffId);
+            delStaff.setCar(new HashSet<>());
+            session.delete(delStaff);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
 
+    @Override
+    public void removeStaffFromCar(Long remCarId, Long remStaffId) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Car car = session.get(Car.class, remCarId);
+            Staff staff = session.get(Staff.class, remStaffId);
+
+            Staff staffToRem = car.getStaff().stream().filter(person -> person.equals(staff)).findFirst().orElse(null);
+            car.getStaff().remove(staffToRem);
+
+            Car carToRem = staff.getCar().stream().filter(carRem -> carRem.equals(car)).findFirst().orElse(null);
+            staff.getCar().remove(carToRem);
+
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

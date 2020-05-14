@@ -41,9 +41,8 @@ public class AddCarServlet extends HttpServlet {
                 .withYear(year_mfg)
                 .withPrice(day_price).build();
         carService.saveCar(newCar);
-        String lastPage = String.valueOf(ServiceUtil.getCountPages(carService.getCountRecordsFromCar()));
         log.info("addNewCar {} logged", newCar.toString());
         req.getSession().setAttribute("TEST", "TTT");
-        WebUtils.redirect("/homepage?page=" + lastPage, req, resp);
+        WebUtils.redirect("/homepage?page=1", req, resp);
     }
 }

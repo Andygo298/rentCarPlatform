@@ -22,8 +22,6 @@ import java.util.List;
 @WebServlet(urlPatterns = "/orders")
 public class OrdersServlet extends HttpServlet {
     private OrderService orderService = DefaultOrderService.getInstance();
-    private CarService carService = DefaultCarService.getInstance();
-    private UserService userService = DefaultUserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,10 +40,6 @@ public class OrdersServlet extends HttpServlet {
                 ? orderService.getOrders(page)
                 : orderService.getUserOrders(user.getId(), page);
 
-        //try 1
-
-
-
         List<OrderInfo> orderInfoList = orderService.buildOrdersInfo(orders);
 
         double countRecordsFromOrder = authUser.getRole().equals(Role.ADMIN)
@@ -53,8 +47,6 @@ public class OrdersServlet extends HttpServlet {
                 : orderService.getCountRecordsFromOrdersForUser(user.getId());
 
         int countPages = ServiceUtil.getCountPages(countRecordsFromOrder);
-
-
 
         req.setAttribute("orders", orderInfoList);
         req.setAttribute("countPages", countPages);

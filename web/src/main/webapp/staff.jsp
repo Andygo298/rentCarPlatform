@@ -4,13 +4,46 @@
 <head>
     <%@include file="bootstrap.jsp" %>
     <title>Staff list</title>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h3 {
+            margin: 20px 0;
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: default;
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .header-panel form {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+    </style>
 </head>
 <body>
+<div class="header-panel">
 <a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">LOGOUT</a>
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/maintenance">Back to maintenance</a>
 <form method="get" action="<c:url value='/createStaff'/>">
     <button type="submit" class="btn btn-primary">Create new worker</button>
 </form>
+</div>
 <h3>Staff list</h3>
 <c:if test="${applicationScope.staff != null}">
     <table class="table table-striped table-hover table-bordered">
@@ -39,9 +72,10 @@
                     </a>
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/delStaff?id=${staff.id}">
+                    <button onclick="handleDeleteClick(${staff.id})" class="btn btn-danger" data-toggle="modal"
+                            data-target="#exampleModal">
                         DELETE WORKER
-                    </a>
+                    </button>
                 </td>
             </tr>
         </c:forEach>
@@ -75,5 +109,32 @@
         </c:if>
     </ul>
 </nav>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center font-weight-bold">
+                Are you sure you want to delete this worker?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="deleteLink btn btn-danger"
+                   href="${pageContext.request.contextPath}/delStaff">
+                    DELETE WORKER
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handleDeleteClick(id) {
+        const link = document.querySelector(".deleteLink");
+        const path = link.getAttribute("href").split("?")[0];
+        link.setAttribute('href', path + "?id=" + id);
+    }
+</script>
+
 </body>
 </html>

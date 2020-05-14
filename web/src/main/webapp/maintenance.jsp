@@ -4,16 +4,57 @@
 <head>
     <%@include file="bootstrap.jsp" %>
     <title>Service page</title>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h3 {
+            margin: 20px 0;
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: default;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .header-panel form  {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .orderIcon {
+            position: absolute;
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-color: aquamarine;
+            font-weight: bold;
+            top: -15px;
+            right: -15px;
+            text-align: center;
+            line-height: 26px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-<a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">logout</a>
-<a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
+<div class="header-panel">
+    <a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">logout</a>
+    <a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
+    <form method="get" action="<c:url value='/staff'/>">
+        <button type="submit" class="btn btn-primary">Staff list</button>
+    </form>
+</div>
 <h3>SERVICE</h3>
-
-<form method="get" action="<c:url value='/staff'/>">
-    <button type="submit" class="btn btn-primary">Staff list</button>
-</form>
-
 <c:if test="${requestScope.cars != null}">
     <table class="table table-striped table-hover table-bordered">
         <tr>
@@ -44,12 +85,15 @@
                             <strong>First name:</strong> ${staff.firstName}
                             <strong>Last name:</strong> ${staff.lastName}
                             <strong>Spec:</strong> ${staff.specialization}
+                            <a href="${pageContext.request.contextPath}/removeSpec?remCarId=${car.id}&remSpecId=${staff.id}"
+                               class="btn btn-danger btn-sm active" role="button" aria-pressed="true">REMOVE
+                            </a>
                         </p>
                     </c:forEach>
                 </td>
                 <td>
                     <button onclick="handleClick(${car.id})" class="btn btn-primary" data-toggle="modal"
-                            data-target="#Modal">
+                            data-target="#ModalAdd">
                         ADD SPECIALIST
                     </button>
                 </td>
@@ -86,15 +130,15 @@
         </c:if>
     </ul>
 </nav>
-<!-- Modal -->
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- Modal Add Specialist-->
+<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form class="modal-content" action="<c:url value='/addSpecialist'/>" method="post">
                 <div class="form-group">
-                    <label for="FormControlSelect" style="font-weight: bold; font-size: 16px">CHOOSE PERSONS TO ADD</label>
+                    <label for="FormAddSelect" style="font-weight: bold; font-size: 16px">CHOOSE PERSONS TO ADD</label>
                     <input type="hidden" id="selectedCarId" name="selectedCarId">
-                    <select multiple name="specList" class="form-control" id="FormControlSelect">
+                    <select multiple name="specList" class="form-control" id="FormAddSelect">
                         <c:forEach items="${requestScope.staffAll}" var="staff">
                             <option value="${staff.id}">
                                 <strong>ID:</strong> ${staff.id}
@@ -118,5 +162,6 @@
         document.getElementById("selectedCarId").value = id;
     }
 </script>
+
 </body>
 </html>

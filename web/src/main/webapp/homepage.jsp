@@ -12,6 +12,11 @@
             margin: 20px 0;
         }
 
+        .header-panel form {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
         button:disabled {
             opacity: .5;
             cursor: default;
@@ -29,6 +34,7 @@
         }
 
         .ordersLink {
+            margin-right: 15px;
             position: relative;
         }
 
@@ -50,7 +56,7 @@
     </style>
 </head>
 
-<p class="header-panel">
+<div class="header-panel">
     <a class="ordersLink btn btn-primary" href="${pageContext.request.contextPath}/orders">
         <c:if test="${sessionScope.authUser.role eq 'ADMIN'}">
             ORDERS
@@ -61,15 +67,15 @@
         <span class="orderIcon">${requestScope.activeOrders}</span>
     </a>
     <a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">LOGOUT</a>
-</p>
-<c:if test="${sessionScope.authUser.role eq 'ADMIN'}">
-    <form method="get" action="<c:url value='/addNewCar'/>">
-        <button type="submit" class="btn btn-primary">Add NEW CAR</button>
-    </form>
-    <form method="get" action="<c:url value='/maintenance'/>">
-        <button type="submit" class="btn btn-primary">Maintenance</button>
-    </form>
-</c:if>
+    <c:if test="${sessionScope.authUser.role eq 'ADMIN'}">
+        <form method="get" action="<c:url value='/addNewCar'/>">
+            <button type="submit" class="btn btn-primary">ADD NEW CAR</button>
+        </form>
+        <form method="get" action="<c:url value='/maintenance'/>">
+            <button type="submit" class="btn btn-primary">Maintenance</button>
+        </form>
+    </c:if>
+</div>
 <h3>Car list</h3>
 
 

@@ -14,4 +14,5 @@ public interface StaffService {
     void editStaff(EditStaff staffToEdit);
     void delStaff(Long delStaffId);
     Staff getPersonById(Long staffId);
+    void removeStaffFromCar(Long remCarId, Long remStaffId);
 }

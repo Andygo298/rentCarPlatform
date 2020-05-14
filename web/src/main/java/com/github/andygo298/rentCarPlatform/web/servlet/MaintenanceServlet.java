@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.List;
 
 
+
 @WebServlet(urlPatterns = "/maintenance")
 public class MaintenanceServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(HomeServlet.class);
@@ -47,7 +48,6 @@ public class MaintenanceServlet extends HttpServlet {
         Cookie currentPage = new Cookie("currentPageMaintenance", Integer.toString(page));
         currentPage.setMaxAge(-1);
         resp.addCookie(currentPage);
-
 
         WebUtils.forward("maintenance", req, resp);
     }

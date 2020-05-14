@@ -6,7 +6,10 @@ import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class DefaultCarDao implements CarDao {
 
@@ -22,7 +25,7 @@ public class DefaultCarDao implements CarDao {
     public List<Car> getCars(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Car> query = session.createQuery("from Car", Car.class)
+            TypedQuery<Car> query = session.createQuery("from Car c order by c.id desc", Car.class)
                     .setFirstResult(skipRecords)
                     .setMaxResults(limitRecords);
             List<Car> resultList = query.getResultList();
@@ -100,6 +103,13 @@ public class DefaultCarDao implements CarDao {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Car delCar = session.get(Car.class, delCarId);
+            Set<Staff> staff = delCar.getStaff();
+
+            for (Staff staffPerson : staff) {
+                Car carRemove = staffPerson.getCar().stream().filter(carRem -> carRem.equals(delCar)).findFirst().orElse(null);
+                staffPerson.getCar().remove(carRemove);
+            }
+
             session.delete(delCar);
             session.getTransaction().commit();
             session.close();
