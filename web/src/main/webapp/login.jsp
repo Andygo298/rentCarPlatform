@@ -8,6 +8,8 @@
     <style>
         body {
             padding: 20px;
+            background-image: url("https://www.ecronicon.com/promotions/images/abg3.jpg");
+            background-size: 100%;
         }
 
         h3 {
@@ -35,7 +37,7 @@
         <button class="btn btn-primary btn-lg" type="submit">LOGIN</button>
     </form>
     <form method="get" action="<c:url value='/register'/>">
-        <button class="btn btn-outline-info btn-lg" type="submit">REGISTER</button>
+        <button class="btn btn-warning btn-lg" type="submit">REGISTER</button>
     </form>
     <p class="text-danger font-weight-bold">${requestScope.error}</p>
     <p class="text-success font-weight-bold">${requestScope.customMessage}</p>

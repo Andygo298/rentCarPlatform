@@ -1,13 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <head>
     <%@include file="bootstrap.jsp" %>
     <title>Homepage</title>
     <style>
         body {
             padding: 20px;
+            background-size: 100%;
+            opacity: 0.9;
         }
-
         h3 {
             margin: 20px 0;
         }
@@ -55,7 +57,7 @@
         }
     </style>
 </head>
-
+<body>
 <div class="header-panel">
     <a class="ordersLink btn btn-primary" href="${pageContext.request.contextPath}/orders">
         <c:if test="${sessionScope.authUser.role eq 'ADMIN'}">
@@ -206,4 +208,4 @@
     }
 </script>
 
-
+</body>

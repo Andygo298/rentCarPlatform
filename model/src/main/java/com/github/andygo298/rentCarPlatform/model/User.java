@@ -18,7 +18,6 @@ public class User {
     private Set<Payment> payments;
     private Set<Order> orders;
 
-
     public User() {
     }
 
@@ -70,7 +69,7 @@ public class User {
         this.email = email;
     }
 
-    @Column(name = "isBlocked", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "isBlocked", nullable = false)
     public boolean isBlocked() {
         return isBlocked;
     }

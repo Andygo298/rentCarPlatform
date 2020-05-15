@@ -1,5 +1,7 @@
 package com.github.andygo298.rentCarPlatform.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -90,7 +92,8 @@ public class Car {
         this.day_price = day_price;
     }
 
-    @Column(name = "isRent", columnDefinition="boolean default false")
+    @Type(type= "org.hibernate.type.NumericBooleanType")
+    @Column(name = "isRent", nullable = false)
     public boolean isIs_rent() {
         return is_rent;
     }

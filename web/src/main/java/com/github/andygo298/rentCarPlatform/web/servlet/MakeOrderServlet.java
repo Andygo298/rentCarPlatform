@@ -24,7 +24,6 @@ public class MakeOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String fg = req.getParameter("id");
         req.setAttribute("id", req.getParameter("id"));
         WebUtils.forward("makeOrder", req, resp);
     }

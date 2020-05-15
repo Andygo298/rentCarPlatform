@@ -7,6 +7,13 @@
         <property name="connection.url">jdbc:mysql://127.0.0.1:3306/</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
+<!--        cache 2 lvl-->
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        <property name="hibernate.cache.auto_evict_collection_cache">true</property>
+        <property name="net.sf.ehcache.configurationResourceName">ehcache.xml</property>
+
         <mapping class="com.github.andygo298.rentCarPlatform.model.User" />
         <mapping class="com.github.andygo298.rentCarPlatform.model.AuthUser" />
         <mapping class="com.github.andygo298.rentCarPlatform.model.Car" />
