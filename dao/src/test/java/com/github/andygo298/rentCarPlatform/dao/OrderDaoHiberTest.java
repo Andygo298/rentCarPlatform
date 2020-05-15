@@ -4,10 +4,10 @@ package com.github.andygo298.rentCarPlatform.dao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultOrderDao;
 import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
-import org.junit.jupiter.api.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 

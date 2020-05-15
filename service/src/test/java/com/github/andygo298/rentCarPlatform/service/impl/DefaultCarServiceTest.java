@@ -3,6 +3,8 @@ package com.github.andygo298.rentCarPlatform.service.impl;
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
+import com.github.andygo298.rentCarPlatform.model.Specialization;
+import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import org.junit.jupiter.api.Test;
@@ -94,6 +96,31 @@ class DefaultCarServiceTest {
         doNothing().when(carDao).saveCar(car);
         defaultCarService.saveCar(car);
         verify(carDao, times(1)).saveCar(car);
+    }
+    @Test
+    void saveStaffIntoCarTest(){
+        Car car = new Car.CarBuilder(null)
+                .withBrand("Renault")
+                .withModel("Arkana")
+                .withType("SUV")
+                .withYear("2019")
+                .build();
+        Staff staff1 = new Staff.StaffBuilder()
+                .withId(1L)
+                .withFirstName("Test1")
+                .withLastName("Testov1")
+                .withSpecialization(Specialization.MECHANIC)
+                .build();
+        Staff staff2 = new Staff.StaffBuilder()
+                .withId(3L)
+                .withFirstName("Test3")
+                .withLastName("Testov3")
+                .withSpecialization(Specialization.CLEANER)
+                .build();
+        List<Staff> staff = Arrays.asList(staff1, staff2);
+        doNothing().when(carDao).saveStaffIntoCar(car,staff);
+        defaultCarService.saveStaffIntoCar(car,staff);
+        verify(carDao,times(1)).saveStaffIntoCar(car,staff);
     }
 
     @Test

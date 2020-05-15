@@ -21,4 +21,11 @@ class ServiceUtilTest {
         int actualCountPages = ServiceUtil.getCountPages(records);
         assertEquals(expCountPages,actualCountPages);
     }
+    @Test
+    void getCountPagesWhenRecordsZero(){
+        double records = 0;
+        int expCountPages = 1;
+        int actualCountPages = ServiceUtil.getCountPages(records);
+        assertEquals(expCountPages,actualCountPages);
+    }
 }

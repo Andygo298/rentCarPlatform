@@ -6,8 +6,6 @@ import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 

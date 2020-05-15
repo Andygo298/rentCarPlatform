@@ -35,7 +35,7 @@ class DefaultUserServiceTest {
     }
 
     @Test
-    void testUserById() {
+        void testUserById() {
         User mockUser = new User(2L,"Ivan","Ivanov","iva@gmail.com",false);
         when(defaultUserDao.getUserById((long) 2)).thenReturn(mockUser);
         User user = defaultUserService.getUserById(2L);

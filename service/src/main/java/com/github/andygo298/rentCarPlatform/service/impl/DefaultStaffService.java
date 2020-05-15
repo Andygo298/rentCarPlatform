@@ -3,7 +3,6 @@ package com.github.andygo298.rentCarPlatform.service.impl;
 import com.github.andygo298.rentCarPlatform.dao.Constant;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
-import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;

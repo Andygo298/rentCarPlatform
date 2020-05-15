@@ -81,6 +81,11 @@ public class Staff {
             newStaff = new Staff();
         }
 
+        public Staff.StaffBuilder withId(Long id){
+            newStaff.id = id;
+            return this;
+        }
+
         public Staff.StaffBuilder withFirstName(String firstName) {
             newStaff.firstName = firstName;
             return this;

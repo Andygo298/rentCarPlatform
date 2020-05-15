@@ -1,6 +1,5 @@
 package com.github.andygo298.rentCarPlatform.service;
 
-import com.github.andygo298.rentCarPlatform.dao.Constant;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.OrderInfo;
 import com.github.andygo298.rentCarPlatform.model.OrderStatus;

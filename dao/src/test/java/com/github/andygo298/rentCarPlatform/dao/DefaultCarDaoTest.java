@@ -1,18 +1,25 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
+import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.EditCar;
+import com.github.andygo298.rentCarPlatform.model.Specialization;
+import com.github.andygo298.rentCarPlatform.model.Staff;
 import org.hibernate.Session;
 import org.junit.jupiter.api.*;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DefaultCarDaoTest {
 
     final CarDao carDao = DefaultCarDao.getInstance();
+    final StaffDao staffDao = DefaultStaffDao.getInstance();
 
     @BeforeAll
     public static void init() {
@@ -50,6 +57,24 @@ public class DefaultCarDaoTest {
     @Test
     void saveCarTest() {
         final Car newCar = new Car.CarBuilder(null)
+                .withBrand("Opel")
+                .withModel("Vectra")
+                .withType("Sedan")
+                .withYear("2001")
+                .withImg("google.com")
+                .withPrice(78)
+                .build();
+        carDao.saveCar(newCar);
+        long idCarActual = carDao.getCarIdByBrandAndModelForTest(newCar.getBrand(), newCar.getModel());
+        Car expCar = carDao.getCarById(idCarActual);
+        assertEquals(expCar.getBrand(), "Opel");
+        assertEquals(expCar.getModel(), "Vectra");
+        assertEquals(expCar.getType(), "Sedan");
+        assertFalse(expCar.isIs_rent());
+    }
+    @Test
+    void saveStaffIntoCarTest(){
+        Car car = new Car.CarBuilder(null)
                 .withBrand("Renault")
                 .withModel("Arkana")
                 .withType("SUV")
@@ -57,13 +82,28 @@ public class DefaultCarDaoTest {
                 .withImg("google.com")
                 .withPrice(78)
                 .build();
-        carDao.saveCar(newCar);
-        long idCarActual = carDao.getCarIdByBrandAndModelForTest(newCar.getBrand(), newCar.getModel());
+        Staff staff1 = new Staff.StaffBuilder()
+                .withFirstName("Test1")
+                .withLastName("Testov1")
+                .withSpecialization(Specialization.CLEANER)
+                .build();
+        Staff staff2 = new Staff.StaffBuilder()
+                .withFirstName("Test2")
+                .withLastName("Testov2")
+                .withSpecialization(Specialization.DRIVER)
+                .build();
+        carDao.saveCar(car);
+        staffDao.saveStaff(staff1);
+        staffDao.saveStaff(staff2);
+
+        List<Staff> staffList = Arrays.asList(staff1, staff2);
+        carDao.saveStaffIntoCar(car,staffList);
+        long idCarActual = carDao.getCarIdByBrandAndModelForTest(car.getBrand(), car.getModel());
         Car expCar = carDao.getCarById(idCarActual);
-        assertEquals(expCar.getBrand(), "Renault");
-        assertEquals(expCar.getModel(), "Arkana");
-        assertEquals(expCar.getType(), "SUV");
-        assertFalse(expCar.isIs_rent());
+        Set<Staff> staff = expCar.getStaff();
+        assertNotNull(staff);
+        Iterator<Staff> iterator = staff.iterator();
+        assertEquals(staff.size(),staffList.size());
     }
 
     @Test
@@ -102,8 +142,8 @@ public class DefaultCarDaoTest {
     @Test
     void getCarsTest() {
         List<Car> actualListCars = carDao.getCars(0, 10);
-        String expModel = "Arkana";
-        String expYearMfg = "2019";
+        String expModel = "Vectra";
+        String expYearMfg = "2001";
         String expImgUrl = "google.com";
         assertEquals(expModel, actualListCars.get(0).getModel());
         assertEquals(expYearMfg, actualListCars.get(0).getYear_mfg());
