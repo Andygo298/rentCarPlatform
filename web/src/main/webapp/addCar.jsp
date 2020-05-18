@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: DELL
-  Date: 10.04.2020
-  Time: 11:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -24,7 +17,7 @@
 <body>
 <a class="btn btn-primary float-right" href="${pageContext.request.contextPath}/logout">logout</a>
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/homepage">Back to homepage</a>
-<h3>PAYMENT</h3>
+<h3>ADD NEW CAR</h3>
 <form action="${pageContext.request.contextPath}/addNewCar" method="post">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="brand">Brand name</label>

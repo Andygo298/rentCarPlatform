@@ -1,14 +1,20 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.DataSource;
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Role;
 
-import java.sql.*;
+import org.hibernate.Hibernate;
+import org.hibernate.NonUniqueResultException;
+import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.persistence.Query;
 
 public class DefaultAuthUserDao implements AuthUserDao {
 
+    private static final Logger log = LoggerFactory.getLogger(DefaultAuthUserDao.class);
 
     private static class SingletonHolder {
         static final AuthUserDao HOLDER_INSTANCE = new DefaultAuthUserDao();
@@ -20,42 +26,32 @@ public class DefaultAuthUserDao implements AuthUserDao {
 
     @Override
     public AuthUser getByLogin(String login) {
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from auth_user where login = ?")) {
-            ps.setString(1, login);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new AuthUser(
-                            rs.getLong("id"),
-                            rs.getString("login"),
-                            rs.getString("password"),
-                            Role.valueOf(rs.getString("role")),
-                            rs.getLong("user_id"));
-                } else {
-                    return null;
-                }
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Query query = session.createQuery("from AuthUser au where au.login in :userLog");
+            query.setParameter("userLog", login);
+                Object getAuthUser;
+            try {
+                getAuthUser = query.getSingleResult();
+            } catch (NonUniqueResultException e) {
+                return null;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            session.getTransaction().commit();
+            session.close();
+            return (AuthUser) getAuthUser;
         }
     }
 
+
     @Override
     public long saveAuthUser(AuthUser user) {
-        final String sql = "insert into auth_user(login, password, role, user_id) values(?,?,?,?)";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getRole().name());
-            ps.setLong(4, user.getUserId());
-            ps.executeUpdate();
-            try (ResultSet keys = ps.getGeneratedKeys()) {
-                keys.next();
-                return keys.getLong(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            session.saveOrUpdate(user);
+            long id = user.getId();
+            session.getTransaction().commit();
+            session.close();
+            return id;
         }
     }
 }

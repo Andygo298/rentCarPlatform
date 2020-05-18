@@ -1,10 +1,15 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
+import com.github.andygo298.rentCarPlatform.dao.CarDao;
+import com.github.andygo298.rentCarPlatform.dao.Constant;
+import com.github.andygo298.rentCarPlatform.dao.OrderDao;
+import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultOrderDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.*;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
+import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +21,9 @@ import java.util.List;
 
 public class DefaultOrderService implements OrderService {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderService.class);
+    private OrderDao orderDao = DefaultOrderDao.getInstance();
+    private CarDao carDao = DefaultCarDao.getInstance();
+    private UserDao userDao = DefaultUserDao.getInstance();
 
     private static class SingletonHolder {
         static final OrderService HOLDER_INSTANCE = new DefaultOrderService();
@@ -28,50 +36,60 @@ public class DefaultOrderService implements OrderService {
     @Override
     public Double calculateOrderPrice(String startDate, String endDate, Long carId) {
         Integer daysCount = getPeriod(startDate, endDate);
-        return calculateOrderPrice(daysCount, carId);
+        Car car = carDao.getCarById(carId);
+        log.info("calc. Order price {} {} = {}", daysCount, carId, car.getDay_price() * daysCount);
+        return car.getDay_price() * daysCount;
+
     }
 
     @Override
     public Long saveOrder(Order order) {
-        Long orderId = DefaultOrderDao.getInstance().saveOrder(order);
-        if (orderId != null) {
-            DefaultCarDao.getInstance().changeRentStatus(order.getCarId(), true);
-        }
-        return orderId;
+        return orderDao.saveOrder(order);
     }
 
     @Override
     public Integer getOrdersByStatus(OrderStatus status) {
-        return DefaultOrderDao.getInstance().getOrdersByStatus(status);
+        return orderDao.getOrdersByStatus(status);
     }
 
     @Override
     public Integer getUserOrdersByStatus(OrderStatus status, Long userId) {
-        return DefaultOrderDao.getInstance().getUserOrdersByStatus(status, userId);
+        return orderDao.getUserOrdersByStatus(status, userId);
     }
 
 
     @Override
-    public List<Order> getUserOrders(Long userId) {
-        return DefaultOrderDao.getInstance().getOrdersByUserId(userId);
+    public List<Order> getUserOrders(Long userId, int page) {
+        return orderDao.getOrdersByUserId(userId, ServiceUtil.getSkipRecords(page), Constant.LIMIT_RECORDS);
     }
 
     @Override
-    public List<Order> getOrders() {
-        return DefaultOrderDao.getInstance().getOrders();
+    public List<Order> getOrders(int page) {
+        return orderDao.getOrders(ServiceUtil.getSkipRecords(page), Constant.LIMIT_RECORDS);
+    }
+
+
+    @Override
+    public int getCountRecordsFromOrders() {
+        return orderDao.getCountRecordsFromOrders();
+    }
+
+    @Override
+    public int getCountRecordsFromOrdersForUser(Long userId) {
+        return orderDao.getCountRecordsFromOrdersForUser(userId);
     }
 
     @Override
     public Double getOrderPriceById(Long orderId) {
-        return DefaultOrderDao.getInstance().getOrderPriceById(orderId);
+        return orderDao.getOrderPriceById(orderId);
     }
 
     @Override
     public List<OrderInfo> buildOrdersInfo(List<Order> orders) {
         final List<OrderInfo> orderInfoList = new ArrayList<>();
         for (Order order : orders) {
-            Car car = DefaultCarDao.getInstance().getCarById(order.getCarId());
-            User user = DefaultUserDao.getInstance().getUserById(order.getUserId());
+            Car car = carDao.getCarById(order.getCarId());
+            User user = userDao.getUserById(order.getUserId());
             OrderInfo info = new OrderInfo.OrderInfoBuilder(order.getId())
                     .withCarInfo(car.getModel(), car.getBrand())
                     .withUserInfo(user.getFirstName(), user.getLastName())
@@ -86,13 +104,15 @@ public class DefaultOrderService implements OrderService {
 
     @Override
     public void setOrderStatus(Long orderId, OrderStatus orderStatus) {
-        DefaultOrderDao.getInstance().setOrderStatus(orderId, orderStatus);
+        orderDao.setOrderStatus(orderId, orderStatus);
     }
 
     @Override
     public Long getCarIdByOrder(Long orderId) {
-        return DefaultOrderDao.getInstance().getCarIdByOrder(orderId);
+        return orderDao.getCarIdByOrder(orderId);
     }
+
+    //private methods
 
     private Integer getPeriod(String startDate, String endDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -102,9 +122,4 @@ public class DefaultOrderService implements OrderService {
         return period.getDays() == 0 ? 1 : period.getDays();
     }
 
-    private Double calculateOrderPrice(Integer days, Long carId) {
-        Car car = DefaultCarDao.getInstance().getCarById(carId);
-        log.info("calc. Order price {} {} = {}", days, carId, car.getDay_price() * days);
-        return car.getDay_price() * days;
-    }
 }

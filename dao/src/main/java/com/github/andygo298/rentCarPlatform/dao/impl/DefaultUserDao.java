@@ -24,7 +24,8 @@ public class DefaultUserDao implements UserDao {
     public List<User> getUsers() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<User> query = session.createQuery("from User", User.class);
+            TypedQuery<User> query = session.createQuery("from User", User.class)
+                    .setCacheable(true);
             List<User> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();

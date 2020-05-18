@@ -1,6 +1,8 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
+import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.User;
+import com.github.andygo298.rentCarPlatform.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -29,9 +31,10 @@ public class SFUtil {
         settings.put(Environment.URL, resource.getString("url"));
         settings.put(Environment.USER, resource.getString("user"));
         settings.put(Environment.PASS, resource.getString("password"));
+        settings.put(Environment.DIALECT,resource.getString("mySQL_5"));
         settings.put(Environment.HBM2DDL_AUTO, resource.getString("hbm2ddl_auto_type"));
         settings.put(Environment.SHOW_SQL, "true");
-        settings.put(Environment.USE_SQL_COMMENTS, "false");
+        settings.put(Environment.USE_SQL_COMMENTS, "true");
         settings.put(Environment.FORMAT_SQL, "false");
         settings.put(Environment.ISOLATION, "2");
         settings.put(Environment.STORAGE_ENGINE, "innodb");
@@ -41,13 +44,25 @@ public class SFUtil {
         settings.put(Environment.C3P0_TIMEOUT, "1800");
         settings.put(Environment.C3P0_MAX_STATEMENTS, "150");
         settings.put(Environment.C3P0_CONFIG_PREFIX + ".initialPoolSize", "5");
+        Configuration configuration = new Configuration();
+        configuration.addAnnotatedClass(User.class)
+                .addAnnotatedClass(AuthUser.class)
+                .addAnnotatedClass(Car.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(Staff.class)
+                .addAnnotatedClass(Payment.class);
         // Apply settings
         serviceRegistryBuilder.applySettings(settings);
         // Create registry
         ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
         // Create MetadataSources
         MetadataSources sources = new MetadataSources(serviceRegistry);
-        sources.addAnnotatedClass(User.class);
+        sources.addAnnotatedClass(User.class)
+                .addAnnotatedClass(AuthUser.class)
+                .addAnnotatedClass(Car.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(Staff.class)
+                .addAnnotatedClass(Payment.class);
         // Create Metadata
         Metadata metadata = sources.getMetadataBuilder().build();
         // Create SessionFactory

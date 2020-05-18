@@ -7,14 +7,16 @@ import com.github.andygo298.rentCarPlatform.model.OrderStatus;
 import java.util.List;
 
 public interface OrderService {
-    Double calculateOrderPrice(String startDate,String endDate,Long carId);
+    Double calculateOrderPrice(String startDate, String endDate, Long carId);
     Long saveOrder(Order order);
     Integer getOrdersByStatus(OrderStatus status);
-    List<Order> getUserOrders(Long userId);
-    List<Order> getOrders();
+    List<Order> getUserOrders(Long userId, int page);
+    List<Order> getOrders(int page);
+    int getCountRecordsFromOrders();
+    int getCountRecordsFromOrdersForUser(Long userId);
     Double getOrderPriceById(Long orderId);
     List<OrderInfo> buildOrdersInfo(List<Order> orders);
-    void setOrderStatus(Long orderId,OrderStatus orderStatus);
+    void setOrderStatus(Long orderId, OrderStatus orderStatus);
     Long getCarIdByOrder(Long orderId);
     Integer getUserOrdersByStatus(OrderStatus status, Long userId);
 

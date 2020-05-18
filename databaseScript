@@ -38,7 +38,7 @@ create table orders
     status      varchar(64)  not null,
     order_price double default 0.0,
     constraint orders_user_id_fk foreign key (user_id) references user (id),
-    constraint orders_cars_id_fk foreign key (cars_id) references cars (id)
+    constraint orders_cars_id_fk foreign key (cars_id) references cars (car_id)
 );
 create table payment
 (
@@ -55,7 +55,7 @@ create table broken_cars
     id      bigint(64) auto_increment primary key,
     reason  varchar(800) default '',
     cars_id bigint(64) not null,
-    constraint broken_cars_cars_id_fk foreign key (cars_id) references cars (id)
+    constraint broken_cars_cars_id_fk foreign key (cars_id) references cars (car_id)
 );
 
 insert into user(first_name, last_name, email, isBlocked)

@@ -2,6 +2,7 @@ package com.github.andygo298.rentCarPlatform.web.servlet;
 
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.service.CarService;
+import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultCarService;
 import com.github.andygo298.rentCarPlatform.web.WebUtils;
 import org.slf4j.Logger;
@@ -40,8 +41,8 @@ public class AddCarServlet extends HttpServlet {
                 .withYear(year_mfg)
                 .withPrice(day_price).build();
         carService.saveCar(newCar);
-        log.info("addNewCar {} logged",newCar.toString());
-        req.getSession().setAttribute("TEST","TTT");
-        WebUtils.redirect("/homepage",req, resp);
+        log.info("addNewCar {} logged", newCar.toString());
+        req.getSession().setAttribute("TEST", "TTT");
+        WebUtils.redirect("/homepage?page=1", req, resp);
     }
 }

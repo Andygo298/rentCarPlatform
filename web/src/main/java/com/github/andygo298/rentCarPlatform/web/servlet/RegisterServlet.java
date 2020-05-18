@@ -25,6 +25,7 @@ public class RegisterServlet extends HttpServlet {
     private SecurityService securityService = DefaultSecurityService.getInstance();
     private UserService userService = DefaultUserService.getInstance();
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebUtils.forward("register", req, resp);
@@ -40,11 +41,12 @@ public class RegisterServlet extends HttpServlet {
         AuthUser authUser = securityService.login(login,password);
         if (authUser != null) {
             req.setAttribute("error","This user already exists");
-            WebUtils.forward("register", req, resp);
+            WebUtils.forward("/register", req, resp);
+            return;
         }
         long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
         log.info("user created:{} at {}", userId, LocalDateTime.now());
-        userService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userId));
+        Long idAuthUser = securityService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userService.getUserById(userId)));
         req.setAttribute("customMessage","Thanks for registration.");
         req.setAttribute("customMessage2","You can Sign In using your login and password.");
         WebUtils.forward("login", req, resp);

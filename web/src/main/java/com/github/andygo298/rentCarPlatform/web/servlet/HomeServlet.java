@@ -6,6 +6,7 @@ import com.github.andygo298.rentCarPlatform.model.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.Role;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
+import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultCarService;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultOrderService;
 import com.github.andygo298.rentCarPlatform.web.WebUtils;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,12 +30,27 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Car> cars = carService.getCars();
+        int page = req.getParameter("page") != null
+                ? Integer.parseInt(req.getParameter("page"))
+                : 1;
+
+        double countRecordsFromCar = carService.getCountRecordsFromCar();
+        int countPages = ServiceUtil.getCountPages(countRecordsFromCar);
+
+        Cookie currentPage = new Cookie("currentPageCar", Integer.toString(page));
+        currentPage.setMaxAge(-1);
+        resp.addCookie(currentPage);
+
+        List<Car> cars = carService.getCars(page);
+
         req.setAttribute("cars", cars);
+        req.setAttribute("countPages",countPages);
+        req.setAttribute("currentPageCar",page);
+
         AuthUser user = (AuthUser) req.getSession().getAttribute("authUser");
         Integer activeOrders = user.getRole().equals(Role.ADMIN)
                 ? orderService.getOrdersByStatus(OrderStatus.IN_PROGRESS)
-                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUserId());
+                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUser().getId());
 
         req.setAttribute("activeOrders", activeOrders);
         WebUtils.forward("homepage", req, resp);

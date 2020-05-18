@@ -38,11 +38,11 @@ public class LoginServlet extends HttpServlet {
         AuthUser user = securityService.login(login, password);
         if (user == null) {
             rq.setAttribute("error", "Login or password invalid");
-            WebUtils.forward("/login", rq, rs);
+            WebUtils.forward("login", rq, rs);
             return;
         }
         log.info("user {} logged", user.getLogin());
-        User currentUser = userService.getUserById(user.getUserId());
+        User currentUser = userService.getUserById(user.getUser().getId());
         rq.getSession().setAttribute("authUser", user);
         rq.getSession().setAttribute("activeUser", currentUser);
         WebUtils.redirect("/homepage", rq, rs);

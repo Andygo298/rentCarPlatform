@@ -1,15 +1,18 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.ConverterDate;
-import com.github.andygo298.rentCarPlatform.dao.DataSource;
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.OrderStatus;
+import org.hibernate.Session;
 
-
-import java.sql.*;
-import java.util.ArrayList;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DefaultOrderDao implements OrderDao {
     private static class SingletonHolder {
@@ -22,169 +25,138 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public Long saveOrder(Order order) {
-        Date dateStart = ConverterDate.stringToDate(order.getStartDate());
-        Date dateEnd = ConverterDate.stringToDate(order.getEndDate());
-
-        final String sql = "insert into orders(passport, phone, start_date, end_date, " +
-                "cars_id, user_id, status, order_price) values(?,?,?,?,?,?,?,?)";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, order.getPassport());
-            ps.setString(2, order.getPhone());
-            ps.setDate(3, dateStart);
-            ps.setDate(4, dateEnd);
-            ps.setLong(5, order.getCarId());
-            ps.setLong(6, order.getUserId());
-            ps.setString(7, order.getOrderStatus().name());
-            ps.setDouble(8, order.getOrderPrice());
-            ps.executeUpdate();
-            try (ResultSet keys = ps.getGeneratedKeys()) {
-                keys.next();
-                return keys.getLong(1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            session.saveOrUpdate(order);
+            Long id = order.getId();
+            session.getTransaction().commit();
+            session.close();
+            return id;
         }
     }
 
     @Override
     public Integer getOrdersByStatus(OrderStatus status) {
-        final String sql = "select count(orders.status) from orders where status=?";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, status.name());
-            try (ResultSet rs = ps.executeQuery()) {
-                int count = 0;
-                while (rs.next()) {
-                    count = rs.getInt(1);
-                }
-                return count;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Object ordSt = session.createQuery
+                    ("select count (o.orderStatus) from Order o where o.orderStatus=:ordSt")
+                    .setParameter("ordSt", status)
+                    .getSingleResult();
+            session.getTransaction().commit();
+            session.close();
+            return Math.toIntExact((Long) ordSt);
         }
     }
 
     @Override
     public Integer getUserOrdersByStatus(OrderStatus status, Long userId) {
-        final String sql = "select count(orders.status) from orders where status=? and user_id=?";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, status.name());
-            ps.setLong(2, userId);
-            try (ResultSet rs = ps.executeQuery()) {
-                int count = 0;
-                while (rs.next()) {
-                    count = rs.getInt(1);
-                }
-                return count;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Object ordSt = session.createQuery
+                    ("select count (o.orderStatus) from Order o where o.orderStatus=:ordSt and o.userId=:userId")
+                    .setParameter("ordSt", status)
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+            session.getTransaction().commit();
+            session.close();
+            return Math.toIntExact((Long) ordSt);
+        }
+    }
+
+    //criteria api and pagination
+    @Override
+    public List<Order> getOrdersByUserId(Long userId, int skipRecords, int limitRecords) {
+        try (Session session = SFUtil.getSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
+            Root<Order> orderRoot = criteria.from(Order.class);
+            criteria.select(orderRoot)
+                    .where(cb.equal(orderRoot.get("userId"), userId))
+                    .orderBy(cb.desc(orderRoot.get("id")));
+            return session.createQuery(criteria)
+                    .setFirstResult(skipRecords)
+                    .setMaxResults(limitRecords)
+                    .getResultList();
         }
     }
 
     @Override
-    public List<Order> getOrdersByUserId(Long userId) {
-        final String sql = "select * from orders where user_id=?";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setLong(1, userId);
-            return getOrdersList(ps);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    public List<Order> getOrders(int skipRecords, int limitRecords) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            TypedQuery<Order> query = session.createQuery("from Order o order by o.orderStatus desc ", Order.class)
+                    .setFirstResult(skipRecords)
+                    .setMaxResults(limitRecords);
+            List<Order> resultList = query.getResultList();
+            session.getTransaction().commit();
+            session.close();
+            return resultList;
         }
     }
 
     @Override
-    public List<Order> getOrders() {
-        final String sql = "select * from orders";
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            return getOrdersList(ps);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    public int getCountRecordsFromOrders() {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            TypedQuery<Order> query = session.createQuery("from Order ", Order.class);
+            int resultCount = query.getResultList().size();
+            session.getTransaction().commit();
+            session.close();
+            return resultCount;
         }
+
+    }
+
+    @Override
+    public int getCountRecordsFromOrdersForUser(Long userId) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            TypedQuery<Order> query = session.createQuery("from Order o where o.userId in :userId", Order.class)
+                    .setParameter("userId", userId);
+            int resultCount = query.getResultList().size();
+            session.getTransaction().commit();
+            session.close();
+            return resultCount;
+        }
+
     }
 
     @Override
     public Double getOrderPriceById(Long orderId) {
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select * from orders where id = ?")) {
-            ps.setLong(1, orderId);
-            try (ResultSet rs = ps.executeQuery()) {
-                Double orderPrice = null;
-                while (rs.next()) {
-                    orderPrice = rs.getDouble("order_price");
-                }
-                return orderPrice;
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Order getPriceOrder =
+                    (Order) (session.createQuery("from Order o where o.id in :orderId")
+                            .setParameter("orderId", orderId)
+                            .getSingleResult());
+            session.getTransaction().commit();
+            session.close();
+            return getPriceOrder.getOrderPrice();
         }
-
     }
 
     @Override
     public void setOrderStatus(Long orderId, OrderStatus orderStatus) {
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("update orders set status=? where id = ?")) {
-            ps.setString(1, orderStatus.name());
-            ps.setLong(2, orderId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Order order = session.get(Order.class, orderId);
+            order.setOrderStatus(orderStatus);
+            session.getTransaction().commit();
+            session.close();
         }
     }
 
     @Override
     public Long getCarIdByOrder(Long orderId) {
-        try (Connection connection = DataSource.getInstance().getConnection();
-             PreparedStatement ps = connection.prepareStatement("select cars_id from orders where cars_id = ?")) {
-            ps.setLong(1, orderId);
-            try (ResultSet rs = ps.executeQuery()) {
-                Long carId = null;
-                while (rs.next()) {
-                    carId = rs.getLong(1);
-                }
-                return carId;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    private List<Order> getOrdersList(PreparedStatement ps) {
-        try (ResultSet rs = ps.executeQuery()) {
-            final List<Order> orderList = new ArrayList<>();
-            while (rs.next()) {
-                final Order order = getOrderInstance(rs);
-                orderList.add(order);
-            }
-            return orderList;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Order order = (Order) session.createQuery("from Order o where o.id in :orderId")
+                    .setParameter("orderId", orderId)
+                    .getSingleResult();
+            session.getTransaction().commit();
+            session.close();
+            return order.getCarId();
         }
     }
-
-
-    private Order getOrderInstance(ResultSet rs) throws SQLException {
-        Long carId = rs.getLong("cars_id");
-        Long userId = rs.getLong("user_id");
-        String start = ConverterDate.dateToString(rs.getDate("start_date"));
-        String end = ConverterDate.dateToString(rs.getDate("end_date"));
-        return new Order.OrderBuilder(carId, userId)
-                .withId(rs.getLong("id"))
-                .withPassport(rs.getString("passport"))
-                .withDates(start, end)
-                .withTelephone(rs.getString("phone"))
-                .withPrice(rs.getDouble("order_price"))
-                .withStatus(OrderStatus.valueOf(rs.getString("status")))
-                .build();
-    }
-
-
 }
