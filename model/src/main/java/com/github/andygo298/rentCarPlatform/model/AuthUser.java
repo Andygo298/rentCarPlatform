@@ -1,8 +1,12 @@
 package com.github.andygo298.rentCarPlatform.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "auth_user")
 public class AuthUser {
 

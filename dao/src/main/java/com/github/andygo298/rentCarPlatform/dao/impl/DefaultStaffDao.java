@@ -67,7 +67,7 @@ public class DefaultStaffDao implements StaffDao {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             TypedQuery<Staff> query = session.createQuery("from Staff s where s.id in (:staffIds)", Staff.class)
-                    .setParameterList("staffIds",staffListIds);
+                    .setParameterList("staffIds", staffListIds);
             List<Staff> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
@@ -131,10 +131,18 @@ public class DefaultStaffDao implements StaffDao {
             Car car = session.get(Car.class, remCarId);
             Staff staff = session.get(Staff.class, remStaffId);
 
-            Staff staffToRem = car.getStaff().stream().filter(person -> person.equals(staff)).findFirst().orElse(null);
+            Staff staffToRem = car.getStaff()
+                    .stream()
+                    .filter(person -> person.getId().equals(staff.getId()))
+                    .findFirst()
+                    .orElse(null);
             car.getStaff().remove(staffToRem);
 
-            Car carToRem = staff.getCar().stream().filter(carRem -> carRem.equals(car)).findFirst().orElse(null);
+            Car carToRem = staff.getCar()
+                    .stream()
+                    .filter(carRem -> carRem.equals(car))
+                    .findFirst()
+                    .orElse(null);
             staff.getCar().remove(carToRem);
 
             session.getTransaction().commit();

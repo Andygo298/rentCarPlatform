@@ -81,6 +81,7 @@ public class DefaultCarDao implements CarDao {
             car.setYear_mfg(editCar.getYear_mfg());
             car.setImg_url(editCar.getImg_url());
             car.setDay_price(editCar.getDay_price());
+            session.saveOrUpdate(car);
             session.getTransaction().commit();
             session.close();
         }
@@ -104,7 +105,11 @@ public class DefaultCarDao implements CarDao {
             Set<Staff> staff = delCar.getStaff();
 
             for (Staff staffPerson : staff) {
-                Car carRemove = staffPerson.getCar().stream().filter(carRem -> carRem.equals(delCar)).findFirst().orElse(null);
+                Car carRemove = staffPerson.getCar()
+                        .stream()
+                        .filter(carRem -> carRem.equals(delCar))
+                        .findFirst()
+                        .orElse(null);
                 staffPerson.getCar().remove(carRemove);
             }
 

@@ -4,6 +4,8 @@ import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 
+import org.hibernate.Hibernate;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +30,15 @@ public class DefaultAuthUserDao implements AuthUserDao {
             session.beginTransaction();
             Query query = session.createQuery("from AuthUser au where au.login in :userLog");
             query.setParameter("userLog", login);
-            Object getAuthUser = query.getSingleResult();
+                Object getAuthUser;
+            try {
+                getAuthUser = query.getSingleResult();
+            } catch (NonUniqueResultException e) {
+                return null;
+            }
             session.getTransaction().commit();
             session.close();
             return (AuthUser) getAuthUser;
-        } catch (RuntimeException e) {
-            return null;
         }
     }
 
