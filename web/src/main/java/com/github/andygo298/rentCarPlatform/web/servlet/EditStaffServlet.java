@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
-import com.github.andygo298.rentCarPlatform.model.EditStaff;
+import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.StaffService;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultStaffService;

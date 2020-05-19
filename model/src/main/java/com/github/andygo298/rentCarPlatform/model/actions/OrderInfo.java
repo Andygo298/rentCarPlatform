@@ -1,4 +1,6 @@
-package com.github.andygo298.rentCarPlatform.model;
+package com.github.andygo298.rentCarPlatform.model.actions;
+
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 
 import java.time.LocalDate;
 

@@ -1,5 +1,6 @@
 package com.github.andygo298.rentCarPlatform.model;
 
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;

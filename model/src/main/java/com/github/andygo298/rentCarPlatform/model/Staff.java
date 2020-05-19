@@ -1,5 +1,7 @@
 package com.github.andygo298.rentCarPlatform.model;
 
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

@@ -1,10 +1,9 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
-import com.github.andygo298.rentCarPlatform.dao.SFUtil;
-import com.github.andygo298.rentCarPlatform.model.Car;
+import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.Order;
-import com.github.andygo298.rentCarPlatform.model.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -12,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DefaultOrderDao implements OrderDao {
     private static class SingletonHolder {

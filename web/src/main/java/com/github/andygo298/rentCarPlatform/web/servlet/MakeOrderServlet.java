@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
-import com.github.andygo298.rentCarPlatform.dao.ConverterDate;
+import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.User;

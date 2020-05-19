@@ -1,8 +1,9 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
+import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Role;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
 import org.hibernate.Session;
 import org.junit.jupiter.api.AfterAll;

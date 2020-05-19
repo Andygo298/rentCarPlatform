@@ -2,8 +2,8 @@ package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
-import com.github.andygo298.rentCarPlatform.model.EditCar;
-import com.github.andygo298.rentCarPlatform.model.Specialization;
+import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;

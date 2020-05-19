@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
-import com.github.andygo298.rentCarPlatform.model.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.service.OrderService;

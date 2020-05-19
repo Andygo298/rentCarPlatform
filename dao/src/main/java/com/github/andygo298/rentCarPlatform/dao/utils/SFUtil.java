@@ -1,4 +1,4 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package com.github.andygo298.rentCarPlatform.dao.utils;
 
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.User;

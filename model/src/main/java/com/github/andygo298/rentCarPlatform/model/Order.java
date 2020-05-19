@@ -1,6 +1,8 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 

@@ -1,8 +1,9 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
-import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.*;
+import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;

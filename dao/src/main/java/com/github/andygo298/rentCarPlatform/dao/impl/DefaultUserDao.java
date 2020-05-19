@@ -1,7 +1,7 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 
-import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.model.User;
 import org.hibernate.Session;

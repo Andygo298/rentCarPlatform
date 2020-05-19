@@ -1,10 +1,10 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.ConverterDate;
+import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
-import com.github.andygo298.rentCarPlatform.model.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
 import org.junit.jupiter.api.Test;
