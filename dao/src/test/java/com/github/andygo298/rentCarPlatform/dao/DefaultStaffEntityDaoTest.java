@@ -1,6 +1,5 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
@@ -16,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class DefaultStaffDaoTest {
+public class DefaultStaffEntityDaoTest {
 
     final CarDao carDao = DefaultCarDao.getInstance();
     final StaffDao staffDao = DefaultStaffDao.getInstance();

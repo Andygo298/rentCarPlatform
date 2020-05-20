@@ -1,7 +1,7 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.PaymentDao;
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 
 import org.hibernate.Session;
@@ -22,7 +22,7 @@ public class DefaultPaymentDao implements PaymentDao {
     public List<Payment> getPayments() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Payment> query = session.createQuery("from Payment", Payment.class);
+            TypedQuery<Payment> query = session.createQuery("from PaymentEntity", Payment.class);
             List<Payment> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();

@@ -1,6 +1,5 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
@@ -9,7 +8,7 @@ import com.github.andygo298.rentCarPlatform.model.User;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AuthUserDaoHiberTest {
+class AuthUserEntityDaoHiberTest {
     final UserDao userDao = DefaultUserDao.getInstance();
     final AuthUserDao authUserDao = DefaultAuthUserDao.getInstance();
 

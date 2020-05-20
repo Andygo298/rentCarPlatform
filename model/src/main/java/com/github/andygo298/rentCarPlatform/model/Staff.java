@@ -6,9 +6,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "staff")
 public class Staff {
+
     private Long id;
     private String firstName;
     private String lastName;
@@ -22,13 +21,18 @@ public class Staff {
         this.lastName = lastName;
         this.specialization = specialization;
     }
+//from converter
+    public Staff(Long id, String firstName, String lastName, Specialization specialization, Set<Car> carSet) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialization = specialization;
+        this.carSet = carSet;
+    }
 
     public Staff() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staff_id")
     public Long getId() {
         return id;
     }
@@ -37,7 +41,6 @@ public class Staff {
         this.id = id;
     }
 
-    @Column(name = "first_name", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -46,7 +49,6 @@ public class Staff {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -55,8 +57,6 @@ public class Staff {
         this.lastName = lastName;
     }
 
-    @Column(name = "specialization", nullable = false)
-    @Enumerated(EnumType.STRING)
     public Specialization getSpecialization() {
         return specialization;
     }
@@ -65,9 +65,6 @@ public class Staff {
         this.specialization = specialization;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "staff_cars", joinColumns = {@JoinColumn(name = "staff_id")},
-            inverseJoinColumns = {@JoinColumn(name = "car_id")})
     public Set<Car> getCar() {
         return carSet;
     }

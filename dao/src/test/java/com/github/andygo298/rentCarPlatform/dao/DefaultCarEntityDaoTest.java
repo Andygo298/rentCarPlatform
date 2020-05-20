@@ -1,6 +1,5 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
@@ -17,7 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DefaultCarDaoTest {
+public class DefaultCarEntityDaoTest {
 
     final CarDao carDao = DefaultCarDao.getInstance();
     final StaffDao staffDao = DefaultStaffDao.getInstance();
@@ -189,9 +188,9 @@ public class DefaultCarDaoTest {
     static void afterAll() {
         Session session = SFUtil.getSession();
         session.beginTransaction();
-        session.createQuery("delete from Car c where c.id=:id").setParameter("id",2L).executeUpdate();
-        session.createQuery("delete from Car c where c.id=:id").setParameter("id",3L).executeUpdate();
-        session.createQuery("delete from Car c where c.id=:id").setParameter("id",4L).executeUpdate();
+        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id",2L).executeUpdate();
+        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id",3L).executeUpdate();
+        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id",4L).executeUpdate();
         session.getTransaction().commit();
         session.close();
     }

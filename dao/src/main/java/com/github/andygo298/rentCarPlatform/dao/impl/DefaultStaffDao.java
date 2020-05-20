@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
@@ -29,7 +29,7 @@ public class DefaultStaffDao implements StaffDao {
     public List<Staff> getStaff(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from Staff ", Staff.class)
+            TypedQuery<Staff> query = session.createQuery("from StaffEntity ", Staff.class)
                     .setFirstResult(skipRecords)
                     .setMaxResults(limitRecords);
             List<Staff> resultList = query.getResultList();
@@ -43,7 +43,7 @@ public class DefaultStaffDao implements StaffDao {
     public List<Staff> getStaffWithoutPagination() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from Staff ", Staff.class);
+            TypedQuery<Staff> query = session.createQuery("from StaffEntity ", Staff.class);
             List<Staff> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
@@ -66,7 +66,7 @@ public class DefaultStaffDao implements StaffDao {
     public List<Staff> getStaffListByIds(List<Long> staffListIds) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from Staff s where s.id in (:staffIds)", Staff.class)
+            TypedQuery<Staff> query = session.createQuery("from StaffEntity s where s.id in (:staffIds)", Staff.class)
                     .setParameterList("staffIds", staffListIds);
             List<Staff> resultList = query.getResultList();
             session.getTransaction().commit();
@@ -79,7 +79,7 @@ public class DefaultStaffDao implements StaffDao {
     public int getCountRecordsFromStaff() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from Staff ", Staff.class);
+            TypedQuery<Staff> query = session.createQuery("from StaffEntity ", Staff.class);
             int resultCount = query.getResultList().size();
             session.getTransaction().commit();
             session.close();

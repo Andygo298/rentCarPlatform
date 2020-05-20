@@ -1,7 +1,9 @@
 package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.converter.AuthUserConverter;
+import com.github.andygo298.rentCarPlatform.dao.entity.AuthUserEntity;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 
 import org.hibernate.NonUniqueResultException;
@@ -27,28 +29,30 @@ public class DefaultAuthUserDao implements AuthUserDao {
     public AuthUser getByLogin(String login) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Query query = session.createQuery("from AuthUser au where au.login in :userLog");
+            Query query = session.createQuery("from AuthUserEntity au where au.login in :userLog");
             query.setParameter("userLog", login);
-                Object getAuthUser;
+                AuthUserEntity getAuthUser;
             try {
-                getAuthUser = query.getSingleResult();
+                getAuthUser =(AuthUserEntity) query.getSingleResult();
             } catch (NonUniqueResultException e) {
                 log.info("user not found by login{}", login);
                 return null;
             }
             session.getTransaction().commit();
             session.close();
-            return (AuthUser) getAuthUser;
+            AuthUser authUser = AuthUserConverter.fromEntity(getAuthUser);
+            return authUser;
         }
     }
 
 
     @Override
     public long saveAuthUser(AuthUser user) {
+        AuthUserEntity authUserEntity = AuthUserConverter.toEntity(user);
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(user);
-            long id = user.getId();
+            session.saveOrUpdate(authUserEntity);
+            long id = authUserEntity.getId();
             session.getTransaction().commit();
             session.close();
             return id;

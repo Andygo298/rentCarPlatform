@@ -1,4 +1,4 @@
-package com.github.andygo298.rentCarPlatform.model;
+package com.github.andygo298.rentCarPlatform.dao.entity;
 
 import org.hibernate.annotations.Type;
 
@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Car {
+@Entity
+@Table(name = "cars")
+public class CarEntity {
     private Long id;
     private String brand;
     private String model;
@@ -16,26 +18,18 @@ public class Car {
     private double day_price;
     private boolean is_rent;
 
-    private Set<Staff> staffSet = new HashSet<>();
+    private Set<StaffEntity> staffEntitySet = new HashSet<>();
 
-    public Car() {
+    public CarEntity() {
         this.is_rent = false;
         this.img_url = "https://avatars.mds.yandex.net/get-pdb/1809111/76fb0b23-8115-44b1-8386-f8e1d3115621/s600";
         this.day_price = 0.00;
-    }
-//from converter
-    public Car(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, Set<Staff> staffSet) {
-        this.id = id;
-        this.brand = brand;
-        this.model = model;
-        this.type = type;
-        this.year_mfg = year_mfg;
-        this.img_url = img_url;
-        this.day_price = day_price;
-        this.is_rent = is_rent;
-        this.staffSet = staffSet;
+
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "car_id")
     public Long getId() {
         return id;
     }
@@ -44,6 +38,7 @@ public class Car {
         this.id = id;
     }
 
+    @Column(name = "brand", nullable = false)
     public String getBrand() {
         return brand;
     }
@@ -52,6 +47,7 @@ public class Car {
         this.brand = brand;
     }
 
+    @Column(name = "model", nullable = false)
     public String getModel() {
         return model;
     }
@@ -60,6 +56,7 @@ public class Car {
         this.model = model;
     }
 
+    @Column(name = "type", nullable = false)
     public String getType() {
         return type;
     }
@@ -68,6 +65,7 @@ public class Car {
         this.type = type;
     }
 
+    @Column(name = "year_mfg", nullable = false)
     public String getYear_mfg() {
         return year_mfg;
     }
@@ -76,6 +74,7 @@ public class Car {
         this.year_mfg = year_mfg;
     }
 
+    @Column(name = "img_url")
     public String getImg_url() {
         return img_url;
     }
@@ -84,6 +83,7 @@ public class Car {
         this.img_url = img_url;
     }
 
+    @Column(name = "day_price")
     public double getDay_price() {
         return day_price;
     }
@@ -92,6 +92,8 @@ public class Car {
         this.day_price = day_price;
     }
 
+    @Type(type= "org.hibernate.type.NumericBooleanType")
+    @Column(name = "isRent", nullable = false)
     public boolean isIs_rent() {
         return is_rent;
     }
@@ -100,12 +102,13 @@ public class Car {
         this.is_rent = is_rent;
     }
 
-    public Set<Staff> getStaff() {
-        return staffSet;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "car")
+    public Set<StaffEntity> getStaff() {
+        return staffEntitySet;
     }
 
-    public void setStaff(Set<Staff> staff) {
-        this.staffSet = staff;
+    public void setStaff(Set<StaffEntity> staffEntities) {
+        this.staffEntitySet = staffEntities;
     }
 
     @Override
@@ -123,50 +126,50 @@ public class Car {
     }
 
     public static class CarBuilder {
-        private Car newCar;
+        private CarEntity newCarEntity;
 
         public CarBuilder(Long id) {
-            newCar = new Car();
-            newCar.id = id;
+            newCarEntity = new CarEntity();
+            newCarEntity.id = id;
         }
 
         public CarBuilder withBrand(String brand) {
-            newCar.brand = brand;
+            newCarEntity.brand = brand;
             return this;
         }
 
         public CarBuilder withModel(String model) {
-            newCar.model = model;
+            newCarEntity.model = model;
             return this;
         }
 
         public CarBuilder withType(String type) {
-            newCar.type = type;
+            newCarEntity.type = type;
             return this;
         }
 
         public CarBuilder withYear(String year) {
-            newCar.year_mfg = year;
+            newCarEntity.year_mfg = year;
             return this;
         }
 
         public CarBuilder withPrice(double price) {
-            newCar.day_price = price;
+            newCarEntity.day_price = price;
             return this;
         }
 
         public CarBuilder withImg(String img) {
-            newCar.img_url = img;
+            newCarEntity.img_url = img;
             return this;
         }
 
         public CarBuilder withIsRent(boolean status) {
-            newCar.is_rent = status;
+            newCarEntity.is_rent = status;
             return this;
         }
 
-        public Car build() {
-            return newCar;
+        public CarEntity build() {
+            return newCarEntity;
         }
     }
 }

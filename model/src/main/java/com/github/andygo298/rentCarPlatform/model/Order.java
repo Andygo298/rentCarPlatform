@@ -6,8 +6,6 @@ import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "orders")
 public class Order {
     private Long id;
     private String passport;
@@ -25,9 +23,22 @@ public class Order {
     public Order() {
         this.orderStatus = OrderStatus.IN_PROGRESS;
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
+//from converter
+    public Order(Long id, String passport, String phone, LocalDate startDate, LocalDate endDate, Long carId, Long userId, OrderStatus orderStatus, Double orderPrice, User user, Car car) {
+        this.id = id;
+        this.passport = passport;
+        this.phone = phone;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.carId = carId;
+        this.userId = userId;
+        this.orderStatus = orderStatus;
+        this.orderPrice = orderPrice;
+        this.user = user;
+        this.car = car;
+    }
+
     public Long getId() {
         return id;
     }
@@ -36,7 +47,6 @@ public class Order {
         this.id = id;
     }
 
-    @Column(name = "passport")
     public String getPassport() {
         return passport;
     }
@@ -45,7 +55,6 @@ public class Order {
         this.passport = passport;
     }
 
-    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -54,7 +63,6 @@ public class Order {
         this.phone = phone;
     }
 
-    @Column(name = "start_date", nullable = false)
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -63,7 +71,6 @@ public class Order {
         this.startDate = startDate;
     }
 
-    @Column(name = "end_date", nullable = false)
     public LocalDate getEndDate() {
         return endDate;
     }
@@ -72,7 +79,6 @@ public class Order {
         this.endDate = endDate;
     }
 
-    @Column(name = "cars_id", nullable = false, insertable = false, updatable = false)
     public Long getCarId() {
         return carId;
     }
@@ -81,7 +87,6 @@ public class Order {
         this.carId = carId;
     }
 
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public Long getUserId() {
         return userId;
     }
@@ -90,8 +95,6 @@ public class Order {
         this.userId = userId;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 64)
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
@@ -100,7 +103,6 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    @Column(name = "order_price")
     public Double getOrderPrice() {
         return orderPrice;
     }
@@ -108,8 +110,7 @@ public class Order {
     public void setOrderPrice(Double orderPrice) {
         this.orderPrice = orderPrice;
     }
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+
     public User getUser() {
         return user;
     }
@@ -117,8 +118,7 @@ public class Order {
     public void setUser(User user) {
         this.user = user;
     }
-    @ManyToOne
-    @JoinColumn(name = "cars_id", referencedColumnName = "car_id", nullable = false)
+
     public Car getCar() {
         return car;
     }

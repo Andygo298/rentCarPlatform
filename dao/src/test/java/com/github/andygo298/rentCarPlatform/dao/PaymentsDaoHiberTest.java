@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
 
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultPaymentDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.Payment;
@@ -55,7 +54,7 @@ public class PaymentsDaoHiberTest {
 
         Session session = SFUtil.getSession();
         session.beginTransaction();
-        TypedQuery<Payment> query = session.createQuery("from Payment ", Payment.class);
+        TypedQuery<Payment> query = session.createQuery("from PaymentEntity ", Payment.class);
         List<Payment> resultList = query.getResultList();
         List<Payment> paymentsFromDb = paymentDao.getPayments();
 

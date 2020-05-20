@@ -1,6 +1,5 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.dao.utils.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDaoHiberTest {
+public class UserEntityDaoHiberTest {
     final UserDao userDao = DefaultUserDao.getInstance();
 
     @BeforeEach
