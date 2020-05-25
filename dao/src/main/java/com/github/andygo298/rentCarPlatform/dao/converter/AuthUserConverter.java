@@ -2,6 +2,7 @@ package com.github.andygo298.rentCarPlatform.dao.converter;
 
 import com.github.andygo298.rentCarPlatform.dao.entity.AuthUserEntity;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
+import com.github.andygo298.rentCarPlatform.model.User;
 
 public class AuthUserConverter {
 
@@ -20,7 +21,7 @@ public class AuthUserConverter {
         return authUserEntity;
     }
 
-    public static AuthUser fromEntity(AuthUserEntity authUser) {
+    public static AuthUser fromEntity(AuthUserEntity authUser, User user) {
         if (authUser == null) {
             return null;
         }
@@ -29,7 +30,7 @@ public class AuthUserConverter {
                 authUser.getLogin(),
                 authUser.getPassword(),
                 authUser.getRole(),
-                UserConverter.fromEntity(authUser.getUserEntity()),
+                user!= null ? user : UserConverter.fromEntity(authUser.getUserEntity()),
                 authUser.getUserId()
         );
     }

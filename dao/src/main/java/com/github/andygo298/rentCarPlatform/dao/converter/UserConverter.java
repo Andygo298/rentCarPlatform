@@ -16,7 +16,6 @@ public class UserConverter {
         userEntity.setLastName(user.getLastName());
         userEntity.setEmail(user.getEmail());
         userEntity.setBlocked(user.isBlocked());
-
         userEntity.setAuthUserEntity(AuthUserConverter.toEntity(user.getAuthUser()));
         userEntity.setPaymentEntities(user.getPayments().stream().map(PaymentConverter::toEntity).collect(Collectors.toSet()));
         userEntity.setOrderEntities(user.getOrders().stream().map(OrderConverter::toEntity).collect(Collectors.toSet()));
@@ -27,15 +26,17 @@ public class UserConverter {
         if (userEntity == null) {
             return null;
         }
-        return new User(
+        User user = new User(
                 userEntity.getId(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
                 userEntity.getEmail(),
                 userEntity.isBlocked(),
-                AuthUserConverter.fromEntity(userEntity.getAuthUserEntity()),
+                null,
                 userEntity.getPaymentEntities().stream().map(PaymentConverter::fromEntity).collect(Collectors.toSet()),
                 userEntity.getOrderEntities().stream().map(OrderConverter::fromEntity).collect(Collectors.toSet())
         );
+        user.setAuthUser(AuthUserConverter.fromEntity(userEntity.getAuthUserEntity(), user));
+        return user;
     }
 }

@@ -40,7 +40,7 @@ public class DefaultAuthUserDao implements AuthUserDao {
             }
             session.getTransaction().commit();
             session.close();
-            AuthUser authUser = AuthUserConverter.fromEntity(getAuthUser);
+            AuthUser authUser = AuthUserConverter.fromEntity(getAuthUser, null);
             return authUser;
         }
     }
