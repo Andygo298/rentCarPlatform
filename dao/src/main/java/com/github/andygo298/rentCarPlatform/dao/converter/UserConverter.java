@@ -33,9 +33,11 @@ public class UserConverter {
                 userEntity.getEmail(),
                 userEntity.isBlocked(),
                 null,
-                userEntity.getPaymentEntities().stream().map(PaymentConverter::fromEntity).collect(Collectors.toSet()),
-                userEntity.getOrderEntities().stream().map(OrderConverter::fromEntity).collect(Collectors.toSet())
+                null,
+                null
         );
+        userEntity.getPaymentEntities().stream().map(PaymentConverter::fromEntity).collect(Collectors.toSet());
+        userEntity.getOrderEntities().stream().map(OrderConverter::fromEntity).collect(Collectors.toSet());
         user.setAuthUser(AuthUserConverter.fromEntity(userEntity.getAuthUserEntity(), user));
         return user;
     }

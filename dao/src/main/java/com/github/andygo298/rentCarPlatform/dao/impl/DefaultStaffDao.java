@@ -2,6 +2,8 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
+import com.github.andygo298.rentCarPlatform.dao.converter.StaffConverter;
+import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.TypedQuery;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DefaultStaffDao implements StaffDao {
 
@@ -29,13 +32,16 @@ public class DefaultStaffDao implements StaffDao {
     public List<Staff> getStaff(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from StaffEntity ", Staff.class)
+            TypedQuery<StaffEntity> query = session.createQuery("from StaffEntity ", StaffEntity.class)
                     .setFirstResult(skipRecords)
                     .setMaxResults(limitRecords);
-            List<Staff> resultList = query.getResultList();
+            List<StaffEntity> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
-            return resultList;
+            return resultList
+                    .stream()
+                    .map(StaffConverter::fromEntity)
+                    .collect(Collectors.toList());
         }
     }
 
@@ -43,11 +49,14 @@ public class DefaultStaffDao implements StaffDao {
     public List<Staff> getStaffWithoutPagination() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from StaffEntity ", Staff.class);
-            List<Staff> resultList = query.getResultList();
+            TypedQuery<StaffEntity> query = session.createQuery("from StaffEntity ", StaffEntity.class);
+            List<StaffEntity> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
-            return resultList;
+            return resultList
+                    .stream()
+                    .map(StaffConverter::fromEntity)
+                    .collect(Collectors.toList());
         }
 
     }
@@ -56,9 +65,9 @@ public class DefaultStaffDao implements StaffDao {
     public Staff getPersonById(Long staffId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Staff getPerson = session.get(Staff.class, staffId);
+            StaffEntity getPerson = session.get(StaffEntity.class, staffId);
             session.getTransaction().commit();
-            return getPerson;
+            return StaffConverter.fromEntity(getPerson);
         }
     }
 
@@ -66,12 +75,13 @@ public class DefaultStaffDao implements StaffDao {
     public List<Staff> getStaffListByIds(List<Long> staffListIds) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from StaffEntity s where s.id in (:staffIds)", Staff.class)
+            TypedQuery<StaffEntity> query = session.createQuery("from StaffEntity s where s.id in (:staffIds)", StaffEntity.class)
                     .setParameterList("staffIds", staffListIds);
-            List<Staff> resultList = query.getResultList();
+            List<StaffEntity> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
-            return resultList;
+            return resultList
+                    .stream().map(StaffConverter::fromEntity).collect(Collectors.toList());
         }
     }
 
@@ -79,7 +89,7 @@ public class DefaultStaffDao implements StaffDao {
     public int getCountRecordsFromStaff() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Staff> query = session.createQuery("from StaffEntity ", Staff.class);
+            TypedQuery<StaffEntity> query = session.createQuery("from StaffEntity ", StaffEntity.class);
             int resultCount = query.getResultList().size();
             session.getTransaction().commit();
             session.close();
@@ -89,10 +99,11 @@ public class DefaultStaffDao implements StaffDao {
 
     @Override
     public Long saveStaff(Staff newStaff) {
+        StaffEntity staffEntity = StaffConverter.toEntity(newStaff);
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(newStaff);
-            long id = newStaff.getId();
+            session.saveOrUpdate(staffEntity);
+            long id = staffEntity.getId();
             session.getTransaction().commit();
             session.close();
             return id;
@@ -103,10 +114,10 @@ public class DefaultStaffDao implements StaffDao {
     public void editStaff(EditStaff staffToEdit) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Staff staff = session.get(Staff.class, staffToEdit.getId());
-            staff.setFirstName(staffToEdit.getFirstName());
-            staff.setLastName(staffToEdit.getLastName());
-            staff.setSpecialization(staffToEdit.getSpecialization());
+            StaffEntity staffEntity = session.get(StaffEntity.class, staffToEdit.getId());
+            staffEntity.setFirstName(staffToEdit.getFirstName());
+            staffEntity.setLastName(staffToEdit.getLastName());
+            staffEntity.setSpecialization(staffToEdit.getSpecialization());
             session.getTransaction().commit();
             session.close();
         }

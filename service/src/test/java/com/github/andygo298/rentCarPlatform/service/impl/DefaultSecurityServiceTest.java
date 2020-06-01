@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
 
 
@@ -38,7 +39,7 @@ class DefaultSecurityServiceTest {
 
     @Test
     void testLoginCorrect() {
-        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, null));
+        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, (User) null));
         AuthUser userFromDb = securityService.login("admin", "pass");
         assertNotNull(userFromDb);
         assertEquals(userFromDb.getLogin(), "admin");
@@ -47,7 +48,7 @@ class DefaultSecurityServiceTest {
 
     @Test
     void testLoginWrongPass() {
-        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, null));
+        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, (User) null));
         AuthUser login = securityService.login("admin", "pass2");
         assertNull(login);
     }
