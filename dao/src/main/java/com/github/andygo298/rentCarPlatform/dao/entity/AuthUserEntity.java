@@ -23,12 +23,13 @@ public class AuthUserEntity {
     public AuthUserEntity() {
     }
 
-    public AuthUserEntity(Long id, String login, String password, Role role, UserEntity userEntity) {
+    public AuthUserEntity(Long id, String login, String password, Role role, UserEntity userEntity, Long userId) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
         this.userEntity = userEntity;
+        this.userId = userId;
     }
 
     @Id

@@ -39,7 +39,6 @@ public class DefaultPaymentServiceTest {
         Payment mockPayment = new Payment.PaymentBuilder()
                 .withCardNum("1111 2222 3333 4444")
                 .withPaymentValue(1500.0)
-                .withUser(mockUser)
                 .build();
         Long expectedResult = 1L;
         when(paymentDao.savePayment(mockPayment)).thenReturn(expectedResult);
@@ -56,11 +55,11 @@ public class DefaultPaymentServiceTest {
         Payment mockPayment1 = new Payment.PaymentBuilder()
                 .withCardNum("1111 2222 3333 4444")
                 .withPaymentValue(1500.0)
-                .withUser(mockUser1).build();
+                .build();
         Payment mockPayment2 = new Payment.PaymentBuilder()
                 .withCardNum("1111 2222 3333 4444")
                 .withPaymentValue(1500.0)
-                .withUser(mockUser2).build();
+                .build();
 
         List<Payment> payments = Arrays.asList(mockPayment1, mockPayment2);
         when(paymentDao.getPayments()).thenReturn(payments);

@@ -13,7 +13,7 @@ public class Staff {
     private String lastName;
     private Specialization specialization;
 
-    private Set<Car> carSet = new HashSet<>();
+    private Set<Car> carSet ;
 
     public Staff(Long id, String firstName, String lastName, Specialization specialization) {
         this.id = id;

@@ -33,13 +33,13 @@ public class PaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long orderId = Long.parseLong(req.getParameter("orderId"));
-        Object currentUser = req.getSession().getAttribute("activeUser");
+        User currentUser =(User) req.getSession().getAttribute("activeUser");
         Double orderPrice = Double.parseDouble(req.getParameter("orderPrice"));
         String cardNum = req.getParameter("cardNum");
         Payment newPayment = new Payment.PaymentBuilder()
                 .withCardNum(cardNum)
                 .withPaymentValue(orderPrice)
-                .withUser((User)currentUser)
+                .withUserId(currentUser.getId())
                 .build();
         paymentService.savePayment(newPayment);
         orderService.setOrderStatus(orderId, OrderStatus.COMPLETED);

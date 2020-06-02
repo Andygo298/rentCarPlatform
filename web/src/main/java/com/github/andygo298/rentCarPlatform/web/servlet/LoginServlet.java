@@ -35,15 +35,15 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) {
         String login = rq.getParameter("login");
         String password = rq.getParameter("password");
-        AuthUser user = securityService.login(login, password);
-        if (user == null) {
+        AuthUser authUser = securityService.login(login, password);
+        if (authUser == null) {
             rq.setAttribute("error", "Login or password invalid");
             WebUtils.forward("login", rq, rs);
             return;
         }
-        log.info("user {} logged", user.getLogin());
-        User currentUser = userService.getUserById(user.getUser().getId());
-        rq.getSession().setAttribute("authUser", user);
+        log.info("user {} logged", authUser.getLogin());
+        User currentUser = userService.getUserById(authUser.getUserId());
+        rq.getSession().setAttribute("authUser", authUser);
         rq.getSession().setAttribute("activeUser", currentUser);
         WebUtils.redirect("/homepage", rq, rs);
     }

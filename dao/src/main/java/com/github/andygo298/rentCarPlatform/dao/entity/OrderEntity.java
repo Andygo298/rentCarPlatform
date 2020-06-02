@@ -26,6 +26,21 @@ public class OrderEntity {
     public OrderEntity() {
         this.orderStatus = OrderStatus.IN_PROGRESS;
     }
+
+    public OrderEntity(Long id, String passport, String phone, LocalDate startDate, LocalDate endDate, Long carId, Long userId, OrderStatus orderStatus, Double orderPrice, UserEntity userEntity, CarEntity carEntity){
+        this.id = id;
+        this.passport = passport;
+        this.phone = phone;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.carId = carId;
+        this.userId = userId;
+        this.orderStatus = orderStatus;
+        this.orderPrice = orderPrice;
+        this.userEntity = userEntity;
+        this.carEntity = carEntity;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -109,6 +124,7 @@ public class OrderEntity {
     public void setOrderPrice(Double orderPrice) {
         this.orderPrice = orderPrice;
     }
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     public UserEntity getUserEntity() {
@@ -118,6 +134,7 @@ public class OrderEntity {
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
+
     @ManyToOne
     @JoinColumn(name = "cars_id", referencedColumnName = "car_id", nullable = false)
     public CarEntity getCarEntity() {
@@ -157,10 +174,12 @@ public class OrderEntity {
             newOrderEntity.orderPrice = price;
             return this;
         }
+
         public OrderEntity.OrderBuilder withUser(UserEntity userEntity) {
             newOrderEntity.userEntity = userEntity;
             return this;
         }
+
         public OrderEntity.OrderBuilder withCar(CarEntity carEntity) {
             newOrderEntity.carEntity = carEntity;
             return this;

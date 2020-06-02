@@ -11,9 +11,9 @@ public class User {
     private String email;
     private boolean isBlocked;
 
-    private AuthUser authUser;
-    private Set<Payment> payments;
-    private Set<Order> orders;
+//    private AuthUser authUser;
+//    private Set<Payment> payments;
+//    private Set<Order> orders;
 
     public User() {
     }
@@ -23,22 +23,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.isBlocked = false;
-        this.payments = new HashSet<>();
-        this.orders = new HashSet<>();
-    }
-//from converter
-    public User(Long id, String firstName, String lastName, String email, boolean isBlocked, AuthUser authUser, Set<Payment> payments, Set<Order> orders) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
         this.isBlocked = isBlocked;
-        this.authUser = authUser;
-        this.payments = payments;
-        this.orders = orders;
     }
-
 
     public Long getId() {
         return id;
@@ -79,28 +65,5 @@ public class User {
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
     }
-
-    public AuthUser getAuthUser() {
-        return authUser;
-    }
-
-    public void setAuthUser(AuthUser authUser) {
-        this.authUser = authUser;
-    }
-
-    public Set<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Set<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 }
+

@@ -2,8 +2,10 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
 import com.github.andygo298.rentCarPlatform.dao.converter.AuthUserConverter;
+import com.github.andygo298.rentCarPlatform.dao.converter.UserConverter;
 import com.github.andygo298.rentCarPlatform.dao.entity.AuthUserEntity;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.entity.UserEntity;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 
 import org.hibernate.NonUniqueResultException;
@@ -11,6 +13,7 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 public class DefaultAuthUserDao implements AuthUserDao {
@@ -27,26 +30,29 @@ public class DefaultAuthUserDao implements AuthUserDao {
 
     @Override
     public AuthUser getByLogin(String login) {
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
-            Query query = session.createQuery("from AuthUserEntity au where au.login in :userLog");
-            query.setParameter("userLog", login);
-                AuthUserEntity getAuthUser;
-            try {
-                getAuthUser =(AuthUserEntity) query.getSingleResult();
-            } catch (NonUniqueResultException e) {
-                log.info("user not found by login{}", login);
-                return null;
+        try {
+            AuthUserEntity getAuthUser;
+            try (Session session = SFUtil.getSession()) {
+                session.beginTransaction();
+                Query query = session.createQuery("from AuthUserEntity au where au.login in :userLogin");
+                query.setParameter("userLogin", login);
+                getAuthUser = (AuthUserEntity) query.getSingleResult();
+                session.getTransaction().commit();
             }
-            session.getTransaction().commit();
-            return AuthUserConverter.fromEntity(getAuthUser,null);
+            return AuthUserConverter.fromEntity(getAuthUser);
+        } catch (NoResultException e) {
+            log.info("user not found by login{}", login);
+            return null;
         }
     }
 
 
     @Override
-    public long saveAuthUser(AuthUser user) {
-        AuthUserEntity authUserEntity = AuthUserConverter.toEntity(user);
+    public long saveAuthUser(AuthUser authUser) {
+        AuthUserEntity authUserEntity = AuthUserConverter.toEntity(authUser);
+        UserEntity userEntity = UserConverter.toEntity(DefaultUserDao.getInstance().getUserById(authUserEntity.getUserId()));
+        authUserEntity.setUserEntity(userEntity);
+        authUserEntity.setUserId(userEntity.getId());
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             session.saveOrUpdate(authUserEntity);

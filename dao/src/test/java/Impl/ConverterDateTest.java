@@ -1,4 +1,4 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package Impl;
 import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import org.junit.jupiter.api.Test;
 

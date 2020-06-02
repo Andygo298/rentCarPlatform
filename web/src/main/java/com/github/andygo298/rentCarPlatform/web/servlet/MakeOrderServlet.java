@@ -34,7 +34,7 @@ public class MakeOrderServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         String startDate = req.getParameter("startDate");
         String endDate = req.getParameter("endDate");
-        Long carId = Long.valueOf(req.getParameter("id"));
+        long carId = Long.parseLong(req.getParameter("id"));
 
         Car carById = carService.getCarById(carId);
         User currentUser = (User)(req.getSession().getAttribute("activeUser"));
@@ -52,8 +52,6 @@ public class MakeOrderServlet extends HttpServlet {
                 .withDates(ConverterDate.stringToDate(startDate),ConverterDate.stringToDate(endDate))
                 .withTelephone(phone)
                 .withPrice(price)
-                .withCar(carById)
-                .withUser(currentUser)
                 .build();
         Long orderId = orderService.saveOrder(order);
         if (orderId != null) {

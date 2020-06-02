@@ -4,6 +4,19 @@ import com.github.andygo298.rentCarPlatform.dao.entity.PaymentEntity;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 
 public class PaymentConverter {
+    public static Payment fromEntity(PaymentEntity paymentEntity) {
+        if (paymentEntity == null) {
+            return null;
+        }
+        return new Payment(
+                paymentEntity.getId(),
+                paymentEntity.getUserId(),
+                paymentEntity.getCardNum(),
+                paymentEntity.getPaymentDate(),
+                paymentEntity.getPaymentValue()
+                );
+    }
+
     public static PaymentEntity toEntity(Payment payment) {
         if (payment == null) {
             return null;
@@ -14,21 +27,6 @@ public class PaymentConverter {
         paymentEntity.setCardNum(payment.getCardNum());
         paymentEntity.setPaymentDate(payment.getPaymentDate());
         paymentEntity.setPaymentValue(payment.getPaymentValue());
-        paymentEntity.setUserEntity(UserConverter.toEntity(payment.getUser()));
         return paymentEntity;
     }
-
-        public static Payment fromEntity(PaymentEntity paymentEntity) {
-            if (paymentEntity == null) {
-                return null;
-            }
-            return new Payment(
-                  paymentEntity.getId(),
-                  paymentEntity.getUserId(),
-                  paymentEntity.getCardNum(),
-                  paymentEntity.getPaymentDate(),
-                  paymentEntity.getPaymentValue(),
-                  UserConverter.fromEntity(paymentEntity.getUserEntity())
-            );
-        }
     }

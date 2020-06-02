@@ -24,7 +24,18 @@ public class CarEntity {
         this.is_rent = false;
         this.img_url = "https://avatars.mds.yandex.net/get-pdb/1809111/76fb0b23-8115-44b1-8386-f8e1d3115621/s600";
         this.day_price = 0.00;
+    }
 
+    public CarEntity(Long id,String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, Set<StaffEntity> staffEntitySet){
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.type = type;
+        this.year_mfg = year_mfg;
+        this.img_url = img_url;
+        this.day_price = day_price;
+        this.is_rent = is_rent;
+        this.staffEntitySet = staffEntitySet;
     }
 
     @Id

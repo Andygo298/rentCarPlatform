@@ -5,6 +5,23 @@ import com.github.andygo298.rentCarPlatform.model.Order;
 
 public class OrderConverter {
 
+    public static Order fromEntity(OrderEntity orderEntity){
+        if (orderEntity == null){
+            return null;
+        }
+        return new Order(
+                orderEntity.getId(),
+                orderEntity.getPassport(),
+                orderEntity.getPhone(),
+                orderEntity.getStartDate(),
+                orderEntity.getEndDate(),
+                orderEntity.getCarId(),
+                orderEntity.getUserId(),
+                orderEntity.getOrderStatus(),
+                orderEntity.getOrderPrice()
+        );
+    }
+
     public static OrderEntity toEntity(Order order){
         if (order == null){
             return null;
@@ -19,27 +36,6 @@ public class OrderConverter {
         orderEntity.setCarId(order.getCarId());
         orderEntity.setOrderStatus(order.getOrderStatus());
         orderEntity.setOrderPrice(order.getOrderPrice());
-        orderEntity.setUserEntity(UserConverter.toEntity(order.getUser()));
-        orderEntity.setCarEntity(CarConverter.toEntity(order.getCar()));
         return orderEntity;
-    }
-
-    public static Order fromEntity(OrderEntity orderEntity){
-        if (orderEntity == null){
-            return null;
-        }
-        return new Order(
-               orderEntity.getId(),
-               orderEntity.getPassport(),
-               orderEntity.getPhone(),
-               orderEntity.getStartDate(),
-               orderEntity.getEndDate(),
-               orderEntity.getUserId(),
-               orderEntity.getCarId(),
-               orderEntity.getOrderStatus(),
-               orderEntity.getOrderPrice(),
-               UserConverter.fromEntity(orderEntity.getUserEntity()),
-               CarConverter.fromEntity(orderEntity.getCarEntity())
-        );
     }
 }

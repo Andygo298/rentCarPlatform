@@ -6,6 +6,19 @@ import com.github.andygo298.rentCarPlatform.model.User;
 
 public class AuthUserConverter {
 
+    public static AuthUser fromEntity(AuthUserEntity authUser) {
+        if (authUser == null) {
+            return null;
+        }
+        return new AuthUser(
+                authUser.getId(),
+                authUser.getLogin(),
+                authUser.getPassword(),
+                authUser.getRole(),
+                authUser.getUserId()
+        );
+    }
+
     public static AuthUserEntity toEntity(AuthUser authUser) {
         if (authUser == null) {
             return null;
@@ -16,22 +29,6 @@ public class AuthUserConverter {
         authUserEntity.setPassword(authUser.getPassword());
         authUserEntity.setRole(authUser.getRole());
         authUserEntity.setUserId(authUser.getUserId());
-        authUserEntity.setUserEntity(UserConverter.toEntity(authUser.getUser())
-        );
         return authUserEntity;
-    }
-
-    public static AuthUser fromEntity(AuthUserEntity authUser, User user) {
-        if (authUser == null) {
-            return null;
-        }
-        return new AuthUser(
-                authUser.getId(),
-                authUser.getLogin(),
-                authUser.getPassword(),
-                authUser.getRole(),
-                user!= null ? user : UserConverter.fromEntity(authUser.getUserEntity()),
-                authUser.getUserId()
-        );
     }
 }

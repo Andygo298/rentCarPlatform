@@ -1,5 +1,8 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package Impl;
 
+import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
@@ -16,7 +19,7 @@ class AuthUserEntityDaoHiberTest {
     public void saveAuthUserTest() {
         final User user = new User(null,"Andrew","Loz","loz@gmail.com",false);
         long saveId = userDao.save(user);
-        final AuthUser authUser = new AuthUser(null, "Андрей", "1234", Role.USER, user);
+        final AuthUser authUser = new AuthUser(null, "Андрей", "1234", Role.USER, user.getId());
         final long authUserId = authUserDao.saveAuthUser(authUser);
 
         final AuthUser aUser = SFUtil.getSession().get(AuthUser.class, authUserId);
@@ -29,7 +32,7 @@ class AuthUserEntityDaoHiberTest {
     public void getByLoginTest(){
         final User user = new User(null,"Andrew","Loz","loz@gmail.com",false);
         long saveId = userDao.save(user);
-        final AuthUser authUser = new AuthUser(null, "Андрей", "1234", Role.USER, user);
+        final AuthUser authUser = new AuthUser(null, "Андрей", "1234", Role.USER, user.getId());
         final long authUserId = authUserDao.saveAuthUser(authUser);
 
         final AuthUser authUserFromDb = authUserDao.getByLogin(authUser.getLogin());

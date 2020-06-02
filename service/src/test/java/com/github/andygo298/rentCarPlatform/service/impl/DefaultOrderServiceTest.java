@@ -56,8 +56,6 @@ class DefaultOrderServiceTest {
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car1)
-                .withUser(user1)
                 .build();
         Long expId = 4L;
         when(orderDao.saveOrder(order1)).thenReturn(expId);
@@ -107,16 +105,12 @@ class DefaultOrderServiceTest {
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car1)
-                .withUser(user1)
                 .build();
         Order order2 = new Order.OrderBuilder(car1.getId(), user1.getId())
                 .withPassport("MP3334455")
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car2)
-                .withUser(user1)
                 .build();
         List<Order> orderList = Arrays.asList(order1, order2);
         Long userId = 3L;
@@ -148,16 +142,12 @@ class DefaultOrderServiceTest {
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car1)
-                .withUser(user1)
                 .build();
         Order order2 = new Order.OrderBuilder(car1.getId(), user1.getId())
                 .withPassport("MP3334455")
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car2)
-                .withUser(user1)
                 .build();
         List<Order> orderList = Arrays.asList(order1, order2);
         when(orderDao.getOrders(0, 3)).thenReturn(orderList);

@@ -9,7 +9,6 @@ public class Payment {
     String cardNum;
     LocalDate paymentDate;
     Double paymentValue;
-    User user;
 
 
     public Payment() {
@@ -17,13 +16,12 @@ public class Payment {
     }
 
 //from converter
-    public Payment(Long id, Long userId, String cardNum, LocalDate paymentDate, Double paymentValue, User user) {
+    public Payment(Long id, Long userId, String cardNum, LocalDate paymentDate, Double paymentValue) {
         this.id = id;
         this.userId = userId;
         this.cardNum = cardNum;
         this.paymentDate = paymentDate;
         this.paymentValue = paymentValue;
-        this.user = user;
     }
 
     public Long getId() {
@@ -66,13 +64,6 @@ public class Payment {
         this.paymentValue = paymentValue;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public static class PaymentBuilder {
         private Payment newPayment;
@@ -92,11 +83,11 @@ public class Payment {
             newPayment.paymentValue = paymentValue;
             return this;
         }
-
-        public Payment.PaymentBuilder withUser(User user) {
-            newPayment.user = user;
+        public Payment.PaymentBuilder withUserId(Long userId) {
+            newPayment.userId = userId;
             return this;
         }
+
 
         public Payment build() {
             return newPayment;

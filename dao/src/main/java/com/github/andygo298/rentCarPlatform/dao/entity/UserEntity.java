@@ -108,7 +108,7 @@ public class UserEntity {
     }
 
     @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     public Set<OrderEntity> getOrderEntities() {
         return orderEntities;
     }

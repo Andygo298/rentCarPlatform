@@ -17,15 +17,12 @@ public class Order {
     private OrderStatus orderStatus;
     private Double orderPrice;
 
-    private User user;
-    private Car car;
-
     public Order() {
         this.orderStatus = OrderStatus.IN_PROGRESS;
     }
 
 //from converter
-    public Order(Long id, String passport, String phone, LocalDate startDate, LocalDate endDate, Long carId, Long userId, OrderStatus orderStatus, Double orderPrice, User user, Car car) {
+    public Order(Long id, String passport, String phone, LocalDate startDate, LocalDate endDate, Long carId, Long userId, OrderStatus orderStatus, Double orderPrice) {
         this.id = id;
         this.passport = passport;
         this.phone = phone;
@@ -35,8 +32,6 @@ public class Order {
         this.userId = userId;
         this.orderStatus = orderStatus;
         this.orderPrice = orderPrice;
-        this.user = user;
-        this.car = car;
     }
 
     public Long getId() {
@@ -111,22 +106,6 @@ public class Order {
         this.orderPrice = orderPrice;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     public static class OrderBuilder {
         private Order newOrder;
 
@@ -154,14 +133,6 @@ public class Order {
 
         public Order.OrderBuilder withPrice(Double price) {
             newOrder.orderPrice = price;
-            return this;
-        }
-        public Order.OrderBuilder withUser(User user) {
-            newOrder.user = user;
-            return this;
-        }
-        public Order.OrderBuilder withCar(Car car) {
-            newOrder.car = car;
             return this;
         }
 

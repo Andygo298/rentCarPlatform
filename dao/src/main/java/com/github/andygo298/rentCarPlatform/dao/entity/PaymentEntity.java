@@ -96,6 +96,10 @@ public class PaymentEntity {
             newPaymentEntity.userEntity = userEntity;
             return this;
         }
+        public PaymentEntity.PaymentBuilder withUserId(Long userId) {
+            newPaymentEntity.userId = userId;
+            return this;
+        }
 
         public PaymentEntity build() {
             return newPaymentEntity;

@@ -39,7 +39,7 @@ class DefaultSecurityServiceTest {
 
     @Test
     void testLoginCorrect() {
-        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, (User) null));
+        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, null));
         AuthUser userFromDb = securityService.login("admin", "pass");
         assertNotNull(userFromDb);
         assertEquals(userFromDb.getLogin(), "admin");
@@ -48,18 +48,18 @@ class DefaultSecurityServiceTest {
 
     @Test
     void testLoginWrongPass() {
-        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, (User) null));
+        when(authUserDao.getByLogin("admin")).thenReturn(new AuthUser(null, "admin", "pass", null, null));
         AuthUser login = securityService.login("admin", "pass2");
         assertNull(login);
     }
 
     @Test
-    void testSaveAuthUser(){
-        User mockUser = new User(1L,"Petr","Petrov","petr@gmail.com",false);
-        AuthUser mockAuthUser = new AuthUser(1L,"user","user", Role.USER,mockUser);
+    void testSaveAuthUser() {
+        User mockUser = new User(1L, "Petr", "Petrov", "petr@gmail.com", false);
+        AuthUser mockAuthUser = new AuthUser(1L, "user", "user", Role.USER, mockUser.getId());
 
         when(authUserDao.saveAuthUser(mockAuthUser)).thenReturn(1L);
         Long id = securityService.saveAuthUser(mockAuthUser);
-        assertEquals((Object) 1L,id);
+        assertEquals((Object) 1L, id);
     }
 }

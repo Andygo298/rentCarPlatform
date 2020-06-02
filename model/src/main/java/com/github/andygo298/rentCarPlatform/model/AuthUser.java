@@ -12,27 +12,24 @@ public class AuthUser {
     private String password;
     private Role role;
 
-    private User user;
     private Long userId;
 
 
     public AuthUser() {
     }
 
-    public AuthUser(Long id, String login, String password, Role role, User user) {
+    public AuthUser(Long id, String login, String password, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
-        this.user = user;
     }
     //from converter
-    public AuthUser(Long id, String login, String password, Role role, User user, Long userId) {
+    public AuthUser(Long id, String login, String password, Role role, Long userId) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
-        this.user = user;
         this.userId = userId;
     }
 
@@ -67,14 +64,6 @@ public class AuthUser {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Long getUserId() {

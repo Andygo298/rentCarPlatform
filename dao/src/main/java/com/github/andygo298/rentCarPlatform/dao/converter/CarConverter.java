@@ -6,23 +6,6 @@ import com.github.andygo298.rentCarPlatform.model.Car;
 import java.util.stream.Collectors;
 
 public class CarConverter {
-    public static CarEntity toEntity(Car car) {
-        if (car == null) {
-            return null;
-        }
-        final CarEntity carEntity = new CarEntity();
-        carEntity.setId(car.getId());
-        carEntity.setBrand(car.getBrand());
-        carEntity.setModel(car.getModel());
-        carEntity.setType(car.getType());
-        carEntity.setYear_mfg(car.getYear_mfg());
-        carEntity.setImg_url(car.getImg_url());
-        carEntity.setDay_price(car.getDay_price());
-        carEntity.setIs_rent(car.isIs_rent());
-        carEntity.setStaff(car.getStaff().stream().map(StaffConverter::toEntity).collect(Collectors.toSet()));
-        return carEntity;
-    }
-
     public static Car fromEntity(CarEntity carEntity) {
         if (carEntity == null){
             return null;
@@ -36,7 +19,23 @@ public class CarConverter {
                 carEntity.getImg_url(),
                 carEntity.getDay_price(),
                 carEntity.isIs_rent(),
-                carEntity.getStaff().stream().map(StaffConverter::fromEntity).collect(Collectors.toSet())
+                null
         );
+    }
+
+    public static CarEntity toEntity(Car car) {
+        if (car == null) {
+            return null;
+        }
+        final CarEntity carEntity = new CarEntity();
+        carEntity.setId(car.getId());
+        carEntity.setBrand(car.getBrand());
+        carEntity.setModel(car.getModel());
+        carEntity.setType(car.getType());
+        carEntity.setYear_mfg(car.getYear_mfg());
+        carEntity.setImg_url(car.getImg_url());
+        carEntity.setDay_price(car.getDay_price());
+        carEntity.setIs_rent(car.isIs_rent());
+        return carEntity;
     }
 }
