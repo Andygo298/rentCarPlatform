@@ -115,7 +115,7 @@ public class CarEntity {
     }
 
     @OneToOne(mappedBy = "carEntity", fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     public OrderEntity getOrderEntity() {
         return orderEntity;
     }
