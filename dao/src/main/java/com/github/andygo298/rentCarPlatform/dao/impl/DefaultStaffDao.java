@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -132,11 +133,11 @@ public class DefaultStaffDao implements StaffDao {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             StaffEntity delStaff = session.get(StaffEntity.class, delStaffId);
-            Set<CarEntity> carEntitySet = delStaff.getCarEntitySet();
-            carEntitySet.forEach(e -> e.setStaff(new HashSet<>()));
-            delStaff.setCarEntitySet(new HashSet<>());
-            session.getTransaction().commit();
-            session.beginTransaction();
+            for (CarEntity carEntity : delStaff.getCarEntitySet()) {
+                carEntity.getStaff().forEach(e -> e.setCarEntitySet(null));
+            }
+
+//            delStaff.getCarEntitySet().forEach(e ->e.setStaff(null));
             session.delete(delStaff);
             session.getTransaction().commit();
             session.close();

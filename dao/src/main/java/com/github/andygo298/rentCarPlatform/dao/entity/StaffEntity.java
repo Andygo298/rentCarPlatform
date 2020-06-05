@@ -3,9 +3,7 @@ package com.github.andygo298.rentCarPlatform.dao.entity;
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "staff")
@@ -15,7 +13,7 @@ public class StaffEntity {
     private String lastName;
     private Specialization specialization;
 
-    private Set<CarEntity> carEntitySet = new HashSet<>();
+    private List<CarEntity> carEntitySet = new ArrayList<>();
 
     public StaffEntity(Long id, String firstName, String lastName, Specialization specialization) {
         this.id = id;
@@ -66,15 +64,12 @@ public class StaffEntity {
         this.specialization = specialization;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "staff_cars",
-            joinColumns = {@JoinColumn(name = "staff_id")},
-            inverseJoinColumns = {@JoinColumn(name = "car_id")})
-    public Set<CarEntity> getCarEntitySet() {
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "staff", fetch = FetchType.EAGER )
+    public List<CarEntity> getCarEntitySet() {
         return carEntitySet;
     }
 
-    public void setCarEntitySet(Set<CarEntity> carEntitySet) {
+    public void setCarEntitySet(List<CarEntity> carEntitySet) {
         this.carEntitySet = carEntitySet;
     }
 
@@ -104,7 +99,7 @@ public class StaffEntity {
             newStaffEntity.specialization = specialization;
             return this;
         }
-        public StaffEntity.StaffBuilder withCar(Set<CarEntity> carEntity){
+        public StaffEntity.StaffBuilder withCar(List<CarEntity> carEntity){
             newStaffEntity.carEntitySet = carEntity;
             return this;
         }

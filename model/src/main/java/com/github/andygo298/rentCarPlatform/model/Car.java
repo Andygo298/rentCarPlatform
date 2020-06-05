@@ -3,7 +3,9 @@ package com.github.andygo298.rentCarPlatform.model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Car {
@@ -16,7 +18,7 @@ public class Car {
     private double day_price;
     private boolean is_rent;
 
-    private Set<Staff> staffSet = new HashSet<>();
+    private List<Staff> staffSet = new ArrayList<>();
 
     public Car() {
         this.is_rent = false;
@@ -24,7 +26,7 @@ public class Car {
         this.day_price = 0.00;
     }
 //from converter
-    public Car(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, Set<Staff> staffSet) {
+    public Car(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, List<Staff> staffSet) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -100,11 +102,11 @@ public class Car {
         this.is_rent = is_rent;
     }
 
-    public Set<Staff> getStaffSet() {
+    public List<Staff> getStaffSet() {
         return staffSet;
     }
 
-    public void setStaffSet(Set<Staff> staff) {
+    public void setStaffSet(List<Staff> staff) {
         this.staffSet = staff;
     }
 

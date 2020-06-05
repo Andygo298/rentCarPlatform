@@ -3,9 +3,7 @@ package com.github.andygo298.rentCarPlatform.dao.entity;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "cars")
@@ -20,7 +18,7 @@ public class CarEntity {
     private boolean is_rent;
 
     private OrderEntity orderEntity;
-    private Set<StaffEntity> staffEntitySet = new HashSet<>();
+    private List<StaffEntity> staffEntitySet = new ArrayList<>();
 
     public CarEntity() {
         this.is_rent = false;
@@ -28,7 +26,7 @@ public class CarEntity {
         this.day_price = 0.00;
     }
 
-    public CarEntity(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, OrderEntity orderEntity, Set<StaffEntity> staffEntitySet) {
+    public CarEntity(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, OrderEntity orderEntity, List<StaffEntity> staffEntitySet) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -126,12 +124,15 @@ public class CarEntity {
         this.orderEntity = orderEntity;
     }
 
-    @ManyToMany(mappedBy = "carEntitySet",cascade = CascadeType.ALL, fetch = FetchType.EAGER )
-    public Set<StaffEntity> getStaff() {
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JoinTable(name = "staff_cars",
+            joinColumns = {@JoinColumn(name = "staff_id")},
+            inverseJoinColumns = {@JoinColumn(name = "car_id")})
+    public List<StaffEntity> getStaff() {
         return staffEntitySet;
     }
 
-    public void setStaff(Set<StaffEntity> staffEntities) {
+    public void setStaff(List<StaffEntity> staffEntities) {
         this.staffEntitySet = staffEntities;
     }
 

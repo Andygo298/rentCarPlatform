@@ -3,6 +3,7 @@ package com.github.andygo298.rentCarPlatform.dao.converter;
 import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class StaffConverter {
                     staffEntity.getCarEntitySet()
                             .stream()
                             .map(CarConverter::fromEntityPostConverter)
-                            .collect(Collectors.toSet())
+                            .collect(Collectors.toList())
         );
     }
 
@@ -40,7 +41,7 @@ public class StaffConverter {
                 staff.getCar()
                 .stream()
                 .map(CarConverter::toEntityPostConverter)
-                .collect(Collectors.toSet())
+                .collect(Collectors.toList())
         );
         return staffEntity;
     }
@@ -55,7 +56,7 @@ public class StaffConverter {
                 staffEntity.getFirstName(),
                 staffEntity.getLastName(),
                 staffEntity.getSpecialization(),
-                new HashSet<>()
+                null
         );
     }
     public static StaffEntity toEntityPostConverter(Staff staff) {
@@ -69,7 +70,7 @@ public class StaffConverter {
         staffEntity.setLastName(staff.getLastName());
         staffEntity.setSpecialization(staff.getSpecialization());
         staffEntity.setCarEntitySet(
-                new HashSet<>()
+                null
         );
         return staffEntity;
     }

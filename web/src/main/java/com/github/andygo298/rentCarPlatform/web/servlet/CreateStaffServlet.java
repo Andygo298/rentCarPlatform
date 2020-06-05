@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 @WebServlet(urlPatterns = "/createStaff")
@@ -36,7 +37,7 @@ public class CreateStaffServlet extends HttpServlet {
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withSpecialization(WebUtils.getSpecEnum(specialization))
-                .withCar(new HashSet<>())
+                .withCar(new ArrayList<>())
                 .build();
         String lastPage = String.valueOf(ServiceUtil.getCountPages(staffService.getCountRecordsFromStaff()));
         log.info("Create new worker {} logged", newStaff.toString());

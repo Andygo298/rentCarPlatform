@@ -2,6 +2,7 @@ package com.github.andygo298.rentCarPlatform.model;
 
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 
+import java.util.List;
 import java.util.Set;
 
 public class Staff {
@@ -11,7 +12,7 @@ public class Staff {
     private String lastName;
     private Specialization specialization;
 
-    private Set<Car> carSet;
+    private List<Car> carSet;
 
     public Staff(Long id, String firstName, String lastName, Specialization specialization) {
         this.id = id;
@@ -23,7 +24,7 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(Long id, String firstName, String lastName, Specialization specialization, Set<Car> carSet) {
+    public Staff(Long id, String firstName, String lastName, Specialization specialization, List<Car> carSet) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,11 +64,11 @@ public class Staff {
         this.specialization = specialization;
     }
 
-    public Set<Car> getCar() {
+    public List<Car> getCar() {
         return carSet;
     }
 
-    public void setCar(Set<Car> carSet) {
+    public void setCar(List<Car> carSet) {
         this.carSet = carSet;
     }
 
@@ -98,7 +99,7 @@ public class Staff {
             newStaff.specialization = specialization;
             return this;
         }
-        public Staff.StaffBuilder withCar(Set<Car> carSet){
+        public Staff.StaffBuilder withCar(List<Car> carSet){
             newStaff.carSet = carSet;
             return this;
         }

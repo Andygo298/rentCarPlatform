@@ -118,7 +118,7 @@ public class DefaultCarDao implements CarDao {
             session.beginTransaction();
 
             CarEntity delCar = session.get(CarEntity.class, delCarId);
-            Set<StaffEntity> staff = delCar.getStaff();
+            List<StaffEntity> staff = delCar.getStaff();
 
             for (StaffEntity staffPerson : staff) {
                 CarEntity carRemove = staffPerson.getCarEntitySet()
@@ -159,12 +159,14 @@ public class DefaultCarDao implements CarDao {
             CarEntity carEntity = session.get(CarEntity.class, car.getId());
 
 
-            Set<StaffEntity> staffEntityList = staff.stream()
+            List<StaffEntity> staffEntityList = staff.stream()
 //                    .peek(s -> s.setCar(new HashSet<>()))
-                    .map(StaffConverter::toEntity).collect(Collectors.toSet());
+                    .map(StaffConverter::toEntity).collect(Collectors.toList());
+//            session.merge(staffEntityList);
             staffEntityList.forEach(person -> person.getCarEntitySet().add(carEntity));
             carEntity.getStaff().addAll(staffEntityList);
 
+            session.update(carEntity);
 
             session.getTransaction().commit();
             session.close();
