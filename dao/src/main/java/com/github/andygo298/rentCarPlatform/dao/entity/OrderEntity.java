@@ -135,7 +135,7 @@ public class OrderEntity {
         this.userEntity = userEntity;
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "cars_id", referencedColumnName = "car_id", nullable = false)
     public CarEntity getCarEntity() {
         return carEntity;

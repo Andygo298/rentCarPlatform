@@ -106,6 +106,7 @@ public class Order {
         this.orderPrice = orderPrice;
     }
 
+    //builder class
     public static class OrderBuilder {
         private Order newOrder;
 

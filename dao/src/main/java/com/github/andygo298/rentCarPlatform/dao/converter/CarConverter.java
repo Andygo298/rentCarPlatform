@@ -1,26 +1,32 @@
 package com.github.andygo298.rentCarPlatform.dao.converter;
 
 import com.github.andygo298.rentCarPlatform.dao.entity.CarEntity;
+import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
+import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
+import com.github.andygo298.rentCarPlatform.model.Staff;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CarConverter {
+
     public static Car fromEntity(CarEntity carEntity) {
-        if (carEntity == null){
+        if (carEntity == null) {
             return null;
         }
         return new Car(
-                carEntity.getId(),
-                carEntity.getBrand(),
-                carEntity.getModel(),
-                carEntity.getType(),
-                carEntity.getYear_mfg(),
-                carEntity.getImg_url(),
-                carEntity.getDay_price(),
-                carEntity.isIs_rent(),
-                null
-        );
+                    carEntity.getId(),
+                    carEntity.getBrand(),
+                    carEntity.getModel(),
+                    carEntity.getType(),
+                    carEntity.getYear_mfg(),
+                    carEntity.getImg_url(),
+                    carEntity.getDay_price(),
+                    carEntity.isIs_rent(),
+                    //null
+                    carEntity.getStaff().stream().map(StaffConverter::fromEntity).collect(Collectors.toSet())
+            );
     }
 
     public static CarEntity toEntity(Car car) {

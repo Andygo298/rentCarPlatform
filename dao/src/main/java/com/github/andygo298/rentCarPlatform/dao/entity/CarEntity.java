@@ -18,6 +18,7 @@ public class CarEntity {
     private double day_price;
     private boolean is_rent;
 
+    private OrderEntity orderEntity;
     private Set<StaffEntity> staffEntitySet = new HashSet<>();
 
     public CarEntity() {
@@ -26,7 +27,7 @@ public class CarEntity {
         this.day_price = 0.00;
     }
 
-    public CarEntity(Long id,String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, Set<StaffEntity> staffEntitySet){
+    public CarEntity(Long id,String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent,OrderEntity orderEntity, Set<StaffEntity> staffEntitySet){
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -35,6 +36,7 @@ public class CarEntity {
         this.img_url = img_url;
         this.day_price = day_price;
         this.is_rent = is_rent;
+        this.orderEntity = orderEntity;
         this.staffEntitySet = staffEntitySet;
     }
 
@@ -113,7 +115,17 @@ public class CarEntity {
         this.is_rent = is_rent;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "car")
+    @OneToOne(mappedBy = "carEntity", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    public OrderEntity getOrderEntity() {
+        return orderEntity;
+    }
+
+    public void setOrderEntity(OrderEntity orderEntity) {
+        this.orderEntity = orderEntity;
+    }
+
+    @ManyToMany(mappedBy = "carEntitySet",cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     public Set<StaffEntity> getStaff() {
         return staffEntitySet;
     }

@@ -64,7 +64,7 @@ public class Payment {
         this.paymentValue = paymentValue;
     }
 
-
+    //builder class
     public static class PaymentBuilder {
         private Payment newPayment;
 

@@ -100,11 +100,11 @@ public class Car {
         this.is_rent = is_rent;
     }
 
-    public Set<Staff> getStaff() {
+    public Set<Staff> getStaffSet() {
         return staffSet;
     }
 
-    public void setStaff(Set<Staff> staff) {
+    public void setStaffSet(Set<Staff> staff) {
         this.staffSet = staff;
     }
 
@@ -122,6 +122,7 @@ public class Car {
                 '}';
     }
 
+    //builder class
     public static class CarBuilder {
         private Car newCar;
 

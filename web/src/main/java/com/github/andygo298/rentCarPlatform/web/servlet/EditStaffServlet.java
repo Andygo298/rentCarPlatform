@@ -41,7 +41,6 @@ public class EditStaffServlet extends HttpServlet {
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withSpecialization(WebUtils.getSpecEnum(specialization))
-                .withCar(personById.getCar())
                 .build();
 
 

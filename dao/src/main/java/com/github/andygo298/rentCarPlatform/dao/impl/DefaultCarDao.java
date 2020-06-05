@@ -11,9 +11,12 @@ import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DefaultCarDao implements CarDao {
 
@@ -41,6 +44,7 @@ public class DefaultCarDao implements CarDao {
                     .collect(Collectors.toList());
         }
     }
+
 
     @Override
     public int getCountRecordsFromCar() {
@@ -116,12 +120,12 @@ public class DefaultCarDao implements CarDao {
             Set<StaffEntity> staff = delCar.getStaff();
 
             for (StaffEntity staffPerson : staff) {
-                CarEntity carRemove = staffPerson.getCar()
+                CarEntity carRemove = staffPerson.getCarEntitySet()
                         .stream()
                         .filter(carRem -> carRem.equals(delCar))
                         .findFirst()
                         .orElse(null);
-                staffPerson.getCar().remove(carRemove);
+                staffPerson.getCarEntitySet().remove(carRemove);
             }
 
             session.delete(delCar);
@@ -144,20 +148,18 @@ public class DefaultCarDao implements CarDao {
     @Override
     public void saveStaffIntoCar(Car car, List<Staff> staff) {
         CarEntity carEntity = CarConverter.toEntity(car);
-        List<StaffEntity> staffEntityList = staff
+        Set<StaffEntity> staffEntityList = staff
                 .stream()
                 .map(StaffConverter::toEntity)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
-        carEntity.getStaff().addAll(staffEntityList);
-        for (StaffEntity person : staffEntityList) {
-            person.getCar().add(carEntity);
-        }
+        carEntity.setStaff(staffEntityList);
+        carEntity.getStaff().forEach(e -> e.getCarEntitySet().add(carEntity));
+
+
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            for (StaffEntity person : staffEntityList) {
-                session.saveOrUpdate(person);
-            }
+            session.saveOrUpdate(carEntity);
             session.getTransaction().commit();
             session.close();
         }

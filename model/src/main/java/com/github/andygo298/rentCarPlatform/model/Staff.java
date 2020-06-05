@@ -2,8 +2,6 @@ package com.github.andygo298.rentCarPlatform.model;
 
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 
-import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Staff {
@@ -13,7 +11,7 @@ public class Staff {
     private String lastName;
     private Specialization specialization;
 
-    private Set<Car> carSet ;
+    private Set<Car> carSet;
 
     public Staff(Long id, String firstName, String lastName, Specialization specialization) {
         this.id = id;
@@ -21,16 +19,16 @@ public class Staff {
         this.lastName = lastName;
         this.specialization = specialization;
     }
-//from converter
+
+    public Staff() {
+    }
+
     public Staff(Long id, String firstName, String lastName, Specialization specialization, Set<Car> carSet) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.specialization = specialization;
         this.carSet = carSet;
-    }
-
-    public Staff() {
     }
 
     public Long getId() {
@@ -69,10 +67,11 @@ public class Staff {
         return carSet;
     }
 
-    public void setCar(Set<Car> car) {
-        this.carSet = car;
+    public void setCar(Set<Car> carSet) {
+        this.carSet = carSet;
     }
 
+//builder class
     public static class StaffBuilder {
         private Staff newStaff;
 
@@ -99,8 +98,8 @@ public class Staff {
             newStaff.specialization = specialization;
             return this;
         }
-        public Staff.StaffBuilder withCar(Set<Car> car){
-            newStaff.carSet = car;
+        public Staff.StaffBuilder withCar(Set<Car> carSet){
+            newStaff.carSet = carSet;
             return this;
         }
 

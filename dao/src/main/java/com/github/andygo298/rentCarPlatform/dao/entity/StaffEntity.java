@@ -66,14 +66,15 @@ public class StaffEntity {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "staff_cars", joinColumns = {@JoinColumn(name = "staff_id")},
+    @JoinTable(name = "staff_cars",
+            joinColumns = {@JoinColumn(name = "staff_id")},
             inverseJoinColumns = {@JoinColumn(name = "car_id")})
-    public Set<CarEntity> getCar() {
+    public Set<CarEntity> getCarEntitySet() {
         return carEntitySet;
     }
 
-    public void setCar(Set<CarEntity> carEntity) {
-        this.carEntitySet = carEntity;
+    public void setCarEntitySet(Set<CarEntity> carEntitySet) {
+        this.carEntitySet = carEntitySet;
     }
 
     public static class StaffBuilder {

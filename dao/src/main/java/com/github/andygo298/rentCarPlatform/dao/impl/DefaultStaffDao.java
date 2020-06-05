@@ -3,6 +3,7 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
 import com.github.andygo298.rentCarPlatform.dao.converter.StaffConverter;
+import com.github.andygo298.rentCarPlatform.dao.entity.CarEntity;
 import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
@@ -81,7 +82,9 @@ public class DefaultStaffDao implements StaffDao {
             session.getTransaction().commit();
             session.close();
             return resultList
-                    .stream().map(StaffConverter::fromEntity).collect(Collectors.toList());
+                    .stream()
+                    .map(StaffConverter::fromEntity)
+                    .collect(Collectors.toList());
         }
     }
 
@@ -127,8 +130,8 @@ public class DefaultStaffDao implements StaffDao {
     public void delStaff(Long delStaffId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Staff delStaff = session.get(Staff.class, delStaffId);
-            delStaff.setCar(new HashSet<>());
+            StaffEntity delStaff = session.get(StaffEntity.class, delStaffId);
+            delStaff.setCarEntitySet(new HashSet<>());
             session.delete(delStaff);
             session.getTransaction().commit();
             session.close();
@@ -139,22 +142,22 @@ public class DefaultStaffDao implements StaffDao {
     public void removeStaffFromCar(Long remCarId, Long remStaffId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Car car = session.get(Car.class, remCarId);
-            Staff staff = session.get(Staff.class, remStaffId);
+            CarEntity car = session.get(CarEntity.class, remCarId);
+            StaffEntity staff = session.get(StaffEntity.class, remStaffId);
 
-            Staff staffToRem = car.getStaff()
+            StaffEntity staffToRem = car.getStaff()
                     .stream()
                     .filter(person -> person.getId().equals(staff.getId()))
                     .findFirst()
                     .orElse(null);
             car.getStaff().remove(staffToRem);
 
-            Car carToRem = staff.getCar()
+            CarEntity carToRem = staff.getCarEntitySet()
                     .stream()
                     .filter(carRem -> carRem.equals(car))
                     .findFirst()
                     .orElse(null);
-            staff.getCar().remove(carToRem);
+            staff.getCarEntitySet().remove(carToRem);
 
             session.getTransaction().commit();
             session.close();
