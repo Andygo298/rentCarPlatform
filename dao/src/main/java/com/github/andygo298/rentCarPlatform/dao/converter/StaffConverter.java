@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao.converter;
 
 import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
-import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 
 import java.util.stream.Collectors;
@@ -18,8 +17,10 @@ public class StaffConverter {
                     staffEntity.getFirstName(),
                     staffEntity.getLastName(),
                     staffEntity.getSpecialization(),
-                    null
-//                    staffEntity.getCarEntitySet().stream().map(CarConverter::fromEntity).collect(Collectors.toSet())
+                    staffEntity.getCarEntitySet()
+                            .stream()
+                            .map(CarConverter::fromEntityPostConverter)
+                            .collect(Collectors.toSet())
         );
     }
 
@@ -28,11 +29,18 @@ public class StaffConverter {
         if (staff == null) {
             return null;
         }
+
         final StaffEntity staffEntity = new StaffEntity();
         staffEntity.setId(staff.getId());
         staffEntity.setFirstName(staff.getFirstName());
         staffEntity.setLastName(staff.getLastName());
         staffEntity.setSpecialization(staff.getSpecialization());
+        staffEntity.setCarEntitySet(
+                staff.getCar()
+                .stream()
+                .map(CarConverter::toEntityPostConverter)
+                .collect(Collectors.toSet())
+        );
         return staffEntity;
     }
 }
