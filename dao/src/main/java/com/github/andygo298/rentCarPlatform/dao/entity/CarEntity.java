@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,7 +28,7 @@ public class CarEntity {
         this.day_price = 0.00;
     }
 
-    public CarEntity(Long id,String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent,OrderEntity orderEntity, Set<StaffEntity> staffEntitySet){
+    public CarEntity(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, OrderEntity orderEntity, Set<StaffEntity> staffEntitySet) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -105,7 +106,7 @@ public class CarEntity {
         this.day_price = day_price;
     }
 
-    @Type(type= "org.hibernate.type.NumericBooleanType")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "isRent", nullable = false)
     public boolean isIs_rent() {
         return is_rent;
@@ -116,7 +117,7 @@ public class CarEntity {
     }
 
     @OneToOne(mappedBy = "carEntity", fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     public OrderEntity getOrderEntity() {
         return orderEntity;
     }
@@ -194,5 +195,18 @@ public class CarEntity {
         public CarEntity build() {
             return newCarEntity;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarEntity carEntity = (CarEntity) o;
+        return Objects.equals(id, carEntity.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

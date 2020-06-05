@@ -36,6 +36,7 @@ public class CreateStaffServlet extends HttpServlet {
                 .withFirstName(firstName)
                 .withLastName(lastName)
                 .withSpecialization(WebUtils.getSpecEnum(specialization))
+                .withCar(new HashSet<>())
                 .build();
         String lastPage = String.valueOf(ServiceUtil.getCountPages(staffService.getCountRecordsFromStaff()));
         log.info("Create new worker {} logged", newStaff.toString());

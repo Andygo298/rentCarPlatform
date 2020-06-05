@@ -65,6 +65,7 @@ public class DefaultCarDao implements CarDao {
             session.beginTransaction();
             CarEntity getCar = session.get(CarEntity.class, id);
             session.getTransaction().commit();
+            session.close();
             return CarConverter.fromEntity(getCar);
         }
     }
@@ -147,19 +148,24 @@ public class DefaultCarDao implements CarDao {
 
     @Override
     public void saveStaffIntoCar(Car car, List<Staff> staff) {
-        CarEntity carEntity = CarConverter.toEntity(car);
-        Set<StaffEntity> staffEntityList = staff
-                .stream()
-                .map(StaffConverter::toEntity)
-                .collect(Collectors.toSet());
 
-        carEntity.setStaff(staffEntityList);
-        carEntity.getStaff().forEach(e -> e.getCarEntitySet().add(carEntity));
-
+      /*  Set<Staff> setStaff = new HashSet<>(staff);
+        setStaff.forEach(person -> person.getCar().add(car));
+        car.getStaffSet().addAll(setStaff);
+        CarEntity carToEntity = CarConverter.toEntity(car);*/
 
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(carEntity);
+            CarEntity carEntity = session.get(CarEntity.class, car.getId());
+
+
+            Set<StaffEntity> staffEntityList = staff.stream()
+//                    .peek(s -> s.setCar(new HashSet<>()))
+                    .map(StaffConverter::toEntity).collect(Collectors.toSet());
+            staffEntityList.forEach(person -> person.getCarEntitySet().add(carEntity));
+            carEntity.getStaff().addAll(staffEntityList);
+
+
             session.getTransaction().commit();
             session.close();
         }

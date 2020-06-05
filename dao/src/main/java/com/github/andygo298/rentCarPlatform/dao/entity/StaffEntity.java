@@ -4,6 +4,7 @@ import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -111,5 +112,18 @@ public class StaffEntity {
         public StaffEntity build() {
             return newStaffEntity;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StaffEntity that = (StaffEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

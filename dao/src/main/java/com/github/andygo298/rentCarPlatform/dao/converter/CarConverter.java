@@ -44,6 +44,7 @@ public class CarConverter {
         carEntity.setImg_url(car.getImg_url());
         carEntity.setDay_price(car.getDay_price());
         carEntity.setIs_rent(car.isIs_rent());
+        carEntity.setStaff(car.getStaffSet().stream().map(StaffConverter::toEntity).collect(Collectors.toSet()));
         return carEntity;
     }
 
