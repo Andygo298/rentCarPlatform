@@ -24,8 +24,10 @@ public class CarConverter {
                     carEntity.getImg_url(),
                     carEntity.getDay_price(),
                     carEntity.isIs_rent(),
-                    //null
-                    carEntity.getStaff().stream().map(StaffConverter::fromEntity).collect(Collectors.toSet())
+                    carEntity.getStaff()
+                            .stream()
+                            .map(StaffConverter::fromEntity)
+                            .collect(Collectors.toSet())
             );
     }
 
