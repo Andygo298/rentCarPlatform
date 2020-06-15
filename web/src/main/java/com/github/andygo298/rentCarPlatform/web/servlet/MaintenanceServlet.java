@@ -18,8 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 
 @WebServlet(urlPatterns = "/maintenance")
@@ -38,6 +39,7 @@ public class MaintenanceServlet extends HttpServlet {
         int countPages = ServiceUtil.getCountPages(countRecordsFromCar);
 
         List<Car> cars = carService.getCars(page);
+
         List<Staff> staffAllList = staffService.getStaffWithoutPagination();
 
         req.setAttribute("cars", cars);

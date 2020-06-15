@@ -1,15 +1,8 @@
 package com.github.andygo298.rentCarPlatform.model;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Table(name = "user")
 public class User {
 
     private Long id;
@@ -18,9 +11,9 @@ public class User {
     private String email;
     private boolean isBlocked;
 
-    private AuthUser authUser;
-    private Set<Payment> payments;
-    private Set<Order> orders;
+//    private AuthUser authUser;
+//    private Set<Payment> payments;
+//    private Set<Order> orders;
 
     public User() {
     }
@@ -30,14 +23,9 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.isBlocked = false;
-        this.payments = new HashSet<>();
-        this.orders = new HashSet<>();
+        this.isBlocked = isBlocked;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -46,7 +34,6 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "first_name", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -55,7 +42,6 @@ public class User {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -64,7 +50,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    @Column(name = "email", nullable = false)
     public String getEmail() {
         return email;
     }
@@ -73,7 +58,6 @@ public class User {
         this.email = email;
     }
 
-    @Column(name = "isBlocked", nullable = false)
     public boolean isBlocked() {
         return isBlocked;
     }
@@ -81,34 +65,5 @@ public class User {
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
     }
-
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    public AuthUser getAuthUser() {
-        return authUser;
-    }
-
-    public void setAuthUser(AuthUser authUser) {
-        this.authUser = authUser;
-    }
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    public Set<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Set<Payment> payments) {
-        this.payments = payments;
-    }
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 }
+

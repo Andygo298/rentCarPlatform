@@ -1,18 +1,18 @@
 package com.github.andygo298.rentCarPlatform.model;
 
-import javax.persistence.*;
-import java.util.HashSet;
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
+
+import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table(name = "staff")
 public class Staff {
+
     private Long id;
     private String firstName;
     private String lastName;
     private Specialization specialization;
 
-    private Set<Car> carSet = new HashSet<>();
+    private List<Car> carSet;
 
     public Staff(Long id, String firstName, String lastName, Specialization specialization) {
         this.id = id;
@@ -24,9 +24,14 @@ public class Staff {
     public Staff() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "staff_id")
+    public Staff(Long id, String firstName, String lastName, Specialization specialization, List<Car> carSet) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialization = specialization;
+        this.carSet = carSet;
+    }
+
     public Long getId() {
         return id;
     }
@@ -35,7 +40,6 @@ public class Staff {
         this.id = id;
     }
 
-    @Column(name = "first_name", nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -44,7 +48,6 @@ public class Staff {
         this.firstName = firstName;
     }
 
-    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -53,8 +56,6 @@ public class Staff {
         this.lastName = lastName;
     }
 
-    @Column(name = "specialization", nullable = false)
-    @Enumerated(EnumType.STRING)
     public Specialization getSpecialization() {
         return specialization;
     }
@@ -63,17 +64,15 @@ public class Staff {
         this.specialization = specialization;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "staff_cars", joinColumns = {@JoinColumn(name = "staff_id")},
-            inverseJoinColumns = {@JoinColumn(name = "car_id")})
-    public Set<Car> getCar() {
+    public List<Car> getCar() {
         return carSet;
     }
 
-    public void setCar(Set<Car> car) {
-        this.carSet = car;
+    public void setCar(List<Car> carSet) {
+        this.carSet = carSet;
     }
 
+//builder class
     public static class StaffBuilder {
         private Staff newStaff;
 
@@ -100,8 +99,8 @@ public class Staff {
             newStaff.specialization = specialization;
             return this;
         }
-        public Staff.StaffBuilder withCar(Set<Car> car){
-            newStaff.carSet = car;
+        public Staff.StaffBuilder withCar(List<Car> carSet){
+            newStaff.carSet = carSet;
             return this;
         }
 

@@ -2,9 +2,8 @@ package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Role;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
-import com.github.andygo298.rentCarPlatform.service.PaymentService;
 import com.github.andygo298.rentCarPlatform.service.SecurityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
 
 
@@ -54,12 +54,12 @@ class DefaultSecurityServiceTest {
     }
 
     @Test
-    void testSaveAuthUser(){
-        User mockUser = new User(1L,"Petr","Petrov","petr@gmail.com",false);
-        AuthUser mockAuthUser = new AuthUser(1L,"user","user", Role.USER,mockUser);
+    void testSaveAuthUser() {
+        User mockUser = new User(1L, "Petr", "Petrov", "petr@gmail.com", false);
+        AuthUser mockAuthUser = new AuthUser(1L, "user", "user", Role.USER, mockUser.getId());
 
         when(authUserDao.saveAuthUser(mockAuthUser)).thenReturn(1L);
         Long id = securityService.saveAuthUser(mockAuthUser);
-        assertEquals((Object) 1L,id);
+        assertEquals((Object) 1L, id);
     }
 }

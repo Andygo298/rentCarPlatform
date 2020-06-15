@@ -1,9 +1,9 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
-import com.github.andygo298.rentCarPlatform.dao.Constant;
+import com.github.andygo298.rentCarPlatform.dao.utils.Constant;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
-import com.github.andygo298.rentCarPlatform.model.EditStaff;
-import com.github.andygo298.rentCarPlatform.model.Specialization;
+import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.StaffService;
 import org.junit.jupiter.api.Test;

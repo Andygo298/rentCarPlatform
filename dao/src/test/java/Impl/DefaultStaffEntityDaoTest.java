@@ -1,9 +1,12 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package Impl;
 
+import com.github.andygo298.rentCarPlatform.dao.CarDao;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.StaffDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
-import com.github.andygo298.rentCarPlatform.model.EditStaff;
-import com.github.andygo298.rentCarPlatform.model.Specialization;
+import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import org.hibernate.Session;
 import org.junit.jupiter.api.*;
@@ -15,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class DefaultStaffDaoTest {
+public class DefaultStaffEntityDaoTest {
 
     final CarDao carDao = DefaultCarDao.getInstance();
     final StaffDao staffDao = DefaultStaffDao.getInstance();

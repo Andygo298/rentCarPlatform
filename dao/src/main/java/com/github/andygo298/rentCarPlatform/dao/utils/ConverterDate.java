@@ -1,6 +1,5 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package com.github.andygo298.rentCarPlatform.dao.utils;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

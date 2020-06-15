@@ -1,7 +1,7 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
 import com.github.andygo298.rentCarPlatform.model.Order;
-import com.github.andygo298.rentCarPlatform.model.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 
 import java.util.List;
 

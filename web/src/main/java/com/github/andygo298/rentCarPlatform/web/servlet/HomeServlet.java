@@ -2,8 +2,8 @@ package com.github.andygo298.rentCarPlatform.web.servlet;
 
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.Car;
-import com.github.andygo298.rentCarPlatform.model.OrderStatus;
-import com.github.andygo298.rentCarPlatform.model.Role;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
@@ -50,7 +50,7 @@ public class HomeServlet extends HttpServlet {
         AuthUser user = (AuthUser) req.getSession().getAttribute("authUser");
         Integer activeOrders = user.getRole().equals(Role.ADMIN)
                 ? orderService.getOrdersByStatus(OrderStatus.IN_PROGRESS)
-                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUser().getId());
+                : orderService.getUserOrdersByStatus(OrderStatus.ACCEPTED, user.getUserId());
 
         req.setAttribute("activeOrders", activeOrders);
         WebUtils.forward("homepage", req, resp);

@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao;
 
-import com.github.andygo298.rentCarPlatform.model.EditStaff;
+import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 
 import java.util.List;

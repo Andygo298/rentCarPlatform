@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.web;
 
-import com.github.andygo298.rentCarPlatform.model.Specialization;
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;

@@ -1,10 +1,10 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
-import com.github.andygo298.rentCarPlatform.dao.Constant;
+import com.github.andygo298.rentCarPlatform.dao.utils.Constant;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
-import com.github.andygo298.rentCarPlatform.model.EditCar;
+import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;

@@ -1,6 +1,9 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package Impl;
 
 
+import com.github.andygo298.rentCarPlatform.dao.PaymentDao;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultPaymentDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.Payment;
@@ -28,7 +31,6 @@ public class PaymentsDaoHiberTest {
         Payment paymentToSave = new Payment.PaymentBuilder()
                 .withCardNum("2200443311225544")
                 .withPaymentValue(1000.0)
-                .withUser(userActual)
                 .build();
 
         paymentDao.savePayment(paymentToSave);
@@ -48,13 +50,12 @@ public class PaymentsDaoHiberTest {
         Payment paymentToSave = new Payment.PaymentBuilder()
                 .withCardNum("2200443311225544")
                 .withPaymentValue(1000.0)
-                .withUser(userActual)
                 .build();
         paymentDao.savePayment(paymentToSave);
 
         Session session = SFUtil.getSession();
         session.beginTransaction();
-        TypedQuery<Payment> query = session.createQuery("from Payment ", Payment.class);
+        TypedQuery<Payment> query = session.createQuery("from PaymentEntity ", Payment.class);
         List<Payment> resultList = query.getResultList();
         List<Payment> paymentsFromDb = paymentDao.getPayments();
 

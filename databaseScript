@@ -1,4 +1,4 @@
-create table user
+create table userEntity
 (
     id         bigint(64) auto_increment primary key,
     first_name varchar(255) not null,
@@ -13,7 +13,7 @@ create table auth_user
     password varchar(255) not null,
     role     varchar(255) not null,
     user_id  bigint(64)   not null,
-    constraint auth_user_user_id_fk foreign key (user_id) references user (id)
+    constraint auth_user_user_id_fk foreign key (user_id) references userEntity (id)
 );
 create table cars
 (
@@ -26,7 +26,7 @@ create table cars
     day_price double       default 0.0,
     isRent    boolean      default false
 );
-create table orders
+create table orderEntities
 (
     id          bigint(64) auto_increment primary key,
     passport    varchar(255) not null,
@@ -37,7 +37,7 @@ create table orders
     user_id     bigint(64)   not null,
     status      varchar(64)  not null,
     order_price double default 0.0,
-    constraint orders_user_id_fk foreign key (user_id) references user (id),
+    constraint orders_user_id_fk foreign key (user_id) references userEntity (id),
     constraint orders_cars_id_fk foreign key (cars_id) references cars (car_id)
 );
 create table payment
@@ -47,7 +47,7 @@ create table payment
     card_num      varchar(20) not null,
     payment_date  date        not null,
     payment_value double      not null,
-    constraint payment_user_id_fk foreign key (user_id) references user (id)
+    constraint payment_user_id_fk foreign key (user_id) references userEntity (id)
 );
 
 create table broken_cars
@@ -58,11 +58,11 @@ create table broken_cars
     constraint broken_cars_cars_id_fk foreign key (cars_id) references cars (car_id)
 );
 
-insert into user(first_name, last_name, email, isBlocked)
+insert into userEntity(first_name, last_name, email, isBlocked)
 VALUES ('Andrew', 'Lozouski', 'andygo298@gmail.com', false),
        ('Ivan', 'Ivanov', 'iva@gmail.com', false);
 
 insert into auth_user(login, password, role, user_id)
 VALUES ('admin', 'admin', 'ADMIN', 1),
-       ('user', 'user', 'USER', 2);
+       ('userEntity', 'userEntity', 'USER', 2);
 

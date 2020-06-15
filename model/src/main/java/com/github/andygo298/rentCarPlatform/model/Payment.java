@@ -3,23 +3,27 @@ package com.github.andygo298.rentCarPlatform.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "payment")
 public class Payment {
     Long id;
     Long userId;//fk_user
     String cardNum;
     LocalDate paymentDate;
     Double paymentValue;
-    User user;
 
 
     public Payment() {
         this.paymentDate = LocalDate.now();
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
+//from converter
+    public Payment(Long id, Long userId, String cardNum, LocalDate paymentDate, Double paymentValue) {
+        this.id = id;
+        this.userId = userId;
+        this.cardNum = cardNum;
+        this.paymentDate = paymentDate;
+        this.paymentValue = paymentValue;
+    }
+
     public Long getId() {
         return id;
     }
@@ -28,7 +32,6 @@ public class Payment {
         this.id = id;
     }
 
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public Long getUserId() {
         return userId;
     }
@@ -37,7 +40,6 @@ public class Payment {
         this.userId = userId;
     }
 
-    @Column(name = "card_num", nullable = false, length = 20)
     public String getCardNum() {
         return cardNum;
     }
@@ -46,7 +48,6 @@ public class Payment {
         this.cardNum = cardNum;
     }
 
-    @Column(name = "payment_date", nullable = false)
     public LocalDate getPaymentDate() {
         return paymentDate;
     }
@@ -55,7 +56,6 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    @Column(name = "payment_value", nullable = false)
     public Double getPaymentValue() {
         return paymentValue;
     }
@@ -63,16 +63,8 @@ public class Payment {
     public void setPaymentValue(Double paymentValue) {
         this.paymentValue = paymentValue;
     }
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
+    //builder class
     public static class PaymentBuilder {
         private Payment newPayment;
 
@@ -91,11 +83,11 @@ public class Payment {
             newPayment.paymentValue = paymentValue;
             return this;
         }
-
-        public Payment.PaymentBuilder withUser(User user) {
-            newPayment.user = user;
+        public Payment.PaymentBuilder withUserId(Long userId) {
+            newPayment.userId = userId;
             return this;
         }
+
 
         public Payment build() {
             return newPayment;

@@ -1,7 +1,7 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Role;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.service.SecurityService;
 import com.github.andygo298.rentCarPlatform.service.UserService;
@@ -39,7 +39,7 @@ public class UsersServlet extends HttpServlet {
         String email = rq.getParameter("email");
         long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
 //        log.info("user created:{} at {}", userId, LocalDateTime.now());
-        Long idAuthUser = securityService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userService.getUserById(userId)));
+        Long idAuthUser = securityService.saveAuthUser(new AuthUser(null, login, password, Role.USER, userService.getUserById(userId).getId()));
         WebUtils.redirect("/users", rq, rs);
     }
 }

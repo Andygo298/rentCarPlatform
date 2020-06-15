@@ -1,13 +1,15 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
-import com.github.andygo298.rentCarPlatform.dao.Constant;
+import com.github.andygo298.rentCarPlatform.dao.utils.Constant;
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultOrderDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.*;
+import com.github.andygo298.rentCarPlatform.model.actions.OrderInfo;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service;
 
-import com.github.andygo298.rentCarPlatform.dao.Constant;
+import com.github.andygo298.rentCarPlatform.dao.utils.Constant;
 
 public class ServiceUtil {
 

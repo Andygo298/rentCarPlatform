@@ -29,21 +29,6 @@
             margin-right: 15px;
         }
 
-        .orderIcon {
-            position: absolute;
-            display: block;
-            width: 30px;
-            height: 30px;
-            background-color: aquamarine;
-            font-weight: bold;
-            top: -15px;
-            right: -15px;
-            text-align: center;
-            line-height: 26px;
-            border-radius: 50%;
-            border: 2px solid #007bff;
-            color: #007bff;
-        }
     </style>
 </head>
 <body>
@@ -79,7 +64,7 @@
                 <td>${car.type}</td>
                 <td>${car.year_mfg}</td>
                 <td>
-                    <c:forEach items="${car.staff}" var="staff">
+                    <c:forEach items="${car.staffSet}" var="staff">
                         <p>
                             <strong>ID:</strong> ${staff.id}
                             <strong>First name:</strong> ${staff.firstName}

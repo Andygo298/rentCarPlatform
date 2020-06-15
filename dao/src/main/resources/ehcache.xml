@@ -5,11 +5,11 @@
                   timeToIdleSeconds="120"
                   timeToLiveSeconds="200"
                   memoryStoreEvictionPolicy="LRU"/>
-    <cache name="com.github.andygo298.rentCarPlatform.model.AuthUser"
+    <cache name="com.github.andygo298.rentCarPlatform.dao.entity.AuthUserEntity"
            maxEntriesLocalHeap="20"
             eternal="true">
     </cache>
-    <cache name="com.github.andygo298.rentCarPlatform.model.User"
+    <cache name="com.github.andygo298.rentCarPlatform.dao.entity.UserEntity"
            maxEntriesLocalHeap="10"
            eternal="false"
            timeToIdleSeconds="300"

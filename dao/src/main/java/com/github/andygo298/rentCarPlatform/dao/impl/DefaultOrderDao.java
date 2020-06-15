@@ -2,9 +2,14 @@ package com.github.andygo298.rentCarPlatform.dao.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
 import com.github.andygo298.rentCarPlatform.dao.SFUtil;
-import com.github.andygo298.rentCarPlatform.model.Car;
+import com.github.andygo298.rentCarPlatform.dao.converter.CarConverter;
+import com.github.andygo298.rentCarPlatform.dao.converter.OrderConverter;
+import com.github.andygo298.rentCarPlatform.dao.converter.UserConverter;
+import com.github.andygo298.rentCarPlatform.dao.entity.CarEntity;
+import com.github.andygo298.rentCarPlatform.dao.entity.OrderEntity;
+import com.github.andygo298.rentCarPlatform.dao.entity.UserEntity;
 import com.github.andygo298.rentCarPlatform.model.Order;
-import com.github.andygo298.rentCarPlatform.model.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -25,10 +30,15 @@ public class DefaultOrderDao implements OrderDao {
 
     @Override
     public Long saveOrder(Order order) {
+        OrderEntity orderEntity = OrderConverter.toEntity(order);
+        CarEntity carEntity = CarConverter.toEntity(DefaultCarDao.getInstance().getCarById(orderEntity.getCarId()));
+        UserEntity userEntity = UserConverter.toEntity(DefaultUserDao.getInstance().getUserById(orderEntity.getUserId()));
+        orderEntity.setCarEntity(carEntity);
+        orderEntity.setUserEntity(userEntity);
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(order);
-            Long id = order.getId();
+            session.saveOrUpdate(orderEntity);
+            Long id = orderEntity.getId();
             session.getTransaction().commit();
             session.close();
             return id;
@@ -40,7 +50,7 @@ public class DefaultOrderDao implements OrderDao {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Object ordSt = session.createQuery
-                    ("select count (o.orderStatus) from Order o where o.orderStatus=:ordSt")
+                    ("select count (o.orderStatus) from OrderEntity o where o.orderStatus=:ordSt")
                     .setParameter("ordSt", status)
                     .getSingleResult();
             session.getTransaction().commit();
@@ -54,7 +64,7 @@ public class DefaultOrderDao implements OrderDao {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Object ordSt = session.createQuery
-                    ("select count (o.orderStatus) from Order o where o.orderStatus=:ordSt and o.userId=:userId")
+                    ("select count (o.orderStatus) from OrderEntity o where o.orderStatus=:ordSt and o.userId=:userId")
                     .setParameter("ordSt", status)
                     .setParameter("userId", userId)
                     .getSingleResult();
@@ -69,15 +79,18 @@ public class DefaultOrderDao implements OrderDao {
     public List<Order> getOrdersByUserId(Long userId, int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Order> criteria = cb.createQuery(Order.class);
-            Root<Order> orderRoot = criteria.from(Order.class);
+            CriteriaQuery<OrderEntity> criteria = cb.createQuery(OrderEntity.class);
+            Root<OrderEntity> orderRoot = criteria.from(OrderEntity.class);
             criteria.select(orderRoot)
                     .where(cb.equal(orderRoot.get("userId"), userId))
                     .orderBy(cb.desc(orderRoot.get("id")));
             return session.createQuery(criteria)
                     .setFirstResult(skipRecords)
                     .setMaxResults(limitRecords)
-                    .getResultList();
+                    .getResultList()
+                    .stream()
+                    .map(OrderConverter::fromEntity)
+                    .collect(Collectors.toList());
         }
     }
 
@@ -85,13 +98,16 @@ public class DefaultOrderDao implements OrderDao {
     public List<Order> getOrders(int skipRecords, int limitRecords) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Order> query = session.createQuery("from Order o order by o.orderStatus desc ", Order.class)
+            TypedQuery<OrderEntity> query = session.createQuery("from OrderEntity o order by o.orderStatus desc ", OrderEntity.class)
                     .setFirstResult(skipRecords)
                     .setMaxResults(limitRecords);
-            List<Order> resultList = query.getResultList();
+            List<OrderEntity> resultList = query.getResultList();
             session.getTransaction().commit();
             session.close();
-            return resultList;
+            return resultList
+                    .stream()
+                    .map(OrderConverter::fromEntity)
+                    .collect(Collectors.toList());
         }
     }
 
@@ -99,7 +115,7 @@ public class DefaultOrderDao implements OrderDao {
     public int getCountRecordsFromOrders() {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Order> query = session.createQuery("from Order ", Order.class);
+            TypedQuery<OrderEntity> query = session.createQuery("from OrderEntity ", OrderEntity.class);
             int resultCount = query.getResultList().size();
             session.getTransaction().commit();
             session.close();
@@ -112,7 +128,7 @@ public class DefaultOrderDao implements OrderDao {
     public int getCountRecordsFromOrdersForUser(Long userId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            TypedQuery<Order> query = session.createQuery("from Order o where o.userId in :userId", Order.class)
+            TypedQuery<OrderEntity> query = session.createQuery("from OrderEntity o where o.userId in :userId", OrderEntity.class)
                     .setParameter("userId", userId);
             int resultCount = query.getResultList().size();
             session.getTransaction().commit();
@@ -126,13 +142,13 @@ public class DefaultOrderDao implements OrderDao {
     public Double getOrderPriceById(Long orderId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Order getPriceOrder =
-                    (Order) (session.createQuery("from Order o where o.id in :orderId")
+            OrderEntity getPrice =
+                    (OrderEntity) (session.createQuery("from OrderEntity o where o.id in :orderId")
                             .setParameter("orderId", orderId)
                             .getSingleResult());
             session.getTransaction().commit();
             session.close();
-            return getPriceOrder.getOrderPrice();
+            return getPrice.getOrderPrice();
         }
     }
 
@@ -140,8 +156,8 @@ public class DefaultOrderDao implements OrderDao {
     public void setOrderStatus(Long orderId, OrderStatus orderStatus) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Order order = session.get(Order.class, orderId);
-            order.setOrderStatus(orderStatus);
+            OrderEntity orderEntity = session.get(OrderEntity.class, orderId);
+            orderEntity.setOrderStatus(orderStatus);
             session.getTransaction().commit();
             session.close();
         }
@@ -151,12 +167,12 @@ public class DefaultOrderDao implements OrderDao {
     public Long getCarIdByOrder(Long orderId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Order order = (Order) session.createQuery("from Order o where o.id in :orderId")
+            OrderEntity orderEntity = (OrderEntity) session.createQuery("from OrderEntity o where o.id in :orderId")
                     .setParameter("orderId", orderId)
                     .getSingleResult();
             session.getTransaction().commit();
             session.close();
-            return order.getCarId();
+            return orderEntity.getCarId();
         }
     }
 }

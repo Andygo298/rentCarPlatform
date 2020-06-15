@@ -1,8 +1,10 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package Impl;
 
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Role;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
 import org.hibernate.Session;
 import org.junit.jupiter.api.AfterAll;
@@ -13,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDaoHiberTest {
+public class UserEntityDaoHiberTest {
     final UserDao userDao = DefaultUserDao.getInstance();
 
     @BeforeEach
@@ -26,9 +28,9 @@ public class UserDaoHiberTest {
         session.saveOrUpdate(user1);
         session.saveOrUpdate(user2);
         session.saveOrUpdate(user3);
-        AuthUser authUser1 = new AuthUser(null, "TestLogin1", "TestPass1", Role.USER, user1);
-        AuthUser authUser2 = new AuthUser(null, "TestLogin2", "TestPass2", Role.USER, user2);
-        AuthUser authUser3 = new AuthUser(null, "TestLogin3", "TestPass3", Role.USER, user3);
+        AuthUser authUser1 = new AuthUser(null, "TestLogin1", "TestPass1", Role.USER, user1.getId());
+        AuthUser authUser2 = new AuthUser(null, "TestLogin2", "TestPass2", Role.USER, user2.getId());
+        AuthUser authUser3 = new AuthUser(null, "TestLogin3", "TestPass3", Role.USER, user3.getId());
         session.saveOrUpdate(authUser1);
         session.saveOrUpdate(authUser2);
         session.saveOrUpdate(authUser3);

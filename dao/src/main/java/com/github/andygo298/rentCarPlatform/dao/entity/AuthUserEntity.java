@@ -1,39 +1,40 @@
-package com.github.andygo298.rentCarPlatform.model;
+package com.github.andygo298.rentCarPlatform.dao.entity;
 
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
-public class AuthUser {
+@Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "auth_user")
+public class AuthUserEntity {
 
     private Long id;
     private String login;
     private String password;
     private Role role;
 
+    private UserEntity userEntity;
     private Long userId;
 
 
-    public AuthUser() {
+    public AuthUserEntity() {
     }
 
-    public AuthUser(Long id, String login, String password, Role role) {
+    public AuthUserEntity(Long id, String login, String password, Role role, UserEntity userEntity, Long userId) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
-    }
-    //from converter
-    public AuthUser(Long id, String login, String password, Role role, Long userId) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.role = role;
+        this.userEntity = userEntity;
         this.userId = userId;
     }
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -42,6 +43,7 @@ public class AuthUser {
         this.id = id;
     }
 
+    @Column(name = "login", nullable = false)
     public String getLogin() {
         return login;
     }
@@ -50,6 +52,7 @@ public class AuthUser {
         this.login = login;
     }
 
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -58,6 +61,8 @@ public class AuthUser {
         this.password = password;
     }
 
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
     public Role getRole() {
         return role;
     }
@@ -66,6 +71,17 @@ public class AuthUser {
         this.role = role;
     }
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    @Column(name = "user_id",nullable = false, insertable = false, updatable = false)
     public Long getUserId() {
         return userId;
     }

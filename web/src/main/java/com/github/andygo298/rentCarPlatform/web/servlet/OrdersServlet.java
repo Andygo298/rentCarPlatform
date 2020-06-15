@@ -1,13 +1,11 @@
 package com.github.andygo298.rentCarPlatform.web.servlet;
 
 import com.github.andygo298.rentCarPlatform.model.*;
-import com.github.andygo298.rentCarPlatform.service.CarService;
+import com.github.andygo298.rentCarPlatform.model.actions.OrderInfo;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
-import com.github.andygo298.rentCarPlatform.service.UserService;
-import com.github.andygo298.rentCarPlatform.service.impl.DefaultCarService;
 import com.github.andygo298.rentCarPlatform.service.impl.DefaultOrderService;
-import com.github.andygo298.rentCarPlatform.service.impl.DefaultUserService;
 import com.github.andygo298.rentCarPlatform.web.WebUtils;
 
 import javax.servlet.ServletException;

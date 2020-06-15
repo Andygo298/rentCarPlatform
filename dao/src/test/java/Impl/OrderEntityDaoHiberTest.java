@@ -1,8 +1,13 @@
-package com.github.andygo298.rentCarPlatform.dao;
+package Impl;
 
 
+import com.github.andygo298.rentCarPlatform.dao.OrderDao;
+import com.github.andygo298.rentCarPlatform.dao.SFUtil;
+import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import com.github.andygo298.rentCarPlatform.dao.impl.DefaultOrderDao;
 import com.github.andygo298.rentCarPlatform.model.*;
+import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
+import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -10,8 +15,7 @@ import java.util.List;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-public class OrderDaoHiberTest {
+public class OrderEntityDaoHiberTest {
 
     final OrderDao orderDao = DefaultOrderDao.getInstance();
 
@@ -25,9 +29,9 @@ public class OrderDaoHiberTest {
         session.saveOrUpdate(user1);
         session.saveOrUpdate(user2);
         session.saveOrUpdate(user3);
-        AuthUser authUser1 = new AuthUser(null, "TestLogin1", "TestPass1", Role.USER, user1);
-        AuthUser authUser2 = new AuthUser(null, "TestLogin2", "TestPass2", Role.USER, user2);
-        AuthUser authUser3 = new AuthUser(null, "TestLogin3", "TestPass3", Role.USER, user3);
+        AuthUser authUser1 = new AuthUser(null, "TestLogin1", "TestPass1", Role.USER, null);
+        AuthUser authUser2 = new AuthUser(null, "TestLogin2", "TestPass2", Role.USER, null);
+        AuthUser authUser3 = new AuthUser(null, "TestLogin3", "TestPass3", Role.USER, null);
         session.saveOrUpdate(authUser1);
         session.saveOrUpdate(authUser2);
         session.saveOrUpdate(authUser3);
@@ -55,16 +59,12 @@ public class OrderDaoHiberTest {
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car1)
-                .withUser(user1)
                 .build();
         Order order2 = new Order.OrderBuilder(car2.getId(), user2.getId())
                 .withPassport("MP3334455")
                 .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car2)
-                .withUser(user2)
                 .build();
 
         session.saveOrUpdate(order1);
@@ -81,7 +81,7 @@ public class OrderDaoHiberTest {
         session.beginTransaction();
         User user4 = new User(null, "TestName4", "TestLastName4", "test1@gmail.com", false);
         session.saveOrUpdate(user4);
-        AuthUser authUser4 = new AuthUser(null, "TestLogin4", "TestPass4", Role.USER, user4);
+        AuthUser authUser4 = new AuthUser(null, "TestLogin4", "TestPass4", Role.USER, user4.getId());
         session.saveOrUpdate(authUser4);
         Car car3 = new Car.CarBuilder(null)
                 .withBrand("Lada")
@@ -99,8 +99,6 @@ public class OrderDaoHiberTest {
                 .withDates(ConverterDate.stringToDate("2020-03-01"), ConverterDate.stringToDate("2020-03-10"))
                 .withTelephone("+375298793307")
                 .withPrice(590D)
-                .withCar(car3)
-                .withUser(user4)
                 .build();
         orderDao.saveOrder(order);
 
@@ -176,20 +174,20 @@ public class OrderDaoHiberTest {
     public static void afterAll() {
         Session session = SFUtil.getSession();
         session.beginTransaction();
-        session.createQuery("delete from Order o where o.id=:id").setParameter("id", 1L).executeUpdate();
-        session.createQuery("delete from Order o where o.id=:id").setParameter("id", 2L).executeUpdate();
-        session.createQuery("delete from Order o where o.id=:id").setParameter("id", 3L).executeUpdate();
-        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 1L).executeUpdate();
-        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 2L).executeUpdate();
-        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 3L).executeUpdate();
-        session.createQuery("delete from AuthUser au where au.id=:id").setParameter("id", 4L).executeUpdate();
-        session.createQuery("delete from User u where u.id=:id").setParameter("id", 1L).executeUpdate();
-        session.createQuery("delete from User u where u.id=:id").setParameter("id", 2L).executeUpdate();
-        session.createQuery("delete from User u where u.id=:id").setParameter("id", 3L).executeUpdate();
-        session.createQuery("delete from User u where u.id=:id").setParameter("id", 4L).executeUpdate();
-        session.createQuery("delete from Car c where c.id=:id").setParameter("id", 1L).executeUpdate();
-        session.createQuery("delete from Car c where c.id=:id").setParameter("id", 2L).executeUpdate();
-        session.createQuery("delete from Car c where c.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from OrderEntity o where o.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from OrderEntity o where o.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from OrderEntity o where o.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from AuthUserEntity au where au.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from AuthUserEntity au where au.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from AuthUserEntity au where au.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from AuthUserEntity au where au.id=:id").setParameter("id", 4L).executeUpdate();
+        session.createQuery("delete from UserEntity u where u.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from UserEntity u where u.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from UserEntity u where u.id=:id").setParameter("id", 3L).executeUpdate();
+        session.createQuery("delete from UserEntity u where u.id=:id").setParameter("id", 4L).executeUpdate();
+        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id", 1L).executeUpdate();
+        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id", 2L).executeUpdate();
+        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id", 3L).executeUpdate();
 
         session.getTransaction().commit();
         session.close();

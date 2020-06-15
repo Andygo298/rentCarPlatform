@@ -1,4 +1,7 @@
-package com.github.andygo298.rentCarPlatform.model;
+package com.github.andygo298.rentCarPlatform.model.actions;
+
+import com.github.andygo298.rentCarPlatform.model.Car;
+import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 
 import java.util.HashSet;
 import java.util.Set;
