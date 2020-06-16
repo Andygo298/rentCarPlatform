@@ -27,11 +27,6 @@ public class DefaultPaymentServiceTest {
     @InjectMocks
     DefaultPaymentService paymentService;
 
-    @Test
-    void getInstanceTest() {
-        PaymentService instance = DefaultPaymentService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void savePaymentTest(){

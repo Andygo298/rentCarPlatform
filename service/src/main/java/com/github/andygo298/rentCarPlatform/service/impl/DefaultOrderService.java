@@ -23,16 +23,15 @@ import java.util.List;
 
 public class DefaultOrderService implements OrderService {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderService.class);
-    private OrderDao orderDao = DefaultOrderDao.getInstance();
-    private CarDao carDao = DefaultCarDao.getInstance();
-    private UserDao userDao = DefaultUserDao.getInstance();
 
-    private static class SingletonHolder {
-        static final OrderService HOLDER_INSTANCE = new DefaultOrderService();
-    }
+    private final OrderDao orderDao;
+    private final CarDao carDao;
+    private final UserDao userDao;
 
-    public static OrderService getInstance() {
-        return DefaultOrderService.SingletonHolder.HOLDER_INSTANCE;
+    public DefaultOrderService(OrderDao orderDao, CarDao carDao, UserDao userDao) {
+        this.orderDao = orderDao;
+        this.carDao = carDao;
+        this.userDao = userDao;
     }
 
     @Override

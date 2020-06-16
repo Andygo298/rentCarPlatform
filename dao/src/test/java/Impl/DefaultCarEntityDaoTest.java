@@ -1,61 +1,37 @@
 package Impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
-import com.github.andygo298.rentCarPlatform.dao.SFUtil;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
+import com.github.andygo298.rentCarPlatform.dao.config.DaoConfig;
 import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = DaoConfig.class)
+@Transactional
 public class DefaultCarEntityDaoTest {
 
-    final CarDao carDao = DefaultCarDao.getInstance();
-    final StaffDao staffDao = DefaultStaffDao.getInstance();
-
-    @BeforeAll
-    public static void init() {
-        Session session = SFUtil.getSession();
-        session.beginTransaction();
-        Car car1 = new Car.CarBuilder(null)
-                .withBrand("Renault")
-                .withModel("Duster")
-                .withYear("2015")
-                .withType("SUV")
-                .withPrice(65)
-                .build();
-        Car car2 = new Car.CarBuilder(null)
-                .withBrand("Mersedes-Benz")
-                .withModel("GLK-240")
-                .withYear("2010")
-                .withType("SUV")
-                .withPrice(100)
-                .build();
-        Car car3 = new Car.CarBuilder(null)
-                .withBrand("Opel")
-                .withModel("Vectra")
-                .withYear("2001")
-                .withType("Sedan")
-                .withPrice(45)
-                .build();
-
-        session.saveOrUpdate(car1);
-        session.saveOrUpdate(car2);
-        session.saveOrUpdate(car3);
-        session.getTransaction().commit();
-        session.close();
-    }
+    @Autowired
+    private CarDao carDao;
+    @Autowired
+    private StaffDao staffDao;
 
     @Test
     void saveCarTest() {
@@ -78,6 +54,45 @@ public class DefaultCarEntityDaoTest {
     @Test
     void saveStaffIntoCarTest(){
         Car car = new Car.CarBuilder(null)
+                .withBrand("t")
+                .withModel("t")
+                .withType("SUV")
+                .withYear("2010")
+                .withImg("google.com")
+                .withPrice(50)
+                .build();
+        Staff staff1 = new Staff.StaffBuilder()
+                .withFirstName("t11")
+                .withLastName("t11")
+                .withSpecialization(Specialization.CLEANER)
+                .withCar(new ArrayList<>())
+                .build();
+        Staff staff2 = new Staff.StaffBuilder()
+                .withFirstName("t22")
+                .withLastName("t22")
+                .withSpecialization(Specialization.DRIVER)
+                .withCar(new ArrayList<>())
+                .build();
+        carDao.saveCar(car);
+        Car carfromDb = carDao.getCarById(carDao.getCarIdByBrandAndModelForTest("t", "t"));
+        Long aLong1 = staffDao.saveStaff(staff1);
+        Long aLong2 = staffDao.saveStaff(staff2);
+        Staff personById1 = staffDao.getPersonById(aLong1);
+        Staff personById2 = staffDao.getPersonById(aLong2);
+        List<Staff> staff = Arrays.asList(personById1, personById2);
+        Car carById = carDao.getCarById(carfromDb.getId());
+
+        carDao.saveStaffIntoCar(carById,staff);
+        long idCarActual = carDao.getCarIdByBrandAndModelForTest(car.getBrand(), car.getModel());
+        Car expCar = carDao.getCarById(idCarActual);
+        Staff exp0 = expCar.getStaffSet().get(0);
+        assertNotNull(exp0);
+        assertEquals(exp0.getFirstName(), staff1.getFirstName());
+    }
+
+    @Test
+    void testGetCarByIdTest() {
+        Car car = new Car.CarBuilder(null)
                 .withBrand("Renault")
                 .withModel("Arkana")
                 .withType("SUV")
@@ -85,35 +100,10 @@ public class DefaultCarEntityDaoTest {
                 .withImg("google.com")
                 .withPrice(78)
                 .build();
-        Staff staff1 = new Staff.StaffBuilder()
-                .withFirstName("Test1")
-                .withLastName("Testov1")
-                .withSpecialization(Specialization.CLEANER)
-                .build();
-        Staff staff2 = new Staff.StaffBuilder()
-                .withFirstName("Test2")
-                .withLastName("Testov2")
-                .withSpecialization(Specialization.DRIVER)
-                .build();
         carDao.saveCar(car);
-        staffDao.saveStaff(staff1);
-        staffDao.saveStaff(staff2);
-
-        List<Staff> staffList = Arrays.asList(staff1, staff2);
-        carDao.saveStaffIntoCar(car,staffList);
-        long idCarActual = carDao.getCarIdByBrandAndModelForTest(car.getBrand(), car.getModel());
-        Car expCar = carDao.getCarById(idCarActual);
-//        Set<Staff> staff = expCar.getStaff();
-//        assertNotNull(staff);
-//        Iterator<Staff> iterator = staff.iterator();
-//        assertEquals(staff.size(),staffList.size());
-    }
-
-    @Test
-    void testGetCarByIdTest() {
-        final Long carId = 2L;
-        String expModel = "GLK-240";
-        String expYear = "2010";
+        final Long carId = 1L;
+        String expModel = "Vesta";
+        String expYear = "2019";
         final Car actualCar = carDao.getCarById(carId);
         assertEquals(carId, actualCar.getId());
         assertEquals(expModel, actualCar.getModel());
@@ -122,8 +112,18 @@ public class DefaultCarEntityDaoTest {
 
     @Test
     void editCarTest() {
-        long idCar = 3L;
-        final EditCar editCar = new EditCar.CarBuilder(idCar)
+        Car car = new Car.CarBuilder(null)
+                .withBrand("testEdit")
+                .withModel("testEdit")
+                .withType("SUV")
+                .withYear("2019")
+                .withImg("google.com")
+                .withPrice(78)
+                .build();
+        carDao.saveCar(car);
+        long idCarActual = carDao.getCarIdByBrandAndModelForTest(car.getBrand(), car.getModel());
+        Car expCar = carDao.getCarById(idCarActual);
+        final EditCar editCar = new EditCar.CarBuilder(expCar.getId())
                 .withBrand("Lada")
                 .withModel("Vesta")
                 .withType("Sedan")
@@ -132,7 +132,7 @@ public class DefaultCarEntityDaoTest {
                 .withPrice(65)
                 .build();
         carDao.editCar(editCar);
-        Car carActual = carDao.getCarById(idCar);
+        Car carActual = carDao.getCarById(expCar.getId());
         assertEquals(editCar.getId(), carActual.getId());
         assertEquals(editCar.getBrand(), carActual.getBrand());
         assertEquals(editCar.getModel(), carActual.getModel());
@@ -156,25 +156,36 @@ public class DefaultCarEntityDaoTest {
     @Test
     public void getCountRecordsFromCarTest() {
         int countRecordsFromDb = carDao.getCountRecordsFromCar();
-        int exp = 3;
+        int exp = 2;
         assertEquals(exp, countRecordsFromDb);
     }
 
     @Test
     void changeRentStatusTest() {
-        long id = 3L;
-        carDao.changeRentStatus(id, true);
-        Car actualCar = carDao.getCarById(id);
+        Car car = new Car.CarBuilder(null)
+                .withBrand("testRent")
+                .withModel("testRent")
+                .withType("SUV")
+                .withYear("2019")
+                .withImg("google.com")
+                .withPrice(78)
+                .build();
+        carDao.saveCar(car);
+        long idCarActual = carDao.getCarIdByBrandAndModelForTest(car.getBrand(), car.getModel());
+        Car expCar = carDao.getCarById(idCarActual);
+
+        carDao.changeRentStatus(expCar.getId(), true);
+        Car actualCar = carDao.getCarById(expCar.getId());
         assertTrue(actualCar.isIs_rent());
 
-        carDao.changeRentStatus(id, false);
-        Car actualFalseCar = carDao.getCarById(id);
+        carDao.changeRentStatus(expCar.getId(), false);
+        Car actualFalseCar = carDao.getCarById(expCar.getId());
         assertFalse(actualFalseCar.isIs_rent());
     }
 
     @Test
     void deleteCarTest() {
-        long delCarId = carDao.getCarIdByBrandAndModelForTest("Renault", "Duster");
+        long delCarId = carDao.getCarIdByBrandAndModelForTest("Lada", "Vesta");
         carDao.delCar(delCarId);
         Car actualCar = carDao.getCarById(delCarId);
         assertNull(actualCar);
@@ -183,19 +194,8 @@ public class DefaultCarEntityDaoTest {
     @Test
     public void getCountRecordsFromOrders() {
         int countRecordsFromDb = carDao.getCountRecordsFromCar();
-        int exp = 3;
+        int exp = 1;
         assertEquals(exp,countRecordsFromDb);
-    }
-
-    @AfterAll
-    static void afterAll() {
-        Session session = SFUtil.getSession();
-        session.beginTransaction();
-        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id",2L).executeUpdate();
-        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id",3L).executeUpdate();
-        session.createQuery("delete from CarEntity c where c.id=:id").setParameter("id",4L).executeUpdate();
-        session.getTransaction().commit();
-        session.close();
     }
 
 }

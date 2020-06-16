@@ -28,11 +28,6 @@ class DefaultUserServiceTest {
     @InjectMocks
     DefaultUserService defaultUserService;
 
-    @Test
-    void getInstanceTest() {
-        UserService instance = DefaultUserService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
         void testUserById() {

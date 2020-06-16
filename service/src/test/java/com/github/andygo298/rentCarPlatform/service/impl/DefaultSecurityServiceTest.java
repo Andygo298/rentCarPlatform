@@ -24,11 +24,6 @@ class DefaultSecurityServiceTest {
     @InjectMocks
     DefaultSecurityService securityService;
 
-    @Test
-    void getInstanceTest() {
-        SecurityService instance = DefaultSecurityService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void testLoginNotExist() {

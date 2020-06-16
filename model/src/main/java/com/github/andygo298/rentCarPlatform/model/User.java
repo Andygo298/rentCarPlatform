@@ -1,8 +1,5 @@
 package com.github.andygo298.rentCarPlatform.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class User {
 
     private Long id;

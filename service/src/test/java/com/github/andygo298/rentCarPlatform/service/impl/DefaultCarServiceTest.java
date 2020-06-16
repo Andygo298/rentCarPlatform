@@ -31,12 +31,6 @@ class DefaultCarServiceTest {
 
 
     @Test
-    void getInstanceTest() {
-        CarService instance = DefaultCarService.getInstance();
-        assertNotNull(instance);
-    }
-
-    @Test
     void getCarsTest() {
         Car car1 = new Car.CarBuilder(1L)
                 .withBrand("Renault")

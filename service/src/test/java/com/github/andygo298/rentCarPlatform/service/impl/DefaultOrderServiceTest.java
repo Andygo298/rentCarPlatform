@@ -32,12 +32,6 @@ class DefaultOrderServiceTest {
 
 
     @Test
-    void getInstance() {
-        OrderService instance = DefaultOrderService.getInstance();
-        assertNotNull(instance);
-    }
-
-    @Test
     void calculateOrderPrice() {
     }
 

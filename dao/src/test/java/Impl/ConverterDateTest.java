@@ -20,7 +20,6 @@ public class ConverterDateTest {
     public void dateToString(){
         LocalDate date = LocalDate.now();
         String actualDate = ConverterDate.dateToString(date);
-        String temp = date.toString();
         assertNotNull(actualDate);
         assertEquals(date.toString(),actualDate);
 

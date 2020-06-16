@@ -28,11 +28,6 @@ public class DefaultStaffServiceTest {
     @InjectMocks
     DefaultStaffService defaultStaffService;
 
-    @Test
-    void getInstanceTest() {
-        StaffService instance = DefaultStaffService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void getStaffTest(){
