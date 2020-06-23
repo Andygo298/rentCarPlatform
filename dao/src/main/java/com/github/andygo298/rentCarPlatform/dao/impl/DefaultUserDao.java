@@ -33,8 +33,7 @@ public class DefaultUserDao implements UserDao {
     public long save(User user) {
         UserEntity userEntity = UserConverter.toEntity(user);
         sessionFactory.getCurrentSession().saveOrUpdate(userEntity);
-        long id = userEntity.getId();
-        return id;
+        return userEntity.getId();
     }
 
     @Override

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="default" template="/WEB-INF/view/layouts/default.jspx">
+        <put-attribute name="header" value="/WEB-INF/view/common/header.jspx"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/view/common/footer.jspx"/>
+    </definition>
+
+    <definition name="login" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/login.jspx"/>
+    </definition>
+
+    <definition name="home" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/home.jspx"/>
+    </definition>
+    <definition name="register" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/register.jspx"/>
+    </definition>
+    <definition name="addCar" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/addCar.jspx"/>
+    </definition>
+    <definition name="editCar" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/editCar.jspx"/>
+    </definition>
+    <definition name="orders" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/orders.jspx"/>
+    </definition>
+    <definition name="makeOrder" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/makeOrder.jspx"/>
+    </definition>
+
+</tiles-definitions>

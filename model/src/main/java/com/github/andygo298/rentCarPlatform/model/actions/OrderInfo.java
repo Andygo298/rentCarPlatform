@@ -72,7 +72,7 @@ public class OrderInfo {
         }
 
         public OrderInfo.OrderInfoBuilder withCarInfo(String model, String brand) {
-            newOrderInfo.carName =  model + " " + brand;
+            newOrderInfo.carName =  brand + " " + model;
             return this;
         }
 

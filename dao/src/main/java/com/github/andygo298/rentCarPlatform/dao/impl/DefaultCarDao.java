@@ -68,8 +68,8 @@ public class DefaultCarDao implements CarDao {
         carEntity.setYear_mfg(editCar.getYear_mfg());
         carEntity.setImg_url(editCar.getImg_url());
         carEntity.setDay_price(editCar.getDay_price());
-        sessionFactory.getCurrentSession().saveOrUpdate(carEntity);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+        sessionFactory.getCurrentSession().update(carEntity);
+//        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class DefaultCarDao implements CarDao {
         }
 
         sessionFactory.getCurrentSession().delete(delCar);
-        sessionFactory.getCurrentSession().getTransaction().commit();
+//        sessionFactory.getCurrentSession().getTransaction().commit();
 
     }
 
