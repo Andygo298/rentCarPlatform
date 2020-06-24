@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.PaymentDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultPaymentDao;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 import com.github.andygo298.rentCarPlatform.service.PaymentService;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public class DefaultPaymentService implements PaymentService {
-
     private final PaymentDao paymentDao;
 
     public DefaultPaymentService(PaymentDao paymentDao) {

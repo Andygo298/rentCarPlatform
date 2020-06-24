@@ -12,13 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultUserDao implements UserDao {
-
     private final SessionFactory sessionFactory;
 
     public DefaultUserDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-
 
     @Override
     public List<User> getUsers() {
@@ -26,7 +24,9 @@ public class DefaultUserDao implements UserDao {
                 .createQuery("from UserEntity", UserEntity.class)
                 .setCacheable(true);
         List<UserEntity> resultList = query.getResultList();
-        return resultList.stream().map(UserConverter::fromEntity).collect(Collectors.toList());
+        return resultList.stream()
+                .map(UserConverter::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override

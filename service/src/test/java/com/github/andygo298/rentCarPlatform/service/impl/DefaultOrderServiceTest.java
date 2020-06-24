@@ -6,7 +6,6 @@ import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
 import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.User;
-import com.github.andygo298.rentCarPlatform.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,17 +18,14 @@ import java.util.List;
 import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @ExtendWith(MockitoExtension.class)
 class DefaultOrderServiceTest {
 
     @Mock
     OrderDao orderDao;
 
-
     @InjectMocks
     DefaultOrderService defaultOrderService;
-
 
     @Test
     void calculateOrderPrice() {

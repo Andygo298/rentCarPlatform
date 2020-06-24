@@ -8,16 +8,11 @@ import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultStaffDao implements StaffDao {
-
-    private static final Logger log = LoggerFactory.getLogger(DefaultStaffDao.class);
     private final SessionFactory sessionFactory;
 
     public DefaultStaffDao(SessionFactory sessionFactory) {
@@ -40,7 +35,8 @@ public class DefaultStaffDao implements StaffDao {
 
     @Override
     public List<Staff> getStaffWithoutPagination() {
-        TypedQuery<StaffEntity> query = sessionFactory.getCurrentSession().createQuery("from StaffEntity ", StaffEntity.class);
+        TypedQuery<StaffEntity> query = sessionFactory.getCurrentSession()
+                .createQuery("from StaffEntity ", StaffEntity.class);
         List<StaffEntity> resultList = query.getResultList();
         return resultList
                 .stream()
@@ -68,7 +64,8 @@ public class DefaultStaffDao implements StaffDao {
 
     @Override
     public int getCountRecordsFromStaff() {
-        TypedQuery<StaffEntity> query = sessionFactory.getCurrentSession().createQuery("from StaffEntity ", StaffEntity.class);
+        TypedQuery<StaffEntity> query = sessionFactory.getCurrentSession()
+                .createQuery("from StaffEntity ", StaffEntity.class);
         return query.getResultList().size();
     }
 
@@ -87,7 +84,6 @@ public class DefaultStaffDao implements StaffDao {
         staffEntity.setLastName(staffToEdit.getLastName());
         staffEntity.setSpecialization(staffToEdit.getSpecialization());
         session.update(staffEntity);
-//        session.getTransaction().commit();
     }
 
     @Override
@@ -98,7 +94,6 @@ public class DefaultStaffDao implements StaffDao {
             carEntity.getStaff().forEach(e -> e.setCarEntitySet(null));
         }
         session.delete(delStaff);
-//        session.getTransaction().commit();
     }
 
     @Override
@@ -120,6 +115,5 @@ public class DefaultStaffDao implements StaffDao {
                 .findFirst()
                 .orElse(null);
         staff.getCarEntitySet().remove(carToRem);
-//        session.getTransaction().commit();
     }
 }

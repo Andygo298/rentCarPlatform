@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultOrderDao implements OrderDao {
-
     private final SessionFactory sessionFactory;
     private final UserDao userDao;
     private final CarDao carDao;
@@ -40,8 +39,7 @@ public class DefaultOrderDao implements OrderDao {
         orderEntity.setCarEntity(carEntity);
         orderEntity.setUserEntity(userEntity);
         sessionFactory.getCurrentSession().saveOrUpdate(orderEntity);
-        Long id = orderEntity.getId();
-        return id;
+        return orderEntity.getId();
     }
 
     @Override
@@ -80,7 +78,6 @@ public class DefaultOrderDao implements OrderDao {
                 .stream()
                 .map(OrderConverter::fromEntity)
                 .collect(Collectors.toList());
-
     }
 
     @Override

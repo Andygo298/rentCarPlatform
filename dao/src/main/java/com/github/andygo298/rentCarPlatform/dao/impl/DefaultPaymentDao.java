@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultPaymentDao implements PaymentDao {
-
     private final SessionFactory sessionFactory;
     private final UserDao userDao;
 

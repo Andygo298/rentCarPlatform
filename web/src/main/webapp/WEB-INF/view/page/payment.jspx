@@ -1,11 +1,9 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:sec="http://www.springframework.org/security/tags"
           version="2.0">
 
     <h3>PAYMENT</h3>
-    <form action="${pageContext.request.contextPath}/payment?orderId=${requestScope.orderId}" method="post">
+    <form action="${pageContext.request.contextPath}/payment?orderId=${orderId}" method="post">
         <div class="form-group row">
             <label for="cardNum" class="col-sm-2 col-form-label">Input card number</label>
             <div class="col-sm-6">
@@ -16,7 +14,7 @@
             <label for="orderPrice" class="col-sm-2 col-form-label">Sum payment</label>
             <div class="col-sm-6">
                 <input type="number" class="form-control" id="orderPrice" name="orderPrice"
-                       value="${requestScope.orderPrice}" readonly=""/>
+                       value="${orderPrice}" readonly=""/>
             </div>
         </div>
         <a class="btn btn-warning" href="${pageContext.request.contextPath}/orders">CANCEL</a>

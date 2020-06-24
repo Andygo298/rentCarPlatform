@@ -6,7 +6,6 @@ import com.github.andygo298.rentCarPlatform.service.SecurityService;
 import org.springframework.transaction.annotation.Transactional;
 
 public class DefaultSecurityService implements SecurityService {
-
     private final AuthUserDao authUserDao;
 
     public DefaultSecurityService(AuthUserDao authUserDao) {

@@ -4,7 +4,6 @@ import com.github.andygo298.rentCarPlatform.dao.config.DaoConfig;
 import com.github.andygo298.rentCarPlatform.service.config.ServiceConfig;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 import javax.servlet.Filter;
 
 public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServletInitializer {

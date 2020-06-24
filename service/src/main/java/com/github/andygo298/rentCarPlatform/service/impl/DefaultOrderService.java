@@ -4,9 +4,6 @@ import com.github.andygo298.rentCarPlatform.dao.CarDao;
 import com.github.andygo298.rentCarPlatform.dao.utils.Constant;
 import com.github.andygo298.rentCarPlatform.dao.OrderDao;
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultCarDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultOrderDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.*;
 import com.github.andygo298.rentCarPlatform.model.actions.OrderInfo;
 import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
@@ -15,7 +12,6 @@ import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +20,6 @@ import java.util.List;
 
 public class DefaultOrderService implements OrderService {
     private static final Logger log = LoggerFactory.getLogger(DefaultOrderService.class);
-
     private final OrderDao orderDao;
     private final CarDao carDao;
     private final UserDao userDao;
@@ -62,7 +57,6 @@ public class DefaultOrderService implements OrderService {
     public Integer getUserOrdersByStatus(OrderStatus status, Long userId) {
         return orderDao.getUserOrdersByStatus(status, userId);
     }
-
 
     @Override
     @Transactional

@@ -22,7 +22,6 @@ public class PaymentController {
     private static final Logger log = LoggerFactory.getLogger(PaymentController.class);
     private final OrderService orderService;
     private final PaymentService paymentService;
-
     public PaymentController(OrderService orderService, PaymentService paymentService) {
         this.orderService = orderService;
         this.paymentService = paymentService;

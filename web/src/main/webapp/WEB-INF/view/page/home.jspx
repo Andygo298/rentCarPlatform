@@ -4,10 +4,6 @@
           xmlns:sec="http://www.springframework.org/security/tags"
           version="2.0"
           xmlns:spring="http://www.springframework.org/tags">
-    <jsp:useBean id="cars" scope="request" type="java.util.List"/>
-    <jsp:useBean id="activeOrders" scope="request" type="java.lang.Integer"/>
-    <jsp:useBean id="currentPageCar" scope="request" type="java.lang.Integer"/>
-    <jsp:useBean id="countPages" scope="request" type="java.lang.Integer"/>
 
     <style>
         body {

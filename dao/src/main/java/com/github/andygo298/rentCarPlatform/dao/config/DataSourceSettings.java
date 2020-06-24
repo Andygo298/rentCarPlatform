@@ -1,7 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 
 //@PropertySource("classpath:datasourse.properties")
 public class DataSourceSettings {

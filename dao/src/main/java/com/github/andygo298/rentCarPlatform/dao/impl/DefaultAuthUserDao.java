@@ -16,7 +16,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 public class DefaultAuthUserDao implements AuthUserDao {
-
     private static final Logger log = LoggerFactory.getLogger(DefaultAuthUserDao.class);
     private final SessionFactory sessionFactory;
     private final UserDao userDao;

@@ -34,46 +34,6 @@ public class DefaultStaffEntityDaoTest {
     @Autowired
     private SessionFactory sessionFactory;
 
-/*
-    @BeforeAll
-    static void init() {
-        Staff staff1 = new Staff.StaffBuilder()
-                .withFirstName("Test1")
-                .withLastName("Testov1")
-                .withSpecialization(Specialization.CLEANER)
-                .build();
-        Staff staff2 = new Staff.StaffBuilder()
-                .withFirstName("Test2")
-                .withLastName("Testov2")
-                .withSpecialization(Specialization.DRIVER)
-                .build();
-        Staff staff3 = new Staff.StaffBuilder()
-                .withFirstName("Test3")
-                .withLastName("Testov3")
-                .withSpecialization(Specialization.CLEANER)
-                .build();
-        Staff staff4 = new Staff.StaffBuilder()
-                .withFirstName("Test4")
-                .withLastName("Testov4")
-                .withSpecialization(Specialization.MECHANIC)
-                .build();
-        Staff staff5 = new Staff.StaffBuilder()
-                .withFirstName("Test5")
-                .withLastName("Testov5")
-                .withSpecialization(Specialization.MECHANIC)
-                .build();
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.saveOrUpdate(staff1);
-        session.saveOrUpdate(staff2);
-        session.saveOrUpdate(staff3);
-        session.saveOrUpdate(staff4);
-        session.saveOrUpdate(staff5);
-        session.getTransaction().commit();
-        session.close();
-    }
-*/
-
     @Test
     void getStaffTest() {
         Staff staff1 = new Staff.StaffBuilder()

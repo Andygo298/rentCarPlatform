@@ -7,16 +7,12 @@ import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.AfterClass;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -4,11 +4,9 @@ import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.service.UserService;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 public class DefaultUserService implements UserService {
-
     private final UserDao userDao;
 
     public DefaultUserService(UserDao userDao) {

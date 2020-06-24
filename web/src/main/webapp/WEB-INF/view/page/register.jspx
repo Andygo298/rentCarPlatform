@@ -1,7 +1,5 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:sec="http://www.springframework.org/security/tags"
           version="2.0">
     <style>
         body {
@@ -61,6 +59,7 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
-        <p class="text-danger font-weight-bold">${errorExist}</p>
+        <p class="text-danger font-weight-bold">
+        ${errorExist}</p>
     </form>
 </jsp:root>

@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultCarDao implements CarDao {
-
     private final SessionFactory sessionFactory;
 
     public DefaultCarDao(SessionFactory sessionFactory) {
@@ -33,7 +32,6 @@ public class DefaultCarDao implements CarDao {
                 .map(CarConverter::fromEntity)
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public int getCountRecordsFromCar() {
@@ -69,7 +67,6 @@ public class DefaultCarDao implements CarDao {
         carEntity.setImg_url(editCar.getImg_url());
         carEntity.setDay_price(editCar.getDay_price());
         sessionFactory.getCurrentSession().update(carEntity);
-//        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 
     @Override
@@ -80,7 +77,6 @@ public class DefaultCarDao implements CarDao {
 
     @Override
     public void delCar(Long delCarId) {
-
         CarEntity delCar = sessionFactory.getCurrentSession().get(CarEntity.class, delCarId);
         List<StaffEntity> staff = delCar.getStaff();
 
@@ -94,8 +90,6 @@ public class DefaultCarDao implements CarDao {
         }
 
         sessionFactory.getCurrentSession().delete(delCar);
-//        sessionFactory.getCurrentSession().getTransaction().commit();
-
     }
 
     @Override
@@ -106,9 +100,7 @@ public class DefaultCarDao implements CarDao {
 
     @Override
     public void saveStaffIntoCar(Car car, List<Staff> staff) {
-
         CarEntity carEntity = sessionFactory.getCurrentSession().get(CarEntity.class, car.getId());
-
 
         List<StaffEntity> staffEntityList = staff
                 .stream()
@@ -118,6 +110,5 @@ public class DefaultCarDao implements CarDao {
         carEntity.getStaff().addAll(staffEntityList);
 
         sessionFactory.getCurrentSession().update(carEntity);
-//        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }

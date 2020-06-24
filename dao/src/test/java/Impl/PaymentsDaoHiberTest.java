@@ -1,6 +1,5 @@
 package Impl;
 
-
 import com.github.andygo298.rentCarPlatform.dao.PaymentDao;
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.config.DaoConfig;
@@ -8,7 +7,6 @@ import com.github.andygo298.rentCarPlatform.dao.entity.PaymentEntity;
 import com.github.andygo298.rentCarPlatform.model.Payment;
 import com.github.andygo298.rentCarPlatform.model.User;
 import org.hibernate.Session;
-
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -2,7 +2,6 @@ package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.utils.Constant;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.Staff;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public class DefaultStaffService implements StaffService {
-
     private final StaffDao staffDao;
 
     public DefaultStaffService(StaffDao staffDao) {

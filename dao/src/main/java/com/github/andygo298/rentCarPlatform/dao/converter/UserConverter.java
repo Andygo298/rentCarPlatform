@@ -3,8 +3,6 @@ package com.github.andygo298.rentCarPlatform.dao.converter;
 import com.github.andygo298.rentCarPlatform.dao.entity.UserEntity;
 import com.github.andygo298.rentCarPlatform.model.User;
 
-import java.util.stream.Collectors;
-
 public class UserConverter {
 
     public static User fromEntity(UserEntity userEntity) {

@@ -8,10 +8,6 @@ public class User {
     private String email;
     private boolean isBlocked;
 
-//    private AuthUser authUser;
-//    private Set<Payment> payments;
-//    private Set<Order> orders;
-
     public User() {
     }
 

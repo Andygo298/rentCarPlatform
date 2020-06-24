@@ -37,62 +37,6 @@ public class OrderEntityDaoHiberTest {
     private UserDao userDao;
     @Autowired
     private SessionFactory sessionFactory;
-/*
-    @BeforeAll
-    public static void init() {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        User user1 = new User(null, "TestName1", "TestLastName1", "test1@gmail.com", false);
-        User user2 = new User(null, "TestName2", "TestLastName2", "test2@gmail.com", false);
-        User user3 = new User(null, "TestName3", "TestLastName3", "test3@gmail.com", false);
-        session.saveOrUpdate(user1);
-        session.saveOrUpdate(user2);
-        session.saveOrUpdate(user3);
-        AuthUser authUser1 = new AuthUser(null, "TestLogin1", "TestPass1", Role.USER, null);
-        AuthUser authUser2 = new AuthUser(null, "TestLogin2", "TestPass2", Role.USER, null);
-        AuthUser authUser3 = new AuthUser(null, "TestLogin3", "TestPass3", Role.USER, null);
-        session.saveOrUpdate(authUser1);
-        session.saveOrUpdate(authUser2);
-        session.saveOrUpdate(authUser3);
-
-        Car car1 = new Car.CarBuilder(null)
-                .withBrand("Renault")
-                .withModel("Arkana")
-                .withYear("2019")
-                .withType("SUV")
-                .withPrice(80)
-                .build();
-        Car car2 = new Car.CarBuilder(null)
-                .withBrand("Opel")
-                .withModel("Vectra")
-                .withYear("2001")
-                .withType("Sedan")
-                .withPrice(45)
-                .build();
-
-        session.saveOrUpdate(car1);
-        session.saveOrUpdate(car2);
-
-        Order order1 = new Order.OrderBuilder(car1.getId(), user1.getId())
-                .withPassport("MP3334455")
-                .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
-                .withTelephone("+375298793307")
-                .withPrice(590D)
-                .build();
-        Order order2 = new Order.OrderBuilder(car2.getId(), user2.getId())
-                .withPassport("MP3334455")
-                .withDates(ConverterDate.stringToDate("2020-05-01"), ConverterDate.stringToDate("2020-05-10"))
-                .withTelephone("+375298793307")
-                .withPrice(590D)
-                .build();
-
-        session.saveOrUpdate(order1);
-        session.saveOrUpdate(order2);
-
-        session.getTransaction().commit();
-        session.close();
-
-    }*/
 
     @Test
     public void saveOrderTest() {

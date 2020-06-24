@@ -4,7 +4,6 @@ import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import java.util.List;
 
 public class Staff {
-
     private Long id;
     private String firstName;
     private String lastName;
