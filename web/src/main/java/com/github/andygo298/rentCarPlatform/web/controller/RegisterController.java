@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @Controller
@@ -30,29 +29,30 @@ public class RegisterController {
     }
 
     @GetMapping()
-    public String register(){
+    public String register() {
         return "register";
     }
 
     @PostMapping()
-    public String registerNew(ModelMap modelMap, RegCreateRq regCreateRq){
+    public String registerNew(ModelMap modelMap, RegCreateRq regCreateRq) {
         String login = regCreateRq.getLogin();
         String password = regCreateRq.getPassword();
         String firstName = regCreateRq.getFirstName();
         String lastName = regCreateRq.getLastName();
         String email = regCreateRq.getEmail();
-        AuthUser authUser = securityService.login(login,password);
+        AuthUser authUser = securityService.login(login, password);
         if (authUser != null) {
-            modelMap.addAttribute("errorExist","This user already exists");
+            modelMap.addAttribute("errorExist", "This user already exists");
             return "register";
         }
         long userId = userService.saveUsers(new User(null, firstName, lastName, email, false));
-        log.info("user created:{} at {}", userId, LocalDateTime.now());
+        log.info("--- Auth info: firstName: {}, lastName: {}, email: {}, login: {}.", firstName, lastName, email, login);
+        log.info("--- User created with id={} at {}.", userId, LocalDateTime.now());
         Long idAuthUser = securityService.saveAuthUser(
                 new AuthUser(null, login, password, Role.USER, userService.getUserById(userId).getId())
         );
-        modelMap.addAttribute("customMessage","Thanks for registration.");
-        modelMap.addAttribute("customMessage2","You can Sign In using your login and password.");
+        modelMap.addAttribute("customMessage", "Thanks for registration.");
+        modelMap.addAttribute("customMessage2", "You can Sign In using your login and password.");
         return "login";
     }
 

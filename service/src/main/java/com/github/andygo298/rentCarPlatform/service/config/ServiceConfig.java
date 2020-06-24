@@ -38,4 +38,8 @@ public class ServiceConfig {
     public OrderService orderService() {
         return new DefaultOrderService(daoConfig.orderDao(), daoConfig.carDao(), daoConfig.userDao());
     }
+    @Bean
+    public PaymentService paymentService(){
+        return new DefaultPaymentService(daoConfig.paymentDao());
+    }
 }

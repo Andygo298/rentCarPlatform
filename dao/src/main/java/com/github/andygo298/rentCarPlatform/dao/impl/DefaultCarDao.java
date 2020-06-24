@@ -118,7 +118,6 @@ public class DefaultCarDao implements CarDao {
         carEntity.getStaff().addAll(staffEntityList);
 
         sessionFactory.getCurrentSession().update(carEntity);
-        sessionFactory.getCurrentSession().getTransaction().commit();
-
+//        sessionFactory.getCurrentSession().getTransaction().commit();
     }
 }

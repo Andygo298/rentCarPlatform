@@ -87,7 +87,7 @@ public class DefaultStaffDao implements StaffDao {
         staffEntity.setLastName(staffToEdit.getLastName());
         staffEntity.setSpecialization(staffToEdit.getSpecialization());
         session.update(staffEntity);
-        session.getTransaction().commit();
+//        session.getTransaction().commit();
     }
 
     @Override
@@ -98,7 +98,7 @@ public class DefaultStaffDao implements StaffDao {
             carEntity.getStaff().forEach(e -> e.setCarEntitySet(null));
         }
         session.delete(delStaff);
-        session.getTransaction().commit();
+//        session.getTransaction().commit();
     }
 
     @Override
@@ -120,6 +120,6 @@ public class DefaultStaffDao implements StaffDao {
                 .findFirst()
                 .orElse(null);
         staff.getCarEntitySet().remove(carToRem);
-        session.getTransaction().commit();
+//        session.getTransaction().commit();
     }
 }

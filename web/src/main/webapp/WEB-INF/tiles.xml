@@ -8,11 +8,10 @@
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/view/common/footer.jspx"/>
     </definition>
-
+<!--BODY:-->
     <definition name="login" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/login.jspx"/>
     </definition>
-
     <definition name="home" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/home.jspx"/>
     </definition>
@@ -30,6 +29,21 @@
     </definition>
     <definition name="makeOrder" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/makeOrder.jspx"/>
+    </definition>
+    <definition name="payment" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/payment.jspx"/>
+    </definition>
+    <definition name="maintenance" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/maintenance.jspx"/>
+    </definition>
+    <definition name="staffs" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/staffs.jspx"/>
+    </definition>
+    <definition name="addWorker" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/addWorker.jspx"/>
+    </definition>
+    <definition name="editWorker" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/editWorker.jspx"/>
     </definition>
 
 </tiles-definitions>

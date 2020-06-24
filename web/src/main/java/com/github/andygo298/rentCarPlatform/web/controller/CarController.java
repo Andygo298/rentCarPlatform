@@ -2,14 +2,12 @@ package com.github.andygo298.rentCarPlatform.web.controller;
 
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.Car;
-import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
-import com.github.andygo298.rentCarPlatform.web.WebUtils;
 import com.github.andygo298.rentCarPlatform.web.rq.AddCarCreateRq;
 import com.github.andygo298.rentCarPlatform.web.rq.EditCarRq;
 import org.slf4j.Logger;
@@ -84,7 +82,7 @@ public class CarController {
                 .withYear(year_mfg)
                 .withPrice(day_price).build();
         carService.saveCar(newCar);
-        log.info("addNewCar {} logged", newCar.toString());
+        log.info("--- Was create new Car - {}", newCar.toString());
         return "redirect:/home?reqPage=1";
     }
 
@@ -115,14 +113,14 @@ public class CarController {
                 .withPrice(day_price)
                 .build();
         carService.editCar(editCar);
-        log.info("editCar {} logged", editCar.toString());
+        log.info("Car id={} was edit.", carId);
         return "redirect:/home?reqPage=" + page;
     }
 
     @GetMapping("/deleteCar")
     public String deleteCar(@CookieValue(value = "currentPageCar") String page, @RequestParam Long carId) {
         carService.delCar(carId);
-        log.info("delCar with id=  {} logged", carId.toString());
+        log.info("Car id={} was delete.", carId);
         return "redirect:/home?reqPage=" + page;
     }
 }

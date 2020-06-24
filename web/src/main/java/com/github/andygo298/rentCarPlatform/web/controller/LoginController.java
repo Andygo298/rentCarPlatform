@@ -15,15 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
 @RequestMapping({"/login", "/"})
 public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
-
     private final SecurityService securityService;
 
     public LoginController(SecurityService securityService) {
@@ -43,10 +42,10 @@ public class LoginController {
     public String login(@RequestParam String login, @RequestParam String password, ModelMap modelMap) {
         AuthUser user = securityService.login(login, password);
         if (user == null) {
-            modelMap.addAttribute("error","login or password invalid");
+            modelMap.addAttribute("error", "login or password invalid");
             return "login";
         }
-        log.info("user {} logged", user.getLogin());
+        log.info("---Authenicated as : {}.", user.getLogin());
         Authentication auth = new UsernamePasswordAuthenticationToken(user, null, getAuthorities(user));
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -54,6 +53,6 @@ public class LoginController {
     }
 
     private List<GrantedAuthority> getAuthorities(AuthUser authUser) {
-        return Arrays.asList((GrantedAuthority) () -> "ROLE_" + authUser.getRole().name());
+        return Collections.singletonList((GrantedAuthority) () -> "ROLE_" + authUser.getRole().name());
     }
 }

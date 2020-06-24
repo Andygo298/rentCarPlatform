@@ -31,6 +31,16 @@
         const path = link.getAttribute('href').split('?')[0];
         link.setAttribute('href', path + '?carId=' + id);
     }
+
+    function handleClick(id) {
+        document.getElementById("selectedCarId").value = id;
+    }
+
+    function handleDeleteStaffClick(id) {
+        const link = document.querySelector(".deleteLink");
+        const path = link.getAttribute("href").split("?")[0];
+        link.setAttribute('href', path + "?id=" + id);
+    }
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

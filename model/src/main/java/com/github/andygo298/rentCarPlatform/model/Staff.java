@@ -70,6 +70,16 @@ public class Staff {
         this.carSet = carSet;
     }
 
+    @Override
+    public String toString() {
+        return "Staff{" + '\n' +
+                "id=" + id + '\n' +
+                "firstName='" + firstName + '\n' +
+                "lastName='" + lastName + '\n' +
+                "specialization=" + specialization + '\n' +
+                '}';
+    }
+
 //builder class
     public static class StaffBuilder {
         private Staff newStaff;
@@ -106,4 +116,5 @@ public class Staff {
             return newStaff;
         }
     }
+
 }

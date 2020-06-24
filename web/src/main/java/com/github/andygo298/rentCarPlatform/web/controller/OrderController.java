@@ -2,16 +2,13 @@ package com.github.andygo298.rentCarPlatform.web.controller;
 
 import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.Order;
-import com.github.andygo298.rentCarPlatform.model.User;
 import com.github.andygo298.rentCarPlatform.model.actions.OrderInfo;
 import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.OrderService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
-import com.github.andygo298.rentCarPlatform.web.WebUtils;
 import com.github.andygo298.rentCarPlatform.web.rq.MakeOrderRq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,16 +103,18 @@ public class OrderController {
         }
         return "redirect:/home";
     }
+
     @GetMapping("/approveOrder")
-    public String approve(@RequestParam Long orderId){
+    public String approve(@RequestParam Long orderId) {
         orderService.setOrderStatus(orderId, OrderStatus.ACCEPTED);
         return "redirect:/orders";
     }
+
     @GetMapping("rejectOrder")
-    public String reject(@RequestParam Long orderId){
+    public String reject(@RequestParam Long orderId) {
         orderService.setOrderStatus(orderId, OrderStatus.REJECTED);
         Long carId = orderService.getCarIdByOrder(orderId);
-        carService.changeRentStatus(carId,false);
+        carService.changeRentStatus(carId, false);
         return "redirect:/orders";
     }
 }
