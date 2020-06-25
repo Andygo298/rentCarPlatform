@@ -1,9 +1,6 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           version="2.0">
-    <jsp:useBean id="errorMessage2" scope="request" type="java.lang.String"/>
-    <jsp:useBean id="errorMessage1" scope="request" type="java.lang.String"/>
-    <jsp:useBean id="carId" scope="request" type="java.lang.Long"/>
 
     <h3 class="font-weight-bold">Order Form</h3>
     <form action="${pageContext.request.contextPath}/orders/make?carId=${carId}" method="post">
