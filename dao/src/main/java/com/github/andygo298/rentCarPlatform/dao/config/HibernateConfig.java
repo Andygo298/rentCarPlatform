@@ -32,7 +32,7 @@ public class HibernateConfig {
 
     }
 
-    @Bean
+    @Bean(destroyMethod = "destroy")
     public LocalSessionFactoryBean entityManagerFactory() {
         final LocalSessionFactoryBean sf = new LocalSessionFactoryBean();
         sf.setDataSource(dataSource());

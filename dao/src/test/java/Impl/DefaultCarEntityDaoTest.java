@@ -98,7 +98,7 @@ public class DefaultCarEntityDaoTest {
                 .build();
         carDao.saveCar(car);
         final Long carId = 1L;
-        String expModel = "Vesta";
+        String expModel = "testEdit";
         String expYear = "2019";
         final Car actualCar = carDao.getCarById(carId);
         assertEquals(carId, actualCar.getId());
@@ -181,7 +181,7 @@ public class DefaultCarEntityDaoTest {
 
     @Test
     void deleteCarTest() {
-        long delCarId = carDao.getCarIdByBrandAndModelForTest("Lada", "Vesta");
+        long delCarId = carDao.getCarIdByBrandAndModelForTest("testEdit", "testEdit");
         carDao.delCar(delCarId);
         Car actualCar = carDao.getCarById(delCarId);
         assertNull(actualCar);

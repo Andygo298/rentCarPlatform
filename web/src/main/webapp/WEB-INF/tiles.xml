@@ -8,6 +8,9 @@
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/view/common/footer.jspx"/>
     </definition>
+    <definition name="error" template="/WEB-INF/view/layouts/error.jspx">
+        <put-attribute name="body" value=""/>
+    </definition>
 <!--BODY:-->
     <definition name="login" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/login.jspx"/>
@@ -45,5 +48,8 @@
     <definition name="editWorker" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/editWorker.jspx"/>
     </definition>
-
+    <!--ERROR:-->
+    <definition name="403" extends="error">
+        <put-attribute name="body" value="/WEB-INF/view/page/403.jspx"/>
+    </definition>
 </tiles-definitions>

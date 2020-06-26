@@ -68,7 +68,7 @@ public class DefaultStaffEntityDaoTest {
     @Test
     void getCountRecordsFromStaffTest() {
         int countRecordsFromStaffFromDb = staffDao.getCountRecordsFromStaff();
-        int exp = 3;
+        int exp = 4;
         assertEquals(exp, countRecordsFromStaffFromDb);
     }
 

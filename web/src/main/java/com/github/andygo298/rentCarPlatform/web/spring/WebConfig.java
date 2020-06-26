@@ -57,6 +57,10 @@ public class WebConfig {
     StaffController staffController() {
         return new StaffController(serviceConfig.carService(), serviceConfig.staffService());
     }
+    @Bean
+    ErrorController errorController(){
+        return new ErrorController();
+    }
 
     //others:
     @Bean
