@@ -1,4 +1,4 @@
-package Impl;
+package impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
@@ -6,7 +6,6 @@ import com.github.andygo298.rentCarPlatform.dao.config.DaoConfig;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

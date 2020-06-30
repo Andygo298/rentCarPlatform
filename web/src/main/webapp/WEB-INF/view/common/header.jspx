@@ -19,24 +19,24 @@
                         <li class="nav-item">
                             <sec:authorize access="isAuthenticated()">
                                 <sec:authentication var="principal" property="principal" />
-                                <p style="color: #fff; padding-right: 10px">Authenticated as : ${principal.getLogin()}</p>
+                                <p style="color: #fff; padding-right: 10px"><spring:message code="header.authAs"/> ${principal.getLogin()}</p>
                             </sec:authorize>
                         </li>
                         <sec:authorize access="isAuthenticated()">
                         <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/home">Home
+                            <a class="nav-link" href="${pageContext.request.contextPath}/home"><spring:message code="header.home"/>
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/logout-user">Logout</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/logout-user"><spring:message code="header.logout"/></a>
                         </li>
                         </sec:authorize>
                         <li class="nav-item">
-                            <a class="nav-link" href="${requestScope['javax.servlet.forward.request_uri']}?locale=en">EN</a>
+                            <a class="nav-link" href="${requestScope['javax.servlet.forward.request_uri']}?locale=en"><spring:message code="header.en"/></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${requestScope['javax.servlet.forward.request_uri']}?locale=ru">RU</a>
+                            <a class="nav-link" href="${requestScope['javax.servlet.forward.request_uri']}?locale=ru"><spring:message code="header.ru"/></a>
                         </li>
                     </ul>
                 </div>

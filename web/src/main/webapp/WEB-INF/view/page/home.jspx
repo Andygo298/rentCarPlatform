@@ -89,7 +89,7 @@
 
             <c:if test="${currentPageCar != 1}">
                 <li class="page-item"><a class="page-link" href=
-                        "${pageContext.request.contextPath}/home?reqPage=${currentPageCar - 1}">Previous</a>
+                        "${pageContext.request.contextPath}/home?reqPage=${currentPageCar - 1}"><spring:message code="page.previous"/></a>
                 </li>
             </c:if>
 
@@ -109,7 +109,7 @@
 
             <c:if test="${currentPageCar lt countPages}">
                 <li class="page-item"><a class="page-link" href=
-                        "${pageContext.request.contextPath}/home?reqPage=${currentPageCar + 1}">Next</a>
+                        "${pageContext.request.contextPath}/home?reqPage=${currentPageCar + 1}"><spring:message code="page.next"/></a>
                 </li>
             </c:if>
         </ul>
@@ -130,11 +130,11 @@
                 <th scope="col"><spring:message code="table.dayPrice"/></th>
                 <th scope="col"><spring:message code="table.available"/></th>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col"><spring:message code="table.edit"/></th>
+                    <th scope="col"><spring:message code="table.delete"/></th>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_USER')">
-                    <th scope="col">Make Order</th>
+                    <th scope="col"><spring:message code="table.makeOrder"/></th>
                 </sec:authorize>
             </tr>
 
@@ -188,10 +188,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center font-weight-bold">
-                    Are you sure you want to delete this car?
+                    <spring:message code="modal.delCarMessage"/>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><spring:message code="modal.close"/></button>
                     <a id="deleteLink" class="btn btn-danger" href="${pageContext.request.contextPath}/home/deleteCar?${ccc.id}">
                         <spring:message code="button.delete"/>
                     </a>

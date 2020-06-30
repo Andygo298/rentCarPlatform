@@ -20,7 +20,7 @@
         h1 {
             padding-top: 30px;
             font-size: 60px;
-            font-family: Arial;
+            font-family: Arial,serif;
             text-align: center;
             border-bottom: 1px solid #333;
             border-bottom-style: dashed;
@@ -33,12 +33,12 @@
         }
         p {
             text-align: center;
-            font-family: Arial;
+            font-family: Arial,serif;
             font-weight: bold;
             padding-bottom: 3%;
         }
         small {
-            font-family: Arial;
+            font-family: Arial,serif;
             text-align: center;
             word-spacing: -1px;
             font-size: 10px;

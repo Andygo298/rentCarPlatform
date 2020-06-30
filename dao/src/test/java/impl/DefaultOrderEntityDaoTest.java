@@ -1,4 +1,4 @@
-package Impl;
+package impl;
 
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
@@ -9,7 +9,6 @@ import com.github.andygo298.rentCarPlatform.dao.entity.OrderEntity;
 import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import com.github.andygo298.rentCarPlatform.model.*;
 import com.github.andygo298.rentCarPlatform.model.enums.OrderStatus;
-import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.Ordered;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
 @Transactional
-public class OrderEntityDaoHiberTest {
+public class DefaultOrderEntityDaoTest {
     @Autowired
     private OrderDao orderDao;
     @Autowired

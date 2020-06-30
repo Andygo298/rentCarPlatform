@@ -1,4 +1,4 @@
-package Impl;
+package impl;
 
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
 import com.github.andygo298.rentCarPlatform.dao.config.DaoConfig;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
 @Transactional
-public class UserEntityDaoHiberTest {
+public class DefaultUserEntityDaoTest {
 
     @Autowired
     private UserDao userDao;

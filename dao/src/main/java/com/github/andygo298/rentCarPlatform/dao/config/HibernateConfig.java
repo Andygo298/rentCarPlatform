@@ -1,6 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao.config;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -23,12 +23,14 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource() {
         final DataSourceSettings dataSourceSettings = settingsConfig.dataSourceSettings();
-
-        final MysqlDataSource mysqlDataSource = new MysqlDataSource();
-        mysqlDataSource.setURL(dataSourceSettings.getUrl());
-        mysqlDataSource.setUser(dataSourceSettings.getNameAdmin());
-        mysqlDataSource.setPassword(dataSourceSettings.getPassword());
-        return mysqlDataSource;
+//hikari:
+        final HikariDataSource hikariDataSource = new HikariDataSource();
+        hikariDataSource.setJdbcUrl(dataSourceSettings.getUrl());
+        hikariDataSource.setUsername(dataSourceSettings.getNameAdmin());
+        hikariDataSource.setPassword(dataSourceSettings.getPassword());
+        hikariDataSource.setDriverClassName(dataSourceSettings.getDriver());
+        hikariDataSource.setMaximumPoolSize(20);
+        return hikariDataSource;
 
     }
 

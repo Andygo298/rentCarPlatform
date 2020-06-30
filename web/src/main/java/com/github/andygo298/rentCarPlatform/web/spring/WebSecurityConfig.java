@@ -28,7 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/register**",
                         "/logout-user",
                         "/error**").permitAll()
-                .antMatchers("/maintenance",
+                .antMatchers(
+                        "/maintenance",
                         "/maintenance/list",
                         "/maintenance/list/addWorker",
                         "/maintenance/list/editWorker",
@@ -39,10 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/home/addCar",
                         "/home/editCar",
                         "/home/deleteCar").hasRole("ADMIN")
-                .antMatchers("/home",
+                .antMatchers(
+                        "/home",
                         "/orders** ",
                         "/payment** ").hasAnyRole("ADMIN","USER")
-                .anyRequest().authenticated()
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                .anyRequest().authenticated().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
     }
 }

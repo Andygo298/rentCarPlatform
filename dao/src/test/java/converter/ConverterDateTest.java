@@ -1,11 +1,10 @@
-package Impl;
+package converter;
 import com.github.andygo298.rentCarPlatform.dao.utils.ConverterDate;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class ConverterDateTest {
 

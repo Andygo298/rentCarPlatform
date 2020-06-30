@@ -1,4 +1,4 @@
-package Impl;
+package impl;
 
 import com.github.andygo298.rentCarPlatform.dao.CarDao;
 import com.github.andygo298.rentCarPlatform.dao.StaffDao;
