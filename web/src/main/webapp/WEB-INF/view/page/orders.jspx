@@ -36,7 +36,7 @@
     </nav>
 
     <c:if test="${orders.size() gt 0}">
-        <table class="table table-striped table-hover table-bordered">
+        <table class="table table-striped table-hover table-bordered orders-table">
             <tr>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <th scope="col">Order ID</th>

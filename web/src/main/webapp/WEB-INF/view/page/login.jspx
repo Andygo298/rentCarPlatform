@@ -2,28 +2,8 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:spring="http://www.springframework.org/tags"
           version="2.0">
-
-        <style>
-            body {
-                background-image: url("https://www.ecronicon.com/promotions/images/abg3.jpg");
-                background-size: 100%;
-            }
-
-            h3 {
-                margin: 20px 0;
-            }
-
-            div {
-                width: 250px;
-                text-align: center;
-                margin: 0 auto;
-            }
-            button {
-                width: 150px;
-            }
-        </style>
-
-        <h3><spring:message code="login.signIn"/></h3>
+    <div class="login-container">
+        <h3 class="text-center"><spring:message code="login.signIn"/></h3>
         <form class="form-group" action="${pageContext.request.contextPath}/login" method="post">
             <label class="col-form-label" for="login"><spring:message code="login.loginName"/></label><br/>
             <input class="form-control" id="login" type="text" name="login"/><br/>
@@ -35,8 +15,9 @@
             <button class="btn btn-warning btn-lg" type="submit"><spring:message code="login.register"/></button>
         </form>
         <p class="text-danger font-weight-bold">
-        ${error}</p>
+            ${error}</p>
         <p class="text-success font-weight-bold">${customMessage}</p>
         <p class="text-success font-weight-bold">${customMessage2}</p>
+    </div>
 
 </jsp:root>

@@ -3,19 +3,9 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           version="2.0">
 
-    <style>
-        body {
-            padding: 20px;
-        }
-
-        h3 {
-            margin: 20px 0;
-        }
-    </style>
-
 <h3>Edit car data</h3>
 <c:if test="${carInstance != null}">
-    <form action="${pageContext.request.contextPath}/home/editCar?carId=${carInstance.id}" method="post">
+    <form class="edit-car-form" action="${pageContext.request.contextPath}/home/editCar?carId=${carInstance.id}" method="post">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="brand">Brand name</label>
             <div class="col-sm-6">

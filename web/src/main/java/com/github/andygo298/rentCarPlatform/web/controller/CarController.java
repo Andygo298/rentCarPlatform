@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
+//TODO исправить в форме авто названия переменных
 @Controller
 @RequestMapping("/home")
 public class CarController {
@@ -69,19 +69,15 @@ public class CarController {
 
     @PostMapping("/addCar")
     public String add(AddCarCreateRq addCar) {
-        String brand = addCar.getBrand();
-        String model = addCar.getModel();
-        String type = addCar.getType();
-        String year_mfg = addCar.getYear_mfg();
-        double day_price = addCar.getDay_price();
         Car newCar = new Car.CarBuilder(null)
-                .withBrand(brand)
-                .withModel(model)
-                .withType(type)
-                .withYear(year_mfg)
-                .withPrice(day_price).build();
+                .withBrand(addCar.getBrand())
+                .withModel(addCar.getModel())
+                .withType(addCar.getType())
+                .withYear(addCar.getYear_mfg())
+                .withPrice(addCar.getDayPrice())
+                .build();
         carService.saveCar(newCar);
-        log.info("--- Was create new Car - {}", newCar.toString());
+        log.info("--- Was create new Car - {}", newCar);
         return "redirect:/home?reqPage=1";
     }
 
@@ -96,23 +92,16 @@ public class CarController {
     @PostMapping("/editCar")
     public String edit(@CookieValue(value = "currentPageCar") String page, EditCarRq editRq) {
 
-        long carId = editRq.getCarId();
-        String brand = editRq.getBrand();
-        String model = editRq.getModel();
-        String type = editRq.getType();
-        String year_mfg = editRq.getYear_mfg();
-        String img_url = editRq.getImg_url();
-        double day_price = editRq.getDay_price();
-        EditCar editCar = new EditCar.CarBuilder(carId)
-                .withBrand(brand)
-                .withModel(model)
-                .withType(type)
-                .withYear(year_mfg)
-                .withImg(img_url)
-                .withPrice(day_price)
+        EditCar editCar = new EditCar.CarBuilder(editRq.getCarId())
+                .withBrand(editRq.getBrand())
+                .withModel(editRq.getModel())
+                .withType(editRq.getType())
+                .withYear(editRq.getYear_mfg())
+                .withImg(editRq.getImg_url())
+                .withPrice(editRq.getDay_price())
                 .build();
         carService.editCar(editCar);
-        log.info("Car id={} was edit.", carId);
+        log.info("Car id={} was edit.", editRq.getCarId());
         return "redirect:/home?reqPage=" + page;
     }
 

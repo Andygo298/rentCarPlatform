@@ -11,6 +11,7 @@ import com.github.andygo298.rentCarPlatform.web.rq.EditWorkerRq;
 import com.github.andygo298.rentCarPlatform.web.rq.SaveWorkerRq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;

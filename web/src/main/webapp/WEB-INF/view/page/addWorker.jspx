@@ -4,7 +4,7 @@
 
     <a class="btn btn-primary" href="${pageContext.request.contextPath}/maintenance/list?reqPage=${pageStaff}">Back to staff</a>
     <h3>Create new specialist</h3>
-    <form action="${pageContext.request.contextPath}/maintenance/list/newWorker" method="post">
+    <form class="edit-worker-form" action="${pageContext.request.contextPath}/maintenance/list/newWorker" method="post">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="firstName">First name:</label>
             <div class="col-sm-6">

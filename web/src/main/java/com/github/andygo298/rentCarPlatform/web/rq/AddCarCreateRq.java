@@ -5,7 +5,7 @@ public class AddCarCreateRq {
     private String model;
     private String type;
     private String year_mfg;
-    private double day_price;
+    private double dayPrice;
 
     public String getBrand() {
         return brand;
@@ -39,11 +39,11 @@ public class AddCarCreateRq {
         this.year_mfg = year_mfg;
     }
 
-    public double getDay_price() {
-        return day_price;
+    public double getDayPrice() {
+        return dayPrice;
     }
 
-    public void setDay_price(double day_price) {
-        this.day_price = day_price;
+    public void setDayPrice(double dayPrice) {
+        this.dayPrice = dayPrice;
     }
 }

@@ -74,7 +74,6 @@ public class DefaultOrderDao implements OrderDao {
                 .createQuery(criteria)
                 .setFirstResult(skipRecords)
                 .setMaxResults(limitRecords)
-                .getResultList()
                 .stream()
                 .map(OrderConverter::fromEntity)
                 .collect(Collectors.toList());

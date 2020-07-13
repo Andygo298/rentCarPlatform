@@ -4,12 +4,11 @@
           version="2.0"
           xmlns:spring="http://www.springframework.org/tags">
 
-
     <header class="clearfix" >
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="D:\itAcademy\lozouski\rentCar-platform\web\src\main\webapp\WEB-INF\ita.png" width="150" height="50 " alt="IT ACADEMY "/>
+                    <img src="${pageContext.request.contextPath}/ita.png" width="150" height="50 " alt="IT ACADEMY "/>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,7 +18,7 @@
                         <li class="nav-item">
                             <sec:authorize access="isAuthenticated()">
                                 <sec:authentication var="principal" property="principal" />
-                                <p style="color: #fff; padding-right: 10px"><spring:message code="header.authAs"/> ${principal.getLogin()}</p>
+                                <p class="auth-header"><spring:message code="header.authAs"/> ${principal.getLogin()}</p>
                             </sec:authorize>
                         </li>
                         <sec:authorize access="isAuthenticated()">
@@ -42,6 +41,5 @@
                 </div>
             </div>
         </nav>
-        <h2><spring:message code="page.title"/></h2>
     </header>
 </jsp:root>

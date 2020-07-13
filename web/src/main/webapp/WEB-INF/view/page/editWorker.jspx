@@ -6,7 +6,7 @@
     <a class="btn btn-primary" href="${pageContext.request.contextPath}/maintenance/list?reqPage=${staffPage}">Back to Staff</a>
     <h3>Edit Worker</h3>
     <c:if test="${editWorker != null}">
-        <form action="${pageContext.request.contextPath}/maintenance/list/editWorker?id=${editWorker.id}" method="post">
+        <form class="edit-worker-form" action="${pageContext.request.contextPath}/maintenance/list/editWorker?id=${editWorker.id}" method="post">
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label" for="firstName">First name:</label>

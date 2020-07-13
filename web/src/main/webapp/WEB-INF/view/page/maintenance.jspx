@@ -34,7 +34,7 @@
                     <td>${car.year_mfg}</td>
                     <td>
                         <c:forEach items="${car.staffSet}" var="staff">
-                            <p>
+                            <p class="sevice-info">
                                 <strong>ID:</strong> ${staff.id}
                                 <strong>First name:</strong> ${staff.firstName}
                                 <strong>Last name:</strong> ${staff.lastName}
