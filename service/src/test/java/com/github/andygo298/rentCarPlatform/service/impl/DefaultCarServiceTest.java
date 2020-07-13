@@ -5,7 +5,6 @@ import com.github.andygo298.rentCarPlatform.model.Car;
 import com.github.andygo298.rentCarPlatform.model.actions.EditCar;
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
-import com.github.andygo298.rentCarPlatform.service.CarService;
 import com.github.andygo298.rentCarPlatform.service.ServiceUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +18,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
 class DefaultCarServiceTest {
 
@@ -28,13 +26,6 @@ class DefaultCarServiceTest {
 
     @InjectMocks
     DefaultCarService defaultCarService;
-
-
-    @Test
-    void getInstanceTest() {
-        CarService instance = DefaultCarService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void getCarsTest() {

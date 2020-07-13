@@ -1,0 +1,31 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          version="2.0">
+    <!-- Footer -->
+    <footer class="page-footer font-small unique-color-white pt-4" style="background-color: lightsteelblue">
+
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!-- Call to action -->
+            <ul class="list-unstyled list-inline text-center unique-color-white py-2">
+                <li class="list-inline-item">
+                    <h5 class="mb-1">Course study project "Dream cars"</h5>
+                </li>
+
+            </ul>
+            <!-- Call to action -->
+
+        </div>
+        <!-- Footer Elements -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center unique-color-white py-4">© 2020 Copyright:
+            <a href="https://mdbootstrap.com/"> Andrew Lozouski</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+</jsp:root>

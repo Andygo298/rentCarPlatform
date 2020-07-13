@@ -1,11 +1,7 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.UserDao;
-
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultUserDao;
 import com.github.andygo298.rentCarPlatform.model.User;
-import com.github.andygo298.rentCarPlatform.service.SecurityService;
-import com.github.andygo298.rentCarPlatform.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,7 +14,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
 class DefaultUserServiceTest {
 
@@ -27,12 +22,6 @@ class DefaultUserServiceTest {
 
     @InjectMocks
     DefaultUserService defaultUserService;
-
-    @Test
-    void getInstanceTest() {
-        UserService instance = DefaultUserService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
         void testUserById() {

@@ -1,0 +1,23 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://www.springframework.org/tags"
+          version="2.0">
+    <div class="login-container">
+        <h3 class="text-center"><spring:message code="login.signIn"/></h3>
+        <form class="form-group" action="${pageContext.request.contextPath}/login" method="post">
+            <label class="col-form-label" for="login"><spring:message code="login.loginName"/></label><br/>
+            <input class="form-control" id="login" type="text" name="login"/><br/>
+            <label class="col-form-label" for="password"><spring:message code="login.password"/></label><br/>
+            <input class="form-control" id="password" type="password" name="password"/><br/>
+            <button class="btn btn-primary btn-lg" type="submit"><spring:message code="login.go"/></button>
+        </form>
+        <form action="${pageContext.request.contextPath}/register" >
+            <button class="btn btn-warning btn-lg" type="submit"><spring:message code="login.register"/></button>
+        </form>
+        <p class="text-danger font-weight-bold">
+            ${error}</p>
+        <p class="text-success font-weight-bold">${customMessage}</p>
+        <p class="text-success font-weight-bold">${customMessage2}</p>
+    </div>
+
+</jsp:root>

@@ -1,9 +1,7 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
 
 public class AuthUser {
 
@@ -72,5 +70,16 @@ public class AuthUser {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "AuthUser{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", userId=" + userId +
+                '}';
     }
 }

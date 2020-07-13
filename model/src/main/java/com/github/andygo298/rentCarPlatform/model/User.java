@@ -1,8 +1,5 @@
 package com.github.andygo298.rentCarPlatform.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class User {
 
     private Long id;
@@ -10,10 +7,6 @@ public class User {
     private String lastName;
     private String email;
     private boolean isBlocked;
-
-//    private AuthUser authUser;
-//    private Set<Payment> payments;
-//    private Set<Order> orders;
 
     public User() {
     }

@@ -1,12 +1,7 @@
 package com.github.andygo298.rentCarPlatform.dao.converter;
 
 import com.github.andygo298.rentCarPlatform.dao.entity.CarEntity;
-import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultStaffDao;
 import com.github.andygo298.rentCarPlatform.model.Car;
-import com.github.andygo298.rentCarPlatform.model.Staff;
-
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CarConverter {

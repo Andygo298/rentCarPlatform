@@ -2,9 +2,6 @@ package com.github.andygo298.rentCarPlatform.dao.converter;
 
 import com.github.andygo298.rentCarPlatform.dao.entity.StaffEntity;
 import com.github.andygo298.rentCarPlatform.model.Staff;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class StaffConverter {

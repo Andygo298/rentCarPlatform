@@ -1,12 +1,8 @@
 package com.github.andygo298.rentCarPlatform.model;
 
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Car {
     private Long id;
@@ -25,7 +21,8 @@ public class Car {
         this.img_url = "https://avatars.mds.yandex.net/get-pdb/1809111/76fb0b23-8115-44b1-8386-f8e1d3115621/s600";
         this.day_price = 0.00;
     }
-//from converter
+
+    //from converter
     public Car(Long id, String brand, String model, String type, String year_mfg, String img_url, double day_price, boolean is_rent, List<Staff> staffSet) {
         this.id = id;
         this.brand = brand;
@@ -113,14 +110,14 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", type='" + type + '\'' +
-                ", year_mfg='" + year_mfg + '\'' +
-                ", img_url='" + img_url + '\'' +
-                ", day_price=" + day_price +
-                ", is_rent=" + is_rent +
+                "id=" + id + '\n' +
+                "brand='" + brand + '\n' +
+                "model='" + model + '\n' +
+                "type='" + type + '\n' +
+                "year_mfg='" + year_mfg + '\n' +
+                "img_url='" + img_url + '\n' +
+                "day_price=" + day_price + '\n' +
+                "is_rent=" + is_rent + '\n' +
                 '}';
     }
 

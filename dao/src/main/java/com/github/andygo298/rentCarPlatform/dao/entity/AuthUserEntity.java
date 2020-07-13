@@ -2,7 +2,6 @@ package com.github.andygo298.rentCarPlatform.dao.entity;
 
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +17,6 @@ public class AuthUserEntity {
 
     private UserEntity userEntity;
     private Long userId;
-
 
     public AuthUserEntity() {
     }

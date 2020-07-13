@@ -1,10 +1,6 @@
 package com.github.andygo298.rentCarPlatform.dao.entity;
 
-import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.Order;
-import com.github.andygo298.rentCarPlatform.model.Payment;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;

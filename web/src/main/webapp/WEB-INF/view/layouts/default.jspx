@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:jsp="http://java.sun.com/JSP/Page"
+      xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+>
+
+<jsp:output doctype-public="-//W3C//DTD XHTML 1.1//EN"
+            doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
+            doctype-root-element="html" omit-xml-declaration="false"/>
+<jsp:directive.page pageEncoding="UTF-8" contentType="text/html; UTF-8"/>
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <title>Hello, world!</title>
+    <style>
+        html, body { min-height: 100vh; }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 150px;
+        }
+
+        footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            max-height: 160px;
+        }
+
+        header {
+            color: #fff;
+        }
+
+        header .navbar-nav {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-header {
+            padding-right: 10px;
+            margin: 0;
+        }
+
+        h3 {
+            margin: 20px;
+        }
+
+        .pagination {
+            margin-left: 10px;
+        }
+
+        .btn {
+            margin: 15px;
+            min-width: 150px;
+            max-width: 200px;
+        }
+
+        button:disabled {
+            opacity: .5;
+            cursor: default;
+        }
+
+        .modal-body {
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .modal-footer .btn {
+            margin: 0 15px;
+        }
+
+        .table {
+            max-width: 95%;
+            margin: 15px 10px;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .register-form {
+            width: 50%;
+            margin: 10px auto;
+        }
+
+        .register-form .btn { margin: 15px auto; }
+
+        .login-container {
+            flex: 1;
+            background-image: url("https://www.ecronicon.com/promotions/images/abg3.jpg");
+            background-size: 100%;
+            padding: 20px;
+        }
+
+        .login-container h3 {}
+
+        .login-container form {
+            width: 300px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .login-container button {
+            width: 200px;
+        }
+
+        .home-container .header-panel {
+            padding-top: 10px;
+        }
+
+        .home-container .header-panel form {
+            display: inline-block;
+        }
+
+        .home-container .ordersLink {
+            margin-right: 15px;
+            position: relative;
+        }
+
+        .home-container .orderIcon {
+            position: absolute;
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-color: aquamarine;
+            font-weight: bold;
+            top: -15px;
+            right: -15px;
+            text-align: center;
+            line-height: 26px;
+            border-radius: 50%;
+            border: 2px solid #007bff;
+            color: #007bff;
+        }
+
+        .add-car-form,
+        .edit-car-form,
+        .edit-worker-form {
+            padding: 20px;
+        }
+
+        .orders-table .btn {
+            margin: 0 auto;
+        }
+
+        .sevice-info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .sevice-info .btn {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+<tiles:insertAttribute name="header"/>
+<tiles:insertAttribute name="body"/>
+<tiles:insertAttribute name="footer"/>
+<script>
+    function handleDeleteCar(id) {
+        const link = document.getElementById('deleteLink');
+        const path = link.getAttribute('href').split('?')[0];
+        link.setAttribute('href', path + '?carId=' + id);
+    }
+
+    function handleClick(id) {
+        document.getElementById("selectedCarId").value = id;
+    }
+
+    function handleDeleteStaffClick(id) {
+        const link = document.querySelector(".deleteLink");
+        const path = link.getAttribute("href").split("?")[0];
+        link.setAttribute('href', path + "?id=" + id);
+    }
+</script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">jquery</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">popover</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">bootstrap</script>
+</body>
+</html>

@@ -5,7 +5,6 @@ import com.github.andygo298.rentCarPlatform.dao.StaffDao;
 import com.github.andygo298.rentCarPlatform.model.actions.EditStaff;
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
 import com.github.andygo298.rentCarPlatform.model.Staff;
-import com.github.andygo298.rentCarPlatform.service.StaffService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,12 +26,6 @@ public class DefaultStaffServiceTest {
 
     @InjectMocks
     DefaultStaffService defaultStaffService;
-
-    @Test
-    void getInstanceTest() {
-        StaffService instance = DefaultStaffService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void getStaffTest(){

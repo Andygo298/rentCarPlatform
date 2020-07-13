@@ -1,0 +1,45 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:sec="http://www.springframework.org/security/tags"
+          version="2.0"
+          xmlns:spring="http://www.springframework.org/tags">
+
+    <header class="clearfix" >
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="${pageContext.request.contextPath}/ita.png" width="150" height="50 " alt="IT ACADEMY "/>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <sec:authorize access="isAuthenticated()">
+                                <sec:authentication var="principal" property="principal" />
+                                <p class="auth-header"><spring:message code="header.authAs"/> ${principal.getLogin()}</p>
+                            </sec:authorize>
+                        </li>
+                        <sec:authorize access="isAuthenticated()">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/home"><spring:message code="header.home"/>
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/logout-user"><spring:message code="header.logout"/></a>
+                        </li>
+                        </sec:authorize>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${requestScope['javax.servlet.forward.request_uri']}?locale=en"><spring:message code="header.en"/></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${requestScope['javax.servlet.forward.request_uri']}?locale=ru"><spring:message code="header.ru"/></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+</jsp:root>

@@ -1,0 +1,56 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0">
+
+<h3>Edit car data</h3>
+<c:if test="${carInstance != null}">
+    <form class="edit-car-form" action="${pageContext.request.contextPath}/home/editCar?carId=${carInstance.id}" method="post">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="brand">Brand name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="brand" name="brand"
+                       value="${carInstance.brand}" required=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="model">Model name</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="model" name="model"
+                       value="${carInstance.model}" required=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="type">Car type</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="type" name="type" value="${carInstance.type}"
+                       required=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="year_mfg">Year mfg.</label>
+            <div class="col-sm-6">
+                <input type="number" class="form-control" id="year_mfg" name="year_mfg"
+                       value="${carInstance.year_mfg}" required=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="day_price">Day price</label>
+            <div class="col-sm-6">
+                <input type="number" class="form-control" id="day_price" name="day_price"
+                       value="${carInstance.day_price}" required=""/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="img_url">Image URL</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="img_url" name="img_url"
+                       value="${carInstance.img_url}" required=""/>
+            </div>
+        </div>
+
+        <a class="btn btn-warning" href="${pageContext.request.contextPath}/home?reqPage=${pageEdit}">CANCEL</a>
+        <button class="btn btn-success" type="submit">SAVE</button>
+    </form>
+</c:if>
+</jsp:root>

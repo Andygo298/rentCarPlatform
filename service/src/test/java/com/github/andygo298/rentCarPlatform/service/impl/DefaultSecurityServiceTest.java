@@ -4,17 +4,13 @@ import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.model.enums.Role;
 import com.github.andygo298.rentCarPlatform.model.User;
-import com.github.andygo298.rentCarPlatform.service.SecurityService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 class DefaultSecurityServiceTest {
@@ -23,12 +19,6 @@ class DefaultSecurityServiceTest {
 
     @InjectMocks
     DefaultSecurityService securityService;
-
-    @Test
-    void getInstanceTest() {
-        SecurityService instance = DefaultSecurityService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void testLoginNotExist() {

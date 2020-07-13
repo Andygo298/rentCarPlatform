@@ -1,6 +1,5 @@
 package com.github.andygo298.rentCarPlatform.model;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 public class Payment {

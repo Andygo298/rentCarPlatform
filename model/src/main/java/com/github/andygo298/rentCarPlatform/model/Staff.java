@@ -1,12 +1,9 @@
 package com.github.andygo298.rentCarPlatform.model;
 
 import com.github.andygo298.rentCarPlatform.model.enums.Specialization;
-
 import java.util.List;
-import java.util.Set;
 
 public class Staff {
-
     private Long id;
     private String firstName;
     private String lastName;
@@ -72,6 +69,16 @@ public class Staff {
         this.carSet = carSet;
     }
 
+    @Override
+    public String toString() {
+        return "Staff{" + '\n' +
+                "id=" + id + '\n' +
+                "firstName='" + firstName + '\n' +
+                "lastName='" + lastName + '\n' +
+                "specialization=" + specialization + '\n' +
+                '}';
+    }
+
 //builder class
     public static class StaffBuilder {
         private Staff newStaff;
@@ -108,4 +115,5 @@ public class Staff {
             return newStaff;
         }
     }
+
 }

@@ -4,8 +4,6 @@ import com.github.andygo298.rentCarPlatform.dao.PaymentDao;
 
 import com.github.andygo298.rentCarPlatform.model.Payment;
 import com.github.andygo298.rentCarPlatform.model.User;
-import com.github.andygo298.rentCarPlatform.service.CarService;
-import com.github.andygo298.rentCarPlatform.service.PaymentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,12 +24,6 @@ public class DefaultPaymentServiceTest {
 
     @InjectMocks
     DefaultPaymentService paymentService;
-
-    @Test
-    void getInstanceTest() {
-        PaymentService instance = DefaultPaymentService.getInstance();
-        assertNotNull(instance);
-    }
 
     @Test
     void savePaymentTest(){

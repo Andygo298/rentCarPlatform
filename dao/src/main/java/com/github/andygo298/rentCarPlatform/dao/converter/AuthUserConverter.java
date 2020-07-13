@@ -2,7 +2,6 @@ package com.github.andygo298.rentCarPlatform.dao.converter;
 
 import com.github.andygo298.rentCarPlatform.dao.entity.AuthUserEntity;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
-import com.github.andygo298.rentCarPlatform.model.User;
 
 public class AuthUserConverter {
 

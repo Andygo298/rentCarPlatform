@@ -17,5 +17,4 @@ public class ServiceUtil {
         if (countRecords == 0) return 1;
         else return (int) Math.ceil((countRecords / Constant.LIMIT_RECORDS));
     }
-
 }

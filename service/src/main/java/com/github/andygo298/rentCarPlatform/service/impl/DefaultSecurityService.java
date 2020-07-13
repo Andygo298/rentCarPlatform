@@ -1,28 +1,25 @@
 package com.github.andygo298.rentCarPlatform.service.impl;
 
 import com.github.andygo298.rentCarPlatform.dao.AuthUserDao;
-import com.github.andygo298.rentCarPlatform.dao.impl.DefaultAuthUserDao;
 import com.github.andygo298.rentCarPlatform.model.AuthUser;
 import com.github.andygo298.rentCarPlatform.service.SecurityService;
+import org.springframework.transaction.annotation.Transactional;
 
 public class DefaultSecurityService implements SecurityService {
+    private final AuthUserDao authUserDao;
 
-    private static class SingletonHolder {
-        static final SecurityService HOLDER_INSTANCE = new DefaultSecurityService();
+    public DefaultSecurityService(AuthUserDao authUserDao) {
+        this.authUserDao = authUserDao;
     }
-
-    public static SecurityService getInstance() {
-        return DefaultSecurityService.SingletonHolder.HOLDER_INSTANCE;
-    }
-
-    private AuthUserDao authUserDao = DefaultAuthUserDao.getInstance();
 
     @Override
+    @Transactional
     public Long saveAuthUser(AuthUser authUser) {
         return authUserDao.saveAuthUser(authUser);
     }
 
     @Override
+    @Transactional
     public AuthUser login(String login, String password) {
         AuthUser user = authUserDao.getByLogin(login);
         if (user == null) {
