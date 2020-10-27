@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ServiceConfig {
+    
     private DaoConfig daoConfig;
 
     public ServiceConfig(DaoConfig daoConfig) {
